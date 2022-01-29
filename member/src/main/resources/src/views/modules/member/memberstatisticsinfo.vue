@@ -74,7 +74,7 @@
         prop="loginCount"
         header-align="center"
         align="center"
-        label="登錄次數">
+        label="登入次數">
       </el-table-column>
       <el-table-column
         prop="attendCount"

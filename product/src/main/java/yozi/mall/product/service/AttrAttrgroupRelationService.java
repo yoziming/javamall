@@ -3,7 +3,9 @@ package yozi.mall.product.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import yozi.mall.common.utils.PageUtils;
 import yozi.mall.product.entity.AttrAttrgroupRelationEntity;
+import yozi.mall.product.vo.AttrGroupRelationVo;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -16,5 +18,7 @@ import java.util.Map;
 public interface AttrAttrgroupRelationService extends IService<AttrAttrgroupRelationEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
+
+    void addAttrGroupRelation(List<AttrGroupRelationVo> vos);
 }
 

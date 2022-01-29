@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
- * 會員登錄記錄
+ * 會員登入記錄
  * 
  * @author yozi
  * @email yoziming@gmail.com

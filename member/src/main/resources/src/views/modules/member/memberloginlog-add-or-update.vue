@@ -16,8 +16,8 @@
     <el-form-item label="city" prop="city">
       <el-input v-model="dataForm.city" placeholder="city"></el-input>
     </el-form-item>
-    <el-form-item label="登錄類型[1-web，2-app]" prop="loginType">
-      <el-input v-model="dataForm.loginType" placeholder="登錄類型[1-web，2-app]"></el-input>
+    <el-form-item label="登入類型[1-web，2-app]" prop="loginType">
+      <el-input v-model="dataForm.loginType" placeholder="登入類型[1-web，2-app]"></el-input>
     </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">
@@ -54,7 +54,7 @@
             { required: true, message: 'city不能为空', trigger: 'blur' }
           ],
           loginType: [
-            { required: true, message: '登錄類型[1-web，2-app]不能为空', trigger: 'blur' }
+            { required: true, message: '登入類型[1-web，2-app]不能为空', trigger: 'blur' }
           ]
         }
       }

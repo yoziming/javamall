@@ -37,7 +37,7 @@ public class SkuImagesEntity implements Serializable {
 	 */
 	private Integer imgSort;
 	/**
-	 * 默認圖[0 - 不是默認圖，1 - 是默認圖]
+	 * 預設圖[0 - 不是預設圖，1 - 是預設圖]
 	 */
 	private Integer defaultImg;
 

@@ -3,7 +3,9 @@ package yozi.mall.product.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import yozi.mall.common.utils.PageUtils;
 import yozi.mall.product.entity.CategoryEntity;
+import yozi.mall.product.vo.Catalogs2Vo;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -16,5 +18,17 @@ import java.util.Map;
 public interface CategoryService extends IService<CategoryEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
+
+    List<CategoryEntity> listTree();
+
+    void removeMenuByIds(List<Long> asList);
+
+    Long[] findCatalogPath(Long catalogId);
+
+    void updateCascade(CategoryEntity category);
+
+    List<CategoryEntity> getLevel1Catalog();
+
+    Map<String, List<Catalogs2Vo>> getCatalogJson();
 }
 

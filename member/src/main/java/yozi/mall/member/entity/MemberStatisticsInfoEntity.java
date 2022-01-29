@@ -54,7 +54,7 @@ public class MemberStatisticsInfoEntity implements Serializable {
 	 */
 	private Integer returnOrderCount;
 	/**
-	 * 登錄次數
+	 * 登入次數
 	 */
 	private Integer loginCount;
 	/**

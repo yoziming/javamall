@@ -1,0 +1,1355 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>商品詳情頁</title>
+    <link rel="stylesheet" type="text/css" href="/static/item/scss/shop.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/item/scss/jd.css"/>
+    <link rel="stylesheet" href="/static/item/scss/header.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/item/bootstrap/css/bootstrap.css"/>
+</head>
+<body>
+<div id="max">
+    <header>
+        <!--品牌官方網站-->
+        <div class="min">
+            <ul class="header_ul_left">
+                <li class="glyphicon glyphicon-home"><a href="http://mall.com/" class="aa">商城首頁</a></li>
+                <li class="glyphicon glyphicon-map-marker"><a href="">北京</a>
+                    <ol id="beijing">
+                        <li style="background: red;"><a href="" style="color: white;">北京</a>
+                        </li>
+                        <li><a href="">上海</a></li>
+                        <li><a href="">天津</a></li>
+                        <li><a href="">重慶</a></li>
+                        <li><a href="">河北</a></li>
+                        <li><a href="">山西</a></li>
+                        <li><a href="">河南</a></li>
+                        <li><a href="">遼寧</a></li>
+                        <li><a href="">吉林</a></li>
+                        <li><a href="">黑龍江</a></li>
+                        <li><a href="">內蒙古</a></li>
+                        <li><a href="">江蘇</a></li>
+                        <li><a href="">山東</a></li>
+                        <li><a href="">安徽</a></li>
+                        <li><a href="">浙江</a></li>
+                        <li><a href="">福建</a></li>
+                        <li><a href="">湖北</a></li>
+                        <li><a href="">湖南</a></li>
+                        <li><a href="">廣東</a></li>
+                        <li><a href="">廣西</a></li>
+                        <li><a href="">江西</a></li>
+                        <li><a href="">四川</a></li>
+                        <li><a href="">海南</a></li>
+                        <li><a href="">貴州</a></li>
+                        <li><a href="">雲南</a></li>
+                        <li><a href="">西藏</a></li>
+                        <li><a href="">陝西</a></li>
+                        <li><a href="">甘肅</a></li>
+                        <li><a href="">青海</a></li>
+                        <li><a href="">寧夏</a></li>
+                        <li><a href="">新疆</a></li>
+                        <li><a href="">港澳</a></li>
+                        <li><a href="">台灣</a></li>
+                        <li><a href="">釣魚島</a></li>
+                        <li><a href="">海外</a></li>
+                    </ol>
+                </li>
+            </ul>
+            `
+            <ul class="header_ul_right">
+                <li style="border: 0;">
+                    <!--                    <a th:if="${session.loginUser == null}" href="http://auth.mall.com/login.html"-->
+                    <!--                       class="aa">你好，請登入</a>-->
+                    <!--                    <a th:if="${session.loginUser != null}">歡迎, [[${session.loginUser.nickname}]]</a>-->
+                    <!--                </li>-->
+                    <!--                <li>-->
+                    <!--                    <a th:if="${session.loginUser == null}" href="http://auth.mall.com/reg.html"-->
+                    <!--                       style="color: red;">免費註冊</a>-->
+                </li>
+                <li><a href="http://member.mall.com/memberOrder.html" class="aa">我的訂單</a> |</li>
+                <li class="jingdong"><a href="">我的商城</a><span
+                        class="glyphicon glyphicon-menu-down">|</span>
+                    <ol class="jingdong_ol">
+                        <li><a href="">待處理訂單</a></li>
+                        <li><a href="">消息</a></li>
+                        <li><a href="">返修退換貨</a></li>
+                        <li><a href="">我的回答</a></li>
+                        <li><a href="">降價商品</a></li>
+                        <li><a href="">我的關注</a></li>
+                        <li style="width: 100%;height: 1px;background: lavender;margin-top: 15px;"></li>
+                        <li style="margin-top: 0;"><a href="">我的京豆</a></li>
+                        <li style="margin-top: 0;"><a href="">我的優惠券</a></li>
+                        <li style="margin-bottom: 10px;"><a href="">我的白條</a></li>
+                    </ol>
+                </li>
+                <li><a href="" class="aa">商城會員</a> |</li>
+                <li><a href="" class="aa">企業採購</a> |</li>
+                <li class="fuwu"><a href="">客戶服務</a><span
+                        class="glyphicon glyphicon-menu-down"></span> |
+                    <ol class="fuwu_ol">
+                        <h6>客戶</h6>
+                        <li><a href="">幫助中心</a></li>
+                        <li><a href="">售後服務</a></li>
+                        <li><a href="">在線客服</a></li>
+                        <li><a href="">意見建議</a></li>
+                        <li><a href="">電話客服</a></li>
+                        <li><a href="">客服郵箱</a></li>
+                        <li style="margin-bottom: -5px;"><a href="">金融諮詢</a></li>
+                        <li style="margin-bottom: -5px;"><a href="">售全球客服</a></li>
+                        <h6 style="border-top: 1px dashed darkgray;height: 30px;line-height: 30px;">商戶</h6>
+                        <li style="margin-top: -5px;"><a href="">合作招商</a></li>
+                        <li style="margin-top: -5px;"><a href="">學習中心</a></li>
+                        <li><a href="">商家後台</a></li>
+                        <li><a href="">京麥工作台</a></li>
+                        <li><a href="">商家幫助</a></li>
+                        <li><a href="">規則平台</a></li>
+                    </ol>
+                </li>
+                <li class="daohang"><a href="">網站導航</a><span
+                        class="glyphicon glyphicon-menu-down"></span> |
+                    <ol class="daohang_ol">
+                        <li style="width: 34%;">
+                            <h5>特色主題</h5>
+                            <p>
+                                <a href="">商城試用</a>
+                                <a href="">商城金融</a>
+                                <a href="">全球售</a>
+                                <a href="">國際站</a>
+                            </p>
+                            <p>
+                                <a href="">商城會員</a>
+                                <a href="">商城預售</a>
+                                <a href="">買什麼</a>
+                                <a href="">俄語站</a>
+                            </p>
+                            <p>
+                                <a href="">裝機大師</a>
+                                <a href="">0元評測</a>
+                                <a href="">定期送</a>
+                                <a href="">港澳售</a>
+                            </p>
+                            <p>
+                                <a href="">優惠券</a>
+                                <a href="">秒殺</a>
+                                <a href="">閃購</a>
+                                <a href="">印尼站</a>
+                            </p>
+                            <p>
+                                <a href="">商城金融科技</a>
+                                <a href="">In貨推薦</a>
+                                <a href="">陪伴計劃</a>
+                                <a href="">出海招商</a>
+                            </p>
+                        </li>
+                        <li>
+                            <h5>行業頻道</h5>
+                            <p>
+                                <a href="" class="aa_2">手機</a>
+                                <a href="" class="aa_2">智能數碼</a>
+                                <a href="" class="aa_2">玩3C</a>
+                            </p>
+                            <p>
+                                <a href="" class="aa_2">電腦辦公</a>
+                                <a href="" class="aa_2">家用電器</a>
+                                <a href="" class="aa_2">商城智能</a>
+                            </p>
+                            <p>
+                                <a href="" class="aa_2">服裝城</a>
+                                <a href="" class="aa_2">美妝館</a>
+                                <a href="" class="aa_2">家裝城</a>
+                            </p>
+                            <p>
+                                <a href="" class="aa_2">母嬰</a>
+                                <a href="" class="aa_2">食品</a>
+                                <a href="" class="aa_2">運動戶外</a>
+                            </p>
+                            <p>
+                                <a href="" class="aa_2">農資頻道</a>
+                                <a href="" class="aa_2">整車</a>
+                                <a href="" class="aa_2">圖書</a>
+                            </p>
+                        </li>
+                        <li>
+                            <h5>生活服務</h5>
+                            <p>
+                                <a href="" class="aa_2">商城眾籌</a>
+                                <a href="" class="aa_2">白條</a>
+                                <a href="" class="aa_2">商城金融APP</a>
+                            </p>
+                            <p>
+                                <a href="" class="aa_2">商城小金庫</a>
+                                <a href="" class="aa_2">理財</a>
+                                <a href="" class="aa_2">智能家電</a>
+                            </p>
+                            <p>
+                                <a href="" class="aa_2">話費</a>
+                                <a href="" class="aa_2">水電煤</a>
+                                <a href="" class="aa_2">彩票</a>
+                            </p>
+                            <p>
+                                <a href="" class="aa_2">旅行</a>
+                                <a href="" class="aa_2">機票酒店</a>
+                                <a href="" class="aa_2">電影票</a>
+                            </p>
+                            <p>
+                                <a href="" class="aa_2">商城到家</a>
+                                <a href="" class="aa_2">商城眾測</a>
+                                <a href="" class="aa_2">遊戲</a>
+                            </p>
+                        </li>
+                        <li style="border: 0;">
+                            <h5>更多精選</h5>
+                            <p>
+                                <a href="" class="aa_2">合作招商</a>
+                                <a href="" class="aa_2">商城通信</a>
+                                <a href="" class="aa_2">商城E卡</a>
+                            </p>
+                            <p>
+                                <a href="" class="aa_2">企業採購</a>
+                                <a href="" class="aa_2">服務市場</a>
+                                <a href="" class="aa_2">辦公生活館</a>
+                            </p>
+                            <p>
+                                <a href="" class="aa_2">鄉村招募</a>
+                                <a href="" class="aa_2">校園加盟</a>
+                                <a href="" class="aa_2">京友邦</a>
+                            </p>
+                            <p>
+                                <a href="" class="aa_2">商城社區</a>
+                                <a href="" class="aa_2">智能社區</a>
+                                <a href="" class="aa_2">遊戲社區</a>
+                            </p>
+                            <p>
+                                <a href="" class="aa_2">知識產權維權</a>
+                                <a href="" class="aa_2"></a>
+                                <a href="" class="aa_2"></a>
+                            </p>
+                        </li>
+                    </ol>
+                </li>
+                <li class="sjjd" style="border: 0;"><a href="" class="aa">手機商城</a>
+                    <div class="er">
+                        <div class="er_1">
+                            <div class="er_1_1">
+                                <h6><a href="">手機商城</a></h6>
+                                <p>新人專享大禮包</p>
+                            </div>
+                        </div>
+                        <div class="er_1">
+                            <div class="er_1_1">
+                                <h6><a href="">關注商城微信</a></h6>
+                                <p>微信掃一掃關注新粉最高180元驚喜禮包</p>
+                            </div>
+                        </div>
+                        <!--我的理財-->
+                        <div class="er_1" style="border: 0;">
+                            <img src="/static/item/img/5874a555Ne8192324.jpg"/>
+                            <div class="er_1_1">
+                                <h6><a href="">商城金融客戶端</a></h6>
+                                <p>新人專享大禮包</p>
+                                <div><a href=""><img src="/static/item/img/11.png"/></a><a
+                                        href=""><img src="/static/item/img/22.png"/></a></div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </header>
+    <nav>
+        <div class="nav_min">
+            <div class="nav_top">
+                <div class="nav_top_one"><a href="http://mall.com"><img src="/static/item/img/111.png"/></a></div>
+                <div class="nav_top_two"><input type="text"/>
+                    <button>搜索</button>
+                </div>
+                <div class="nav_top_three"><a href="http://cart.mall.com/cart.html">我的購物車</a><span
+                        class="glyphicon glyphicon-shopping-cart"></span>
+                    <div class="nav_top_three_1">
+                        <img src="/static/item/img/44.png"/>購物車還沒有商品，趕緊選購吧！
+                    </div>
+                </div>
+            </div>
+            <div class="nav_down">
+                <ul class="nav_down_ul">
+                    <li class="nav_down_ul_1" style="width: 24%;float: left;"><a
+                            href="">全部商品分類</a>
+                    </li>
+                    <li class="ul_li"><a href="">服裝城</a></li>
+                    <li class="ul_li"><a href="">美妝館</a></li>
+                    <li class="ul_li"><a href="">超市</a></li>
+                    <li class="ul_li" style="border-right: 1px solid lavender;"><a
+                            href="">生鮮</a></li>
+                    <li class="ul_li"><a href="">全球購</a></li>
+                    <li class="ul_li"><a href="">閃購</a></li>
+                    <li class="ul_li" style="border-right: 1px solid lavender;"><a
+                            href="">拍賣</a></li>
+                    <li class="ul_li"><a href="">金融</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</div>
+<div class="crumb-wrap">
+    <div class="w">
+        <div class="crumb">
+            <div class="crumb-item">
+                <a href="/static/item/">手機</a>
+            </div>
+            <div class="crumb-item sep">></div>
+            <div class="crumb-item">
+                <a href="/static/item/">手機通訊</a>
+            </div>
+            <div class="crumb-item sep">></div>
+            <div class="crumb-item">
+                <a href="/static/item/">手機</a>
+            </div>
+            <div class="crumb-item sep">></div>
+            <div class="crumb-item">
+                <div class="crumb-item-one">
+                    華為 (HUAWEI)
+                    <img src="/static/item/img/4a79b87a68623d4e8a73aff3e25fa99b.png" alt="" class="img"/>
+                    <div class="crumb-item-two ">
+                        <div class="crumb-item-con clear">
+                            <ul class="con-ul">
+                                <li>
+                                    <img src="/static/item/img/5825a5a6Nde8ecb75.jpg" alt=""/>
+                                </li>
+                                <li>
+                                    <p>
+                                        榮耀8青春版 全網通標配 3GB+32GB 幻海藍
+                                    </p>
+                                    <p>
+                                        ＄1099.00
+                                    </p>
+                                </li>
+                            </ul>
+                            <ul class="con-ul">
+                                <li>
+                                    <!--                                    <img src="/static/item/img/5919637aN271a1301.jpg" alt=""/>-->
+                                </li>
+                                <li>
+                                    <p>
+                                        榮耀8青春版 全網通標配 3GB+32GB 幻海藍
+                                    </p>
+                                    <p>
+                                        ＄1099.00
+                                    </p>
+                                </li>
+                            </ul>
+                            <ul class="con-ul">
+                                <li>
+                                    <!--                                    <img src="/static/item/img/599a806bN9d829c1c.jpg" alt=""/>-->
+                                </li>
+                                <li>
+                                    <p>
+                                        榮耀8青春版 全網通標配 3GB+32GB 幻海藍
+                                    </p>
+                                    <p>
+                                        ＄1099.00
+                                    </p>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="crumb-item-cons clear">
+                            <ul>
+                                <li>華為(huawei)</li>
+                                <li>小米(xiaomi)</li>
+                                <li>APPle</li>
+                                <li>魅族(meizu)</li>
+                                <li>鎚子</li>
+                            </ul>
+                            <ul>
+                                <li>三星</li>
+                                <li>vivo</li>
+                                <li>飛利浦</li>
+                                <li>360</li>
+                                <li>更多>></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="crumb-item sep">></div>
+            <div class="crumb-item">
+                華為Mate 10
+            </div>
+        </div>
+        <div class="contact">
+            <ul class="contact-ul">
+                <li>
+                    <a href="">
+                        華為商城自營官方旗艦店
+                    </a>
+                    <span class="contact-sp">
+								<span class="contact-sp1">
+								JD
+							</span>
+							<span class="contact-sp2">
+								自營
+							    </span>
+							</span>
+                </li>
+                <li>
+                    <a href="">
+                        <img src="/static/item/img/f5831b9848b32440b381bcd30a3d96c7.png" alt=""/> 聯繫供應商
+                    </a>
+                </li>
+                <li>
+                    <a href="">
+                        <img src="/static/item/img/81a6326edc82d343a5a8860a6970f93b.png" alt=""/> JIMI
+                    </a>
+                </li>
+                <li>
+                    <a href="">
+                        <img src="/static/item/img/a400e3d61d5645459f769b00d9f431e7.png" alt=""/> 關注店鋪
+                    </a>
+                </li>
+            </ul>
+            <div class="contact-one">
+                <ul>
+                    <li>客服</li>
+                    <li><img src="/static/item/img/f5831b9848b32440b381bcd30a3d96c7.png" alt=""/>留言</li>
+                    <li><img src="/static/item/img/81a6326edc82d343a5a8860a6970f93b.png" alt=""/>JIMI智能</li>
+                    <li>
+                        <img src="/static/item/img/1466134037230.jpg" class="contact-img"/>
+                        <p>手機下單</p>
+                    </li>
+                </ul>
+                <div class="contact-two">
+                    <span><img src="/static/item/img/a400e3d61d5645459f769b00d9f431e7.png" alt=""/>進店逛逛</span>
+                    <span><img src="/static/item/img/a400e3d61d5645459f769b00d9f431e7.png" alt=""/>關注店鋪</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="Shop">
+    <div class="box">
+        <div class="box-one ">
+            <div class="boxx">
+                <div class="imgbox">
+                    <div class="probox">
+                        <img class="img1" alt="" th:src="${item.info.skuDefaultImg}">
+                        <div class="hoverbox"></div>
+                    </div>
+                    <div class="showbox">
+                        <img class="img1" alt="" th:src="${item.info.skuDefaultImg}">
+                    </div>
+                </div>
+                <div class="box-lh">
+                    <div class="box-lh-one">
+                        <ul>
+                            <li th:each="img : ${item.images}"><img th:src="${img.imgUrl}"/></li>
+                        </ul>
+                    </div>
+                    <div id="left">
+                        <
+                    </div>
+                    <div id="right">
+                        >
+                    </div>
+                </div>
+                <div class="boxx-one">
+                    <ul>
+                        <li>
+									<span>
+										<img src="/static/item/img/b769782fe4ecca40913ad375a71cb92d.png" alt=""/>關注
+									</span>
+                            <span>
+										<img src="/static/item/img/9224fcea62bfff479a6712ba3a6b47cc.png" alt=""/>
+										對比
+									</span>
+                        </li>
+                        <li>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="box-two">
+                <div class="box-name" th:text="${item.info.skuTitle}">
+                    華為 HUAWEI Mate 10 6GB+128GB 亮黑色 移動聯通電信4G手機 雙卡雙待
+                </div>
+                <div class="box-hide" th:text="${item.info.skuSubtitle}">預訂用戶預計11月30日左右陸續發貨！麒麟970芯片！AI智能拍照！
+                    <a href="/static/item/"><u></u></a>
+                </div>
+                <div class="box-yuyue">
+                    <div class="yuyue-one">
+                        <img src="/static/item/img/7270ffc3baecdd448958f9f5e69cf60f.png" alt=""/> 預約搶購
+                    </div>
+                    <div class="yuyue-two">
+                        <ul>
+                            <li>
+                                <img src="/static/item/img/f64963b63d6e5849977ddd6afddc1db5.png"/>
+                                <span>190103</span> 人預約
+                            </li>
+                            <li>
+                                <img src="/static/item/img/36860afb69afa241beeb33ae86678093.png"/> 預約剩餘
+                                <span id="timer">
+
+									</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="box-summary clear">
+                    <ul>
+                        <li>商城價</li>
+                        <li>
+                            <span>＄</span>
+                            <span th:text="${#numbers.formatDecimal(item.info.price,3,2)}">4499.00</span>
+                        </li>
+                        <!--                        <li style="color: red" th:if="${item.seckillSkuVo != null}">-->
+                        <!--                            <span th:if="${#dates.createNow().getTime() < item.seckillSkuVo.startTime}">-->
+                        <!--                                商品將會在[[${#dates.format(new java.util.Date(item.seckillSkuVo.startTime),"yyyy-MM-dd HH:mm:ss")}]]進行秒殺-->
+                        <!--                            </span>-->
+                        <!--                            <span-->
+                        <!--                                    th:if="${#dates.createNow().getTime() >= item.seckillSkuVo.startTime && #dates.createNow().getTime() <= item.seckillSkuVo.endTime}">-->
+                        <!--                                秒殺價  [[${#numbers.formatDecimal(item.seckillSkuVo.seckillPrice,1,2)}]]-->
+                        <!--                            </span>-->
+                        <!--                        </li>-->
+                        <li>
+                            <a href="/static/item/">
+                                預約說明
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="box-wrap clear">
+                    <div class="box-wrap-one clear">
+                        <ul>
+                            <li>增值業務</li>
+                            <li><img src="/static/item/img/90a6fa41d0d46b4fb0ff6907ca17c478.png"/></li>
+                            <li><img src="/static/item/img/2e19336b961586468ef36dc9f7199d4f.png"/></li>
+                            <li><img src="/static/item/img/1f80c3d6fabfd3418e54b005312c00b5.png"/></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="box-stock">
+                    <ul class="box-ul">
+                        <li>配送至</li>
+                        <li class="box-stock-li">
+                            <div class="box-stock-one">
+                                北京朝陽區管庄
+                                <img src="/static/item/img/4a79b87a68623d4e8a73aff3e25fa99b.png" alt="" class="img"/>
+                            </div>
+                            <div class="box-stock-two">
+                                <dl>
+                                    <dt>
+                                        <a>選擇新地址</a>
+                                        <img src="/static/item/img/4a79b87a68623d4e8a73aff3e25fa99b.png" alt=""
+                                             class="box-stock-two-img"/>
+                                    </dt>
+                                    <dd>
+                                        <div class="box-stock-dd">
+                                            <div class="box-stock-top">
+                                                <div class="box-stock-div">北京</div>
+                                                <div class="box-stock-div">朝陽區</div>
+                                                <div class="box-stock-div">管庄</div>
+                                            </div>
+                                            <div class="box-stock-fot">
+                                                <div class="box-stock-con" style="display: block;">
+                                                    <ul>
+                                                        <li>北京</li>
+                                                        <li>上海</li>
+                                                        <li>天津</li>
+                                                        <li>重慶</li>
+                                                    </ul>
+                                                </div>
+                                                <div class="box-stock-con">
+                                                    <ul>
+                                                        <li>朝陽區</li>
+                                                        <li>海淀區</li>
+                                                        <li>東城區</li>
+                                                        <li>西城區</li>
+                                                    </ul>
+                                                </div>
+                                                <div class="box-stock-con">
+                                                    <ul>
+                                                        <li>4環到5環之內</li>
+                                                        <li>管庄</li>
+                                                        <li>北苑</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </li>
+                        <li>
+                            <span th:text="${item.hasStock?'有貨':'無貨'}">無貨</span>， 此商品暫時售完
+                        </li>
+                    </ul>
+                </div>
+                <div class="box-supply">
+                    <ul class="box-ul">
+                        <li></li>
+                        <li>
+                            由<span>商城</span> 發貨，並提供售後服務
+                        </li>
+                    </ul>
+                </div>
+                <div class="box-attr-3">
+                    <div class="box-attr clear" th:each="attr : ${item.saleAttr}">
+                        <dl>
+                            <dt>選擇[[${attr.attrName}]]</dt>
+                            <dd th:each="val : ${attr.attrValues}">
+                                <a th:attr=" class=${#lists.contains(#strings.listSplit(val.skuIds,','),item.info.skuId.toString())
+                                   ? 'sku_attr_value checked': 'sku_attr_value'}, skus=${val.skuIds} "
+                                >
+                                    [[${val.attrValue}]]
+                                    <!--											<img src="/static/item/img/59ddfcb1Nc3edb8f1.jpg" /> -->
+                                </a>
+                            </dd>
+                        </dl>
+                    </div>
+                    <!--							<div class="box-attr-2 clear">-->
+                    <!--								<dl>-->
+                    <!--									<dt>選擇版本</dt>-->
+                    <!--									<dd>-->
+                    <!--										<a href="">標準版</a>-->
+                    <!--									</dd>-->
+                    <!--									<dd>-->
+                    <!--										<a href="">套裝版</a>-->
+                    <!--									</dd>-->
+                    <!--								</dl>-->
+                    <!--							</div>-->
+                    <!--							<div class="box-attr-2 clear">-->
+                    <!--								<dl>-->
+                    <!--									<dt>選擇內存</dt>-->
+                    <!--									<dd>-->
+                    <!--										<a href="">64GB</a>-->
+                    <!--									</dd>-->
+                    <!--									<dd>-->
+                    <!--										<a href="">128GB</a>-->
+                    <!--									</dd>-->
+                    <!--								</dl>-->
+                    <!--							</div>-->
+                </div>
+                <div class="box-btns clear">
+                    <div class="box-btns-one">
+                        <input type="text" name="" id="productNum" value="1"/>
+                        <div class="box-btns-one1">
+                            <div>
+                                <button id="jia">
+                                    +
+                                </button>
+                            </div>
+                            <div>
+                                <button id="jian">
+                                    -
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!--                    <div class="box-btns-two"-->
+                    <!--                         th:if="${item.seckillSkuVo == null }">-->
+                    <!--                        <a class="addToCart" href="" th:attr="skuId=${item.info.skuId}">-->
+                    <!--                            加入購物車-->
+                    <!--                        </a>-->
+                    <!--                    </div>-->
+                    <!--                    <div class="box-btns-two"-->
+                    <!--                         th:if="${item.seckillSkuVo != null && (#dates.createNow().getTime() >= item.seckillSkuVo.startTime && #dates.createNow().getTime() <= item.seckillSkuVo.endTime)}">-->
+                    <!--                        <a class="seckill" href=""-->
+                    <!--                           th:attr="skuId=${item.info.skuId},sessionId=${item.seckillSkuVo.promotionSessionId},code=${item.seckillSkuVo.randomCode}">-->
+                    <!--                            立即搶購-->
+                    <!--                        </a>-->
+                </div>
+                <div class="box-btns-three">
+                    <img src="/static/item/img/e4ed3606843f664591ff1f68f7fda12d.png" alt=""/> 分享
+                </div>
+            </div>
+            <div class="box-footer-zo">
+                <div class="box-footer clear">
+                    <dl>
+                        <dt>本地活動</dt>
+                        <dd>
+                            <a href="/static/item/">
+                                ·1元500MB激活到賬30元 >>
+                            </a>
+                        </dd>
+                    </dl>
+                </div>
+                <div class="box-footer">
+                    <dl>
+                        <dt>溫馨提示</dt>
+                        <dd>·本商品不能使用 東券 京券</dd>
+                        <dd>·請完成預約後及時搶購！</dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--欲約搶購流程-->
+<div class="qianggoulioucheng">
+    <div class="lioucheng">
+        <h3>欲約搶購流程</h3>
+    </div>
+    <!--搶購步驟-->
+    <ul class="qianggoubuzhao">
+        <li>
+            <img src="/static/item/img/shop_03.png"/>
+            <dl class="buzhou">
+                <dt>1.等待預約</dt>
+                <dl>預約即將開始</dl>
+            </dl>
+        </li>
+        <li>
+            <img src="/static/item/img/shop_04.png"/>
+            <dl class="buzhou">
+                <dt>2.預約中</dt>
+                <dl>2017-11-15 10:35 2017-11-15 23:59</dl>
+            </dl>
+        </li>
+        <li>
+            <img src="/static/item/img/shop_05.png"/>
+            <dl class="buzhou">
+                <dt>3.等待搶購</dt>
+                <dl>搶購即將開始</dl>
+            </dl>
+        </li>
+        <li>
+            <img src="/static/item/img/shop_06.png"/>
+            <dl class="buzhou">
+                <dt>4.搶購中</dt>
+                <dl></dl>
+            </dl>
+        </li>
+    </ul>
+</div>
+<div class="ShopXiangqing">
+    <div class="allLeft">
+        <!--火熱預約-->
+        <div class="huoreyuyue">
+            <h3>火熱預約</h3>
+        </div>
+        <div class="dangeshopxingqing">
+            <ul class="shopdange">
+                <li>
+                    <a href=""><img src="/static/item/img/5a0afeddNb34732af.jpg"/></a>
+                    <p>
+                        <a href="">OPPO R11s Plus 雙卡雙待全面屏拍照手機香檳色 全網通(6G RAM+64G ROM)標配</a>
+                    </p>
+                    <p><strong class="J-p-20015341974">＄3699.00</strong></p>
+                </li>
+                <li>
+                    <a href=""><img src="/static/item/img/5a12873eN41754123.jpg"/></a>
+                    <p>
+                        <a target="_blank" title="詹姆士（GEMRY） R19plus全網通4G 智能手機 雙卡雙待 6+128GB 鱷魚紋雅緻版（新品預約）"
+                           href="/static/item/item.jd.com/20348283521.html">詹姆士（GEMRY） R19plus全網通4G 智能手機 雙卡雙待
+                            6+128GB 鱷魚紋雅緻版（新品預約）</a>
+                    </p>
+                    <p><strong class="J-p-20348283521">＄13999.00</strong></p>
+                </li>
+                <li>
+                    <a href=""><img src="/static/item/img/59ec0131Nf239df75.jpg"/></a>
+                    <p>
+                        <a target="_blank" title="斐納（TOMEFON） 德國家用無線無繩手持立式充電吸塵器 靜音大吸力吸塵器TF-X60"
+                           href="/static/item/item.jd.com/16683419775.html">斐納（TOMEFON） 德國家用無線無繩手持立式充電吸塵器
+                            靜音大吸力吸塵器TF-X60</a>
+                    </p>
+                    <p><strong class="J-p-16683419775">＄1599.00</strong></p>
+                </li>
+                <li>
+                    <a href=""><img src="/static/item/img/59015444N27317512.jpg"/></a>
+                    <p>
+                        <a target="_blank" title="斐納（TOMEFON） 掃地機器人德國智能導航規劃全自動超薄掃地機器人吸塵器TF-D60 香檳金"
+                           href="/static/item/item.jd.com/12187770381.html">斐納（TOMEFON）
+                            掃地機器人德國智能導航規劃全自動超薄掃地機器人吸塵器TF-D60 香檳金</a>
+                    </p>
+                    <p><strong class="J-p-12187770381">＄2599.00</strong></p>
+                </li>
+            </ul>
+        </div>
+        <!--看了又看-->
+        <div class="huoreyuyue">
+            <h3>看了又看</h3>
+        </div>
+        <div class="dangeshopxingqing">
+            <ul class="shopdange">
+                <li>
+                    <a href=""><img src="/static/item/img/59e55e01N369f98f2.jpg"/></a>
+                    <p>
+                        <a target="_blank" title="華為（HUAWEI） 華為 Mate10 4G手機  雙卡雙待 亮黑色 全網通(6GB RAM+128GB ROM)"
+                           href="/static/item/item.jd.com/17931625443.html">華為（HUAWEI） 華為 Mate10 4G手機 雙卡雙待 亮黑色
+                            全網通(6GB RAM+128GB ROM)</a>
+                    <p><strong class="J-p-17931625443">＄4766.00</strong></p>
+                </li>
+                <li>
+                    <a href=""><img src="/static/item/img/584fcc3eNdb0ab94c.jpg"/></a>
+                    <p>
+                        <a target="_blank" title="華為 Mate 9 Pro 6GB+128GB版 琥珀金 移動聯通電信4G手機 雙卡雙待"
+                           href="/static/item/item.jd.com/3749093.html">華為 Mate 9 Pro 6GB+128GB版 琥珀金 移動聯通電信4G手機
+                            雙卡雙待</a>
+                    </p>
+                    <p><strong class="J-p-3749093">＄4899.00</strong></p>
+                </li>
+                <li>
+                    <!--shopjieshao-->
+                    <a href=""><img src="/static/item/img/59eb0df9Nd66d7585.jpg"/></a>
+                    <p>
+                        <a target="_blank" title="華為（HUAWEI） 華為 Mate10 手機 亮黑色 全網通(4+64G)標準版"
+                           href="/static/item/item.jd.com/12306211773.html">華為（HUAWEI） 華為 Mate10 手機 亮黑色
+                            全網通(4+64G)標準版</a>
+                    </p>
+                    <p><strong class="J-p-12306211773">＄4088.00</strong></p>
+                </li>
+                <li>
+                    <a href=""><img src="/static/item/img/5a002ba3N126c2f73.jpg"/></a>
+                    <p>
+                        <a target="_blank" title="斐納（TOMEFON） 掃地機器人德國智能導航規劃全自動超薄掃地機器人吸塵器TF-D60 香檳金"
+                           href="/static/item/item.jd.com/12187770381.html">斐納（TOMEFON）
+                            掃地機器人德國智能導航規劃全自動超薄掃地機器人吸塵器TF-D60 香檳金</a>
+                    </p>
+                    <p><strong class="J-p-12187770381">＄2599.00</strong></p>
+                </li>
+            </ul>
+            <img src="/static/item/img/5a084a1aNa1aa0a71.jpg"/>
+        </div>
+    </div>
+    <!--商品介紹-->
+    <div class="allquanbushop">
+        <ul class="shopjieshao">
+            <li class="jieshoa" style="background: #e4393c;">
+                <a href="" style="color: white;">商品介紹</a>
+            </li>
+            <li class="baozhuang">
+                <a href="">規格與包裝</a>
+            </li>
+            <li class="baozhang">
+                <a href="">售後保障</a>
+            </li>
+            <li class="pingjia">
+                <a href="">商品評價(4萬+)</a>
+            </li>
+            <li class="shuoming">
+                <a href="">預約說明</a>
+            </li>
+        </ul>
+        <button class="Lijiyuyuessss">
+            立即預約
+        </button>
+        <ul class="shopjieshaos posi" style="display: none;">
+            <li class="jieshoa" style="background: #e4393c;">
+                <a href="/static/item/#li1" style="color: white;">商品介紹</a>
+            </li>
+            <li class="baozhuang">
+                <a href="/static/item/#li2">規格與包裝</a>
+            </li>
+            <li class="baozhang">
+                <a href="/static/item/#li3">售後保障</a>
+            </li>
+            <li class="pingjia">
+                <a href="/static/item/#li4">商品評價(4萬+)</a>
+            </li>
+            <li class="shuoming">
+                <a href="/static/item/#li5">預約說明</a>
+            </li>
+        </ul>
+        <!--商品詳情-->
+        <div class="huawei">
+            <ul class="xuanxiangka">
+                <li class="jieshoa actives" id="li1">
+                    <div class="shanpinsssss">
+                        <!--									<p>-->
+                        <!--										<a href="">品牌:華為（HUAWEI）</a>-->
+                        <!--									</p>-->
+                        <!--									<table>-->
+                        <!--										<tr>-->
+                        <!--											<td>-->
+                        <!--												<a href="">商品名稱：華為Mate 10</a>-->
+                        <!--											</td>-->
+                        <!--											<td>-->
+                        <!--												<a href="">商品毛重：0.58kg</a>-->
+                        <!--											</td>-->
+                        <!--											<td>-->
+                        <!--												<a href="">商品編號：5544038</a>-->
+                        <!--											</td>-->
+                        <!--											<td>-->
+                        <!--												<a href="">商品產地：中國大陸</a>-->
+                        <!--											</td>-->
+                        <!--										</tr>-->
+                        <!--										<tr>-->
+                        <!--											<td>-->
+                        <!--												<a href="">系統：安卓（Android）</a>-->
+                        <!--											</td>-->
+                        <!--											<td>-->
+                        <!--												<a href="">前置攝像頭像素：800萬-1599萬</a>-->
+                        <!--											</td>-->
+                        <!--											<td>-->
+                        <!--												<a href="">後置攝像頭像素：2000萬及以上，1200萬-1999萬</a>-->
+                        <!--											</td>-->
+                        <!--											<td>-->
+                        <!--												<a href="">機身內存：128GB</a>-->
+                        <!--											</td>-->
+                        <!--										</tr>-->
+                        <!--										<tr>-->
+                        <!--											<td colspan="4">-->
+                        <!--												<a href="">全面屏，雙卡雙待，指紋識別，Type-C，VoLTE，2K屏，拍照神器，支持NFC，商務手機，安全手機，分辨率10</a>-->
+                        <!--											</td>-->
+                        <!--										</tr>-->
+                        <!--									</table>-->
+                        <img class="xiaoguo" th:src="${descp}"
+                             th:each="descp : ${#strings.listSplit(item.desc.decript,',')}"/>
+                        <!--                            <div class="guiGebox guiGebox1">-->
+                        <!--                                <div class="guiGe">-->
+                        <!--                                    <h3 th:text="guige.groupName"></h3>-->
+                        <!--                                    <dl>-->
+                        <!--                                        <dt>品牌</dt>-->
+                        <!--                                        <dd>華為(HUAWEI)</dd>-->
+                        <!--                                        <dt>型號</dt>-->
+                        <!--                                        <dd class="Ptable-tips">-->
+                        <!--                                            <a href=""><i>？</i></a>-->
+                        <!--                                        </dd>-->
+                        <!--                                        <dd>ALP-AL00</dd>-->
+                        <!--                                        <dt>入網型號</dt>-->
+                        <!--                                        <dd class="Ptable-tips">-->
+                        <!--                                            <a href=""><i>？</i></a>-->
+                        <!--                                        </dd>-->
+                        <!--                                        <dd>ALP-AL00</dd>-->
+                        <!--                                        <dt>上市年份</dt>-->
+                        <!--                                        <dd>2017年</dd>-->
+                        <!--                                        <dt>上市時間</dt>-->
+                        <!--                                        <dd>10月</dd>-->
+                        <!--                                    </dl>-->
+                        <!--                                </div>-->
+                        <!--                                <div class="package-list">-->
+                        <!--                                    <h3>包裝清單</h3>-->
+                        <!--                                    <p>手機（含內置電池） X 1、5A大電流華為SuperCharge充電器X 1、5A USB數據線 X 1、半入耳式線控耳機 X 1、快速指南X 1、三包憑證 X-->
+                        <!--                                        1、取卡針 X 1、保護殼 X 1</p>-->
+                        <!--                                </div>-->
+                        <!--                            </div>-->
+                    </div>
+                </li>
+                <li class="baozhuang actives" id="li2">
+                    <!--                    <li class="baozhuang actives" id="li2">-->
+                    <div class="guiGebox">
+                        <div class="guiGe" th:each="group : ${item.groupAttrs}">
+                            <h3 th:text="${group.groupName}">主體</h3>
+                            <dl>
+                                <div th:each="attr : ${group.attrs}">
+                                    <dt th:text="${attr.attrName}">品牌</dt>
+                                    <dd th:text="${attr.attrValue}">華為(HUAWEI)</dd>
+                                </div>
+                            </dl>
+                        </div>
+                        <div class="package-list">
+                            <h3>包裝清單</h3>
+                            <p>手機（含內置電池） X 1、5A大電流華為SuperCharge充電器X 1、5A USB數據線 X 1、半入耳式線控耳機 X 1、快速指南X 1、三包憑證 X
+                                1、取卡針 X 1、保護殼 X 1</p>
+                        </div>
+                    </div>
+                </li>
+                <!--包裝-->
+                <li class="baozhang actives" id="li3">
+                    <div class="oBox">
+                        <div class="shuoHou">
+                            <div class="baoZhang">
+                                <h2>售後保障</h2>
+                            </div>
+                        </div>
+                        <!--廠家服務-->
+                        <div class="changJia">
+                            <div class="lianBao">
+				<span class="oImg">
+					<img src="/static/item/img/2017.jpg" alt=""/>
+					<h3>廠家服務</h3>
+				</span>
+                                <div class="wenZi">
+                                    本產品全國聯保，享受三包服務，質保期為：一年保<br/>
+                                    如因質量問題或故障，憑廠商維修中心或特約維修點的質量檢測證明，享受7日內退貨，15日內換貨，15日以上在保質期內享受免費保修等安保服務！<br/>
+                                    (注：如廠家在商品介紹中有售後保障的說明，則此商品按照廠家說明執行售後保障服務。)您可以查詢本品牌在各地售後服務中心的練習方式<a
+                                        href="">請點擊這兒查詢...</a><br/><br/>
+                                </div>
+                            </div>
+                            <div class="lianBao oCn">
+				<span class="oImg">
+					<img src="/static/item/img/2017.jpg" alt=""/>
+					<h3>商城承諾</h3>
+				</span>
+                                <div class="wenZi">
+                                    本產品全國聯保，享受三包服務，質保期為：一年保<br/>
+                                    如因質量問題或故障，憑廠商維修中心或特約維修點的質量檢測證明，享受7日內退貨，15日內換貨，15日以上在保質期內享受免費保修等安保服務！<br/>
+                                    (注：如廠家在商品介紹中有售後保障的說明，則此商品按照廠家說明執行售後保障服務。)您可以查詢本品牌在各地售後服務中心的練習方式<a
+                                        href="">請點擊這兒查詢...</a><br/><br/><br/>
+                                </div>
+                            </div>
+                            <div class="lianBao ">
+				<span class="oImg">
+					<img src="/static/item/img/2017.jpg" alt=""/>
+					<h3>正品行貨</h3>
+				</span>
+                                <div class="wenZi hangHuo">
+                                    商城向您保證所售商品均為正品行貨，商城自營商品開具機打發票或电子發票。
+                                </div>
+                            </div>
+                            <div class="lianBao quanGuo">
+				<span class="oImg">
+					<img src="/static/item/img/2017-1.jpg" alt=""/>
+					<h3>全國聯保</h3>
+				</span>
+                                <div class="wenZi">
+                                    憑質保證書及商城發票，可享受全國聯保服務（奢侈品、鐘錶除外；奢侈品、鐘錶由商城聯繫保修，享受法定三包售後服務），與您親臨商場選購的商品享受相同的質量保證。商城還為您提供具有競爭力的商品價格和運費政策，請您放心購買！
+                                    <br/>
+                                    注：因廠家會在沒有任何提前通知的情況下更改產品包裝、產地或者一些附件，本司不能確保客戶收到的貨物與商城圖片、產地、附件說明完全一致。只能確保為原廠正貨！並且保證與當時市場上同樣主流新品一致。若本商城沒有及時更新，請大家諒解！
+                                </div>
+                            </div>
+                            <!--權利聲明-->
+                            <div class="quanLi">
+                                <h4>權利聲明:</h4>
+                                <div class="jingDong">
+                                    商城上的所有商品信息、客戶評價、商品諮詢、網友討論等內容，是商城重要的經營資源，未經許可，禁止非法轉載使用。<br/>
+                                    <span class="oZhu">注</span>：本站商品信息均來自於合作方，其真實性、準確性和合法性由信息擁有者（合作方）負責。本站不提供任何保證，並不承擔任何法律責任。
+                                </div>
+                            </div>
+                            <div class="quanLi jiaGe">
+                                <h4>價格說明:</h4>
+                                <div class="jingDong">
+                                    <span class="oZhu">商城價</span>：商城價為商品的銷售價，是您最終決定是否購買商品的依據。<br/>
+                                    <span class="oZhu">劃線價</span>：商品展示的划橫線價格為參考價，該價格可能是品牌專櫃標價、商品吊牌價或由品牌供應商提供的正品零售價（如廠商指導價、建議零售價等）或該商品在商城平台上曾經展示過的銷售價；由於地區、時間的差異性和市場行情波動，品牌專櫃標價、商品吊牌價等可能會與您購物時展示的不一致，該價格僅供您參考。<br/>
+                                    <span class="oZhu">折扣</span>：如無特殊說明，折扣指銷售商在原價、或劃線價（如品牌專櫃標價、商品吊牌價、廠商指導價、廠商建議零售價）等某一價格基礎上計算出的優惠比例或優惠金額；如有疑問，您可在購買前聯繫銷售商進行諮詢。<br/>
+                                    <span class="oZhu">異常問題</span>：商品促銷信息以商品詳情頁“促銷”欄中的信息為準；商品的具體售價以訂單結算頁價格為準；如您發現活動商品售價或促銷信息有異常，建議購買前先聯繫銷售商諮詢。
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <!--評價-->
+                <li class="PINgjia actives" id="li4">
+                    <div class="h3">
+                        <h3>商品評價</h3>
+                    </div>
+                    <div class="nav">
+                        <div class="left">
+                            <p class="haoping">好評度</p>
+                            <p><span>100%</span></p>
+                        </div>
+                        <div class="right">
+                            <ul>
+                                <li>
+                                    <a href="">就是快（424）</a>
+                                </li>
+                                <li>
+                                    <a href="">物流很快（254） </a>
+                                </li>
+                                <li>
+                                    <a href="">貨真價實（168）</a>
+                                </li>
+                                <li>
+                                    <a href="">有檔次（158）</a>
+                                </li>
+                                <li>
+                                    <a href="">國產品牌（133）</a>
+                                </li>
+                                <li>
+                                    <a href="">外形美觀（103）</a>
+                                </li>
+                                <li>
+                                    <a href="">很給力（75）</a>
+                                </li>
+                                <li>
+                                    <a href="">反應靈敏（68）</a>
+                                </li>
+                                <li>
+                                    <a href="">性價比高（60）</a>
+                                </li>
+                                <li>
+                                    <a href="">價格優惠（50）</a>
+                                </li>
+                                <li>
+                                    <a href="">功能齊全（49）</a>
+                                </li>
+                                <li style="background: gainsboro;">
+                                    <a href="">速度太慢（5）</a>
+                            </ul>
+                        </div>
+                    </div>
+                    <!--全部評價-->
+                    <div class="allpingjia">
+                        <ul>
+                            <li><a href="">全部評價（4.2萬）</a></li>
+                            <li><a href="">晒圖（500）</a></li>
+                            <li><a href="">追拼（200+）</a></li>
+                            <li><a href="">好評（4.1萬）</a></li>
+                            <li><a href="">中評（100+）</a></li>
+                            <li><a href="">差評（100+）</a></li>
+                            <li><a href=""><input type="checkbox"/>只看當前商品價格</a></li>
+                            <li class="imga" style="float: right;"><a href="">推薦排序 <img
+                                    src="/static/item/img/animaite.png"/> </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="shuoming actives" id="li5"></li>
+            </ul>
+        </div>
+    </div>
+</div>
+</div>
+<div class="headera">
+    <div class="Logo-tu">
+        <span><img src="/static/item/img/service_items_1.png"/></span>
+        <span><img src="/static/item/img/service_items_2.png"/></span>
+        <span><img src="/static/item/img/service_items_3.png"/></span>
+        <span><img src="/static/item/img/service_items_4.png"/></span>
+    </div>
+    <div class="table">
+        <dl>
+            <dt><a href="">購物指南</a></dt>
+            <dd>
+                <a href="">購物流程</a>
+            </dd>
+            <dd>
+                <a href="">會員介紹</a>
+            </dd>
+            <dd>
+                <a href="">生活旅行/團購</a>
+            </dd>
+            <dd>
+                <a href="">常見問題</a>
+            </dd>
+            <dd>
+                <a href="">大家電</a>
+            </dd>
+            <dd>
+                <a href="">練習客服</a>
+            </dd>
+        </dl>
+        <dl>
+            <dt><a href="">配送方式</a></dt>
+            <dd>
+                <a href="">上門自提</a>
+            </dd>
+            <dd>
+                <a href="">211限時達</a>
+            </dd>
+            <dd>
+                <a href="">配送服務查詢</a>
+            </dd>
+            <dd>
+                <a href=""></a>
+            </dd>
+            <dd>
+                <a href="">海外配送</a>
+            </dd>
+            <dd></dd>
+        </dl>
+        <dl>
+            <dt><a href="">支付方式</a></dt>
+            <dd>
+                <a href="">貨到付款</a>
+            </dd>
+            <dd>
+                <a href="">在線支付</a>
+            </dd>
+            <dd>
+                <a href="">分期付款</a>
+            </dd>
+            <dd>
+                <a href="">郵局匯款</a>
+            </dd>
+            <dd>
+                <a href="">公司轉賬</a>
+            </dd>
+            <dd></dd>
+        </dl>
+        <dl>
+            <dt><a href="">售後服務</a></dt>
+            <dd>
+                <a href="">售後政策</a>
+            </dd>
+            <dd>
+                <a href="">價格保護</a>
+            </dd>
+            <dd>
+                <a href="">退款說明</a>
+            </dd>
+            <dd>
+                <a href="">返修/退換貨</a>
+            </dd>
+            <dd>
+                <a href="">取消訂單</a>
+            </dd>
+            <dd></dd>
+        </dl>
+        <dl class="dls">
+            <dt><a href="">特色服務</a></dt>
+            <dd>
+                <a href="">奪寶島</a>
+            </dd>
+            <dd>
+                <a href="">DIY裝機</a>
+            </dd>
+            <dd>
+                <a href="">延保服務</a>
+            </dd>
+            <dd>
+                <a href="">商城E卡</a>
+            </dd>
+            <dd>
+                <a href="">商城通信</a>
+            </dd>
+            <dd>
+                <a href="">商城JD+</a>
+            </dd>
+        </dl>
+    </div>
+    <!--關於我們-->
+    <div class="guanyuwomen">
+        <ul>
+            <li>
+                <a href="">關於我們</a>
+            </li>
+            <li>|</li>
+            <li>
+                <a href="">聯繫我們</a>
+            </li>
+            <li>|</li>
+            <li>
+                <a href="">聯繫客服</a>
+            </li>
+            <li>|</li>
+            <li>
+                <a href="">合作招商</a>
+            </li>
+            <li>|</li>
+            <li>
+                <a href="">商家幫助</a>
+            </li>
+            <li>|</li>
+            <li>
+                <a href="">營銷中心</a>
+            </li>
+            <li>|</li>
+            <li>
+                <a href="">手機商城</a>
+            </li>
+            <li>|</li>
+            <li>
+                <a href="">友情鏈接</a>
+            </li>
+            <li>|</li>
+            <li>
+                <a href="">銷售聯盟</a>
+            </li>
+            <li>|</li>
+            <li>
+                <a href="">商城社區</a>
+            </li>
+            <li>|</li>
+            <li>
+                <a href="">風險檢測</a>
+            </li>
+            <li>|</li>
+            <li>
+                <a href="">隱私政策</a>
+            </li>
+            <li>|</li>
+            <li>
+                <a href="">商城公益</a>
+            </li>
+            <li>|</li>
+            <li>
+                <a href="">English Site</a>
+            </li>
+            <li>|</li>
+            <li>
+                <a href="">Mdeila $ IR</a>
+            </li>
+        </ul>
+    </div>
+    <!--jieshoa-->
+    <p class="p1"><img src="/static/item/img/56a0a994Nf1b662dc.png"/>
+        <a href=""> 京公網安備 11000002000088號</a>|
+        <a href=""> 京ICP證070359號</a>|
+        <a href=""> 互聯網藥品信息服務資格證編號(京)-經營性-2014-0008 </a>|
+        <a href="">新出發京零 字第大120007號</a>
+    </p>
+    <p class="p1">
+        <a href=""> 互聯網出版許可證編號新出網證(京)字150號</a>|
+        <a href=""> 出版物經營許可證</a>|
+        <a href=""> 網絡文化經營許可證京網文 </a>|
+        <a href="">[2014]2148-348號 </a>|
+        <a href=""> 違法和不良信息舉報電話 </a>|
+        <a href="">：4006561155 </a>
+    </p>
+    <p class="p1">
+        <a href=""> Copyright © 2004-2017 商城JD.com 版權所有</a>|
+        <a href=""> 消費者維權熱線：4006067733 經營證照</a>|
+    </p>
+    <p class="p1">
+        <a href=""> 商城旗下網站：商城支付</a>|
+        <a href=""> 商城雲</a>
+    </p>
+    <p class="p3">
+        <img src="/static/item/img/54b8871eNa9a7067e.png"/>
+        <img src="/static/item/img/54b8872dNe37a9860.png"/>
+        <img src="/static/item/img/54b8875fNad1e0c4c.png"/>
+        <img src="/static/item/img/5698dc03N23f2e3b8.jpg"/>
+        <img src="/static/item/img/5698dc16Nb2ab99df.jpg"/>
+        <img src="/static/item/img/56a89b8fNfbaade9a.jpg"/>
+    </p>
+</div>
+<div class="Fixedbian">
+    <ul>
+        <li class="li1"><a class="aaa" href="">頂部</a></li>
+    </ul>
+</div>
+<div class="gouwuchexiaguo">
+    <img src="/static/item/img/44.png"/>
+    <span>購物車還沒有商品，趕緊選購吧！</span>
+</div>
+</body>
+<script src="/static/item/js/jquery1.9.js" type="text/javascript" charset="utf-8"></script>
+<script src="/static/item/js/js.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+</script>
+<script>
+    $(".sku_attr_value").click(function () {
+        // 1、點擊的元素添加上自定義的屬性
+        let skus = new Array();
+        let curr = $(this).attr("skus").split(",");
+        $(this).parent().parent().find(".sku_attr_value").removeClass("checked");
+        $(this).addClass("checked");
+        changeCheckedStyle();
+        $("a[class='sku_attr_value checked']").each(function () {
+            skus.push($(this).attr("skus").split(","));
+        });
+        let filterEle = skus[0];
+        for (let i = 1; i < skus.length; i++) {
+            filterEle = $(filterEle).filter(skus[i])[0];
+        }
+        location.href = "http://item.mall.com/" + filterEle + ".html";
+        return false;
+    });
+    $(function () {
+        changeCheckedStyle();
+    });
+
+    function changeCheckedStyle() {
+        $(".sku_attr_value").parent().css({"border": "solid 1px #ccc"});
+        $("a[class='sku_attr_value checked']").parent().css({"border": "solid 1px red"});
+    };
+    $(".addToCart").click(function () {
+        let skuId = $(this).attr("skuId");
+        let num = $("#productNum").val();
+        location.href = "http://cart.mall.com/addCartItem?skuId=" + skuId + "&num=" + num;
+        return false;
+    });
+    $(".seckill").click(function () {
+        var isLogin = [[${session.loginUser != null}]];     //true
+        if (isLogin) {
+            var killId = $(this).attr("sessionid") + "-" + $(this).attr("skuid");
+            var code = $(this).attr("code");
+            var num = $("#productNum").val();
+            location.href = "http://seckill.mall.com/kill?killId=" + killId + "&key=" + code + "&num=" + num;
+        } else {
+            alert("秒殺請先登入");
+        }
+        return false;
+    });
+</script>
+</html>

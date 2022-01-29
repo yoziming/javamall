@@ -55,14 +55,14 @@
     <el-form-item label="註冊時間" prop="createTime">
       <el-input v-model="dataForm.createTime" placeholder="註冊時間"></el-input>
     </el-form-item>
-    <el-form-item label="社交登錄UID" prop="socialUid">
-      <el-input v-model="dataForm.socialUid" placeholder="社交登錄UID"></el-input>
+    <el-form-item label="社交登入UID" prop="socialUid">
+      <el-input v-model="dataForm.socialUid" placeholder="社交登入UID"></el-input>
     </el-form-item>
-    <el-form-item label="社交登錄TOKEN" prop="accessToken">
-      <el-input v-model="dataForm.accessToken" placeholder="社交登錄TOKEN"></el-input>
+    <el-form-item label="社交登入TOKEN" prop="accessToken">
+      <el-input v-model="dataForm.accessToken" placeholder="社交登入TOKEN"></el-input>
     </el-form-item>
-    <el-form-item label="社交登錄過期時間" prop="expiresIn">
-      <el-input v-model="dataForm.expiresIn" placeholder="社交登錄過期時間"></el-input>
+    <el-form-item label="社交登入過期時間" prop="expiresIn">
+      <el-input v-model="dataForm.expiresIn" placeholder="社交登入過期時間"></el-input>
     </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">
@@ -153,13 +153,13 @@
             { required: true, message: '註冊時間不能为空', trigger: 'blur' }
           ],
           socialUid: [
-            { required: true, message: '社交登錄UID不能为空', trigger: 'blur' }
+            { required: true, message: '社交登入UID不能为空', trigger: 'blur' }
           ],
           accessToken: [
-            { required: true, message: '社交登錄TOKEN不能为空', trigger: 'blur' }
+            { required: true, message: '社交登入TOKEN不能为空', trigger: 'blur' }
           ],
           expiresIn: [
-            { required: true, message: '社交登錄過期時間不能为空', trigger: 'blur' }
+            { required: true, message: '社交登入過期時間不能为空', trigger: 'blur' }
           ]
         }
       }

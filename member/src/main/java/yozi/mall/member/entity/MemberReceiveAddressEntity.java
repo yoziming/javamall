@@ -61,7 +61,7 @@ public class MemberReceiveAddressEntity implements Serializable {
 	 */
 	private String areacode;
 	/**
-	 * 是否默認
+	 * 是否預設
 	 */
 	private Integer defaultStatus;
 

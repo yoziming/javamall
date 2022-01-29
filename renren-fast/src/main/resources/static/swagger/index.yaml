@@ -1,28 +1,28 @@
 swagger: '2.0'
 info:
-  description: renren-fast是一个轻量级的Java快速开发平台，能快速开发项目并交付【接私活利器】
+  description: renren-fast是一個輕量級的Java快速開發平台，能快速開發項目並交付【接私活利器】
   version: 1.0.0
-  title: 人人快速开发平台
+  title: 人人快速開發平台
 
 basePath: /renren-fast
 
 schemes:
   - http
 
-#认证
+#認證
 securityDefinitions:
   api_key:
     type: "apiKey"
     name: "token"
     in: "header"
 
-#定义接口数据
+#定義接口數據
 paths:
   /captcha.jpg:
     get:
       tags:
-        - 用户登录
-      summary: 获取验证码
+        - 用戶登入
+      summary: 獲取驗證碼
       produces:
         - application/octet-stream
       parameters:
@@ -34,13 +34,13 @@ paths:
   /sys/login:
     post:
       tags:
-        - 用户登录
-      summary: 用户登录
+        - 用戶登入
+      summary: 用戶登入
       produces:
         - application/json
       parameters:
         - name: body
-          description: 管理员对象
+          description: 管理員物件
           in: body
           type: string
           schema:
@@ -54,18 +54,18 @@ paths:
   /sys/user/list:
     get:
       tags:
-        - 管理员管理
-      summary: 管理员列表
+        - 管理員管理
+      summary: 管理員列表
       produces:
         - application/json
       parameters:
         - name: page
-          description: 页码
+          description: 頁碼
           in: query
           type: integer
           required: true
         - name: limit
-          description: 每页条数
+          description: 每頁條數
           in: query
           type: integer
           required: true
@@ -78,29 +78,29 @@ paths:
           in: query
           type: string
         - name: username
-          description: 用户名
+          description: 用戶名
           in: query
           type: string
       responses:
         '200':
-          description: 返回管理员列表
+          description: 返回管理員列表
           schema:
             $ref: '#/definitions/SysUserEntityList'
   /sys/user/info:
     get:
       tags:
-        - 管理员管理
-      summary: 当前管理员信息
+        - 管理員管理
+      summary: 當前管理員信息
       produces:
         - application/json
       responses:
         '200':
-          description: 返回当前管理员信息
+          description: 返回當前管理員信息
           schema:
             type: object
             properties:
               code:
-                description: 状态码 0：成功  非0：失败
+                description: 狀態碼 0：成功  非0：失敗
                 type: integer
                 format: int32
               user:
@@ -108,24 +108,24 @@ paths:
   /sys/user/info/{userId}:
     get:
       tags:
-        - 管理员管理
-      summary: 获取管理员信息
+        - 管理員管理
+      summary: 獲取管理員信息
       produces:
         - application/json
       parameters:
         - name: userId
-          description: 用户ID
+          description: 用戶ID
           in: path
           type: integer
           required: true
       responses:
         '200':
-          description: 返回管理员信息
+          description: 返回管理員信息
           schema:
             type: object
             properties:
               code:
-                description: 状态码 0：成功  非0：失败
+                description: 狀態碼 0：成功  非0：失敗
                 type: integer
                 format: int32
               user:
@@ -133,13 +133,13 @@ paths:
   /sys/user/password:
     post:
       tags:
-        - 管理员管理
-      summary: 修改密码
+        - 管理員管理
+      summary: 修改密碼
       produces:
         - application/json
       parameters:
         - name: body
-          description: 管理员对象
+          description: 管理員物件
           in: body
           type: string
           schema:
@@ -152,13 +152,13 @@ paths:
   /sys/user/save:
     post:
       tags:
-        - 管理员管理
-      summary: 添加管理员
+        - 管理員管理
+      summary: 添加管理員
       produces:
         - application/json
       parameters:
         - name: body
-          description: 管理员对象
+          description: 管理員物件
           in: body
           type: string
           schema:
@@ -171,13 +171,13 @@ paths:
   /sys/user/update:
     post:
       tags:
-        - 管理员管理
-      summary: 修改管理员
+        - 管理員管理
+      summary: 修改管理員
       produces:
         - application/json
       parameters:
         - name: body
-          description: 管理员对象
+          description: 管理員物件
           in: body
           type: string
           schema:
@@ -190,13 +190,13 @@ paths:
   /sys/user/delete:
     post:
       tags:
-        - 管理员管理
-      summary: 删除管理员
+        - 管理員管理
+      summary: 刪除管理員
       produces:
         - application/json
       parameters:
         - name: body
-          description: 用户ID列表
+          description: 用戶ID列表
           in: body
           type: array
           items:
@@ -218,12 +218,12 @@ paths:
         - application/json
       parameters:
         - name: page
-          description: 页码
+          description: 頁碼
           in: query
           type: integer
           required: true
         - name: limit
-          description: 每页条数
+          description: 每頁條數
           in: query
           type: integer
           required: true
@@ -248,8 +248,8 @@ paths:
     get:
       tags:
         - 角色管理
-      summary: 当前账号角色列表
-      description: 如果是超级管理员，则能查询所有的角色列表
+      summary: 當前賬號角色列表
+      description: 如果是超級管理員，則能查詢所有的角色列表
       produces:
         - application/json
       responses:
@@ -259,7 +259,7 @@ paths:
             type: object
             properties:
               code:
-                description: 状态码 0：成功  非0：失败
+                description: 狀態碼 0：成功  非0：失敗
                 type: integer
                 format: int32
               list:
@@ -270,7 +270,7 @@ paths:
     get:
       tags:
         - 角色管理
-      summary: 获取角色信息
+      summary: 獲取角色信息
       produces:
         - application/json
       parameters:
@@ -286,7 +286,7 @@ paths:
             type: object
             properties:
               code:
-                description: 状态码 0：成功  非0：失败
+                description: 狀態碼 0：成功  非0：失敗
                 type: integer
                 format: int32
               role:
@@ -300,7 +300,7 @@ paths:
         - application/json
       parameters:
         - name: body
-          description: 角色对象
+          description: 角色物件
           in: body
           type: string
           schema:
@@ -319,7 +319,7 @@ paths:
         - application/json
       parameters:
         - name: body
-          description: 角色对象
+          description: 角色物件
           in: body
           type: string
           schema:
@@ -333,7 +333,7 @@ paths:
     post:
       tags:
         - 角色管理
-      summary: 删除角色
+      summary: 刪除角色
       produces:
         - application/json
       parameters:
@@ -354,40 +354,40 @@ paths:
   /sys/menu/nav:
     get:
       tags:
-        - 菜单管理
-      summary: 导航菜单列表
+        - 菜單管理
+      summary: 導航菜單列表
       produces:
         - application/json
       responses:
         '200':
-          description: 返回导航菜单列表
+          description: 返回導航菜單列表
           schema:
             type: object
             properties:
               code:
-                description: 状态码 0：成功  非0：失败
+                description: 狀態碼 0：成功  非0：失敗
                 type: integer
                 format: int32
               menuList:
-                description: 菜单列表
+                description: 菜單列表
                 type: array
                 items:
                   $ref: '#/definitions/SysMenuEntity'
               permissions:
-                description: 权限列表
+                description: 權限列表
                 type: array
                 items:
                   type: string
   /sys/menu/list:
     get:
       tags:
-        - 菜单管理
-      summary: 菜单列表
+        - 菜單管理
+      summary: 菜單列表
       produces:
         - application/json
       responses:
         '200':
-          description: 返回菜单列表
+          description: 返回菜單列表
           schema:
             type: array
             items:
@@ -395,62 +395,62 @@ paths:
   /sys/menu/select:
     get:
       tags:
-        - 菜单管理
-      summary: 选择菜单
-      description: 添加、修改菜单的时候，选择上级菜单接口
+        - 菜單管理
+      summary: 選擇菜單
+      description: 添加、修改菜單的時候，選擇上級菜單接口
       produces:
         - application/json
       responses:
         '200':
-          description: 返回菜单列表
+          description: 返回菜單列表
           schema:
             type: object
             properties:
               code:
-                description: 状态码 0：成功  非0：失败
+                description: 狀態碼 0：成功  非0：失敗
                 type: integer
                 format: int32
               menuList:
-                description: 菜单列表
+                description: 菜單列表
                 type: array
                 items:
                   $ref: '#/definitions/SysMenuEntity'
   /sys/menu/info/{menuId}:
     get:
       tags:
-        - 菜单管理
-      summary: 获取菜单信息
+        - 菜單管理
+      summary: 獲取菜單信息
       produces:
         - application/json
       parameters:
         - name: menuId
-          description: 菜单ID
+          description: 菜單ID
           in: path
           type: integer
           required: true
       responses:
         '200':
-          description: 返回菜单信息
+          description: 返回菜單信息
           schema:
             type: object
             properties:
               code:
-                description: 状态码 0：成功  非0：失败
+                description: 狀態碼 0：成功  非0：失敗
                 type: integer
                 format: int32
               menu:
-                description: 菜单信息
+                description: 菜單信息
                 $ref: '#/definitions/SysMenuEntity'
   /sys/menu/save:
     post:
       tags:
-        - 菜单管理
-      summary: 添加菜单
+        - 菜單管理
+      summary: 添加菜單
       produces:
         - application/json
       parameters:
         - name: body
-          description: 菜单对象
+          description: 菜單物件
           in: body
           type: string
           schema:
@@ -463,13 +463,13 @@ paths:
   /sys/menu/update:
     post:
       tags:
-        - 菜单管理
-      summary: 修改菜单
+        - 菜單管理
+      summary: 修改菜單
       produces:
         - application/json
       parameters:
         - name: body
-          description: 菜单对象
+          description: 菜單物件
           in: body
           type: string
           schema:
@@ -482,13 +482,13 @@ paths:
   /sys/menu/delete/{menuId}:
     post:
       tags:
-        - 菜单管理
-      summary: 删除菜单
+        - 菜單管理
+      summary: 刪除菜單
       produces:
         - application/json
       parameters:
         - name: menuId
-          description: 菜单ID
+          description: 菜單ID
           in: path
           type: integer
           required: true
@@ -500,18 +500,18 @@ paths:
   /sys/log/list:
     get:
       tags:
-        - 系统日志
-      summary: 日志列表
+        - 系統日誌
+      summary: 日誌列表
       produces:
         - application/json
       parameters:
         - name: page
-          description: 页码
+          description: 頁碼
           in: query
           type: integer
           required: true
         - name: limit
-          description: 每页条数
+          description: 每頁條數
           in: query
           type: integer
           required: true
@@ -524,30 +524,30 @@ paths:
           in: query
           type: string
         - name: key
-          description: 用户名或用户操作
+          description: 用戶名或用戶操作
           in: query
           type: string
       responses:
         '200':
-          description: 返回日志列表
+          description: 返回日誌列表
           schema:
             $ref: '#/definitions/SysLogEntityList'
 
   /sys/config/list:
     get:
       tags:
-        - 参数管理
-      summary: 参数列表
+        - 參數管理
+      summary: 參數列表
       produces:
         - application/json
       parameters:
         - name: page
-          description: 页码
+          description: 頁碼
           in: query
           type: integer
           required: true
         - name: limit
-          description: 每页条数
+          description: 每頁條數
           in: query
           type: integer
           required: true
@@ -560,50 +560,50 @@ paths:
           in: query
           type: string
         - name: key
-          description: 参数名
+          description: 參數名
           in: query
           type: string
       responses:
         '200':
-          description: 返回参数列表
+          description: 返回參數列表
           schema:
             $ref: '#/definitions/SysConfigEntityList'
   /sys/config/info/{id}:
     get:
       tags:
-        - 参数管理
-      summary: 获取参数信息
+        - 參數管理
+      summary: 獲取參數信息
       produces:
         - application/json
       parameters:
         - name: id
-          description: 参数ID
+          description: 參數ID
           in: path
           type: integer
           required: true
       responses:
         '200':
-          description: 返回参数信息
+          description: 返回參數信息
           schema:
             type: object
             properties:
               code:
-                description: 状态码 0：成功  非0：失败
+                description: 狀態碼 0：成功  非0：失敗
                 type: integer
                 format: int32
               config:
-                description: 返回参数信息
+                description: 返回參數信息
                 $ref: '#/definitions/SysConfigEntity'
   /sys/config/save:
     post:
       tags:
-        - 参数管理
-      summary: 添加参数
+        - 參數管理
+      summary: 添加參數
       produces:
         - application/json
       parameters:
         - name: body
-          description: 参数对象
+          description: 參數物件
           in: body
           type: string
           schema:
@@ -616,13 +616,13 @@ paths:
   /sys/config/update:
     post:
       tags:
-        - 参数管理
-      summary: 修改参数
+        - 參數管理
+      summary: 修改參數
       produces:
         - application/json
       parameters:
         - name: body
-          description: 参数对象
+          description: 參數物件
           in: body
           type: string
           schema:
@@ -635,13 +635,13 @@ paths:
   /sys/config/delete:
     post:
       tags:
-        - 参数管理
-      summary: 删除参数
+        - 參數管理
+      summary: 刪除參數
       produces:
         - application/json
       parameters:
         - name: body
-          description: 参数ID列表
+          description: 參數ID列表
           in: body
           type: array
           items:
@@ -657,18 +657,18 @@ paths:
   /sys/oss/list:
     get:
       tags:
-        - 文件服务
+        - 文件服務
       summary: 文件列表
       produces:
         - application/json
       parameters:
         - name: page
-          description: 页码
+          description: 頁碼
           in: query
           type: integer
           required: true
         - name: limit
-          description: 每页条数
+          description: 每頁條數
           in: query
           type: integer
           required: true
@@ -682,39 +682,39 @@ paths:
           type: string
       responses:
         '200':
-          description: 返回文件列表
+          description: 返迴文件列表
           schema:
             $ref: '#/definitions/SysOssEntityList'
   /sys/oss/config:
     get:
       tags:
-        - 文件服务
-      summary: 云存储配置信息
+        - 文件服務
+      summary: 雲存儲配置信息
       produces:
         - application/json
       responses:
         '200':
-          description: 返回云存储配置信息
+          description: 返回雲存儲配置信息
           schema:
             type: object
             properties:
               code:
-                description: 状态码 0：成功  非0：失败
+                description: 狀態碼 0：成功  非0：失敗
                 type: integer
                 format: int32
               config:
-                description: 云存储配置信息
+                description: 雲存儲配置信息
                 $ref: '#/definitions/SysCloudStorageEntity'
   /sys/oss/saveConfig:
     post:
       tags:
-        - 文件服务
-      summary: 保存云存储配置信息
+        - 文件服務
+      summary: 保存雲存儲配置信息
       produces:
         - application/json
       parameters:
         - name: body
-          description: 参数对象
+          description: 參數物件
           in: body
           type: string
           schema:
@@ -727,8 +727,8 @@ paths:
   /sys/oss/upload:
     post:
       tags:
-        - 文件服务
-      summary: 上传文件
+        - 文件服務
+      summary: 上傳文件
       consumes:
         - multipart/form-data
       produces:
@@ -741,14 +741,14 @@ paths:
           required: true
       responses:
         '200':
-          description: 返回文件列表
+          description: 返迴文件列表
           schema:
             $ref: '#/definitions/FileUpload'
   /sys/oss/delete:
     post:
       tags:
-        - 文件服务
-      summary: 删除文件
+        - 文件服務
+      summary: 刪除文件
       produces:
         - application/json
       parameters:
@@ -769,18 +769,18 @@ paths:
   /sys/schedule/list:
     get:
       tags:
-        - 定时任务
-      summary: 定时任务列表
+        - 定時任務
+      summary: 定時任務列表
       produces:
         - application/json
       parameters:
         - name: page
-          description: 页码
+          description: 頁碼
           in: query
           type: integer
           required: true
         - name: limit
-          description: 每页条数
+          description: 每頁條數
           in: query
           type: integer
           required: true
@@ -793,50 +793,50 @@ paths:
           in: query
           type: string
         - name: beanName
-          description: spring bean名称
+          description: spring bean名稱
           in: query
           type: string
       responses:
         '200':
-          description: 返回定时任务列表
+          description: 返回定時任務列表
           schema:
             $ref: '#/definitions/ScheduleJobEntityList'
   /sys/schedule/info/{jobId}:
     get:
       tags:
-        - 定时任务
-      summary: 获取定时任务信息
+        - 定時任務
+      summary: 獲取定時任務信息
       produces:
         - application/json
       parameters:
         - name: jobId
-          description: 定时任务ID
+          description: 定時任務ID
           in: path
           type: integer
           required: true
       responses:
         '200':
-          description: 返回定时任务信息
+          description: 返回定時任務信息
           schema:
             type: object
             properties:
               code:
-                description: 状态码 0：成功  非0：失败
+                description: 狀態碼 0：成功  非0：失敗
                 type: integer
                 format: int32
               schedule:
-                description: 定时任务信息
+                description: 定時任務信息
                 $ref: '#/definitions/ScheduleJobEntity'
   /sys/schedule/save:
     post:
       tags:
-        - 定时任务
-      summary: 添加定时任务
+        - 定時任務
+      summary: 添加定時任務
       produces:
         - application/json
       parameters:
         - name: body
-          description: 定时任务对象
+          description: 定時任務物件
           in: body
           type: string
           schema:
@@ -849,13 +849,13 @@ paths:
   /sys/schedule/update:
     post:
       tags:
-        - 定时任务
-      summary: 修改定时任务
+        - 定時任務
+      summary: 修改定時任務
       produces:
         - application/json
       parameters:
         - name: body
-          description: 定时任务对象
+          description: 定時任務物件
           in: body
           type: string
           schema:
@@ -868,13 +868,13 @@ paths:
   /sys/schedule/delete:
     post:
       tags:
-        - 定时任务
-      summary: 删除定时任务
+        - 定時任務
+      summary: 刪除定時任務
       produces:
         - application/json
       parameters:
         - name: body
-          description: 定时任务ID列表
+          description: 定時任務ID列表
           in: body
           type: array
           items:
@@ -889,13 +889,13 @@ paths:
   /sys/schedule/run:
     post:
       tags:
-        - 定时任务
-      summary: 立即执行任务
+        - 定時任務
+      summary: 立即執行任務
       produces:
         - application/json
       parameters:
         - name: body
-          description: 定时任务ID列表
+          description: 定時任務ID列表
           in: body
           type: array
           items:
@@ -910,13 +910,13 @@ paths:
   /sys/schedule/pause:
     post:
       tags:
-        - 定时任务
-      summary: 暂停定时任务
+        - 定時任務
+      summary: 暫停定時任務
       produces:
         - application/json
       parameters:
         - name: body
-          description: 定时任务ID列表
+          description: 定時任務ID列表
           in: body
           type: array
           items:
@@ -931,13 +931,13 @@ paths:
   /sys/schedule/resume:
     post:
       tags:
-        - 定时任务
-      summary: 恢复定时任务
+        - 定時任務
+      summary: 恢復定時任務
       produces:
         - application/json
       parameters:
         - name: body
-          description: 定时任务ID列表
+          description: 定時任務ID列表
           in: body
           type: array
           items:
@@ -953,18 +953,18 @@ paths:
   /sys/scheduleLog/list:
     get:
       tags:
-        - 定时任务
-      summary: 定时任务日志列表
+        - 定時任務
+      summary: 定時任務日誌列表
       produces:
         - application/json
       parameters:
         - name: page
-          description: 页码
+          description: 頁碼
           in: query
           type: integer
           required: true
         - name: limit
-          description: 每页条数
+          description: 每頁條數
           in: query
           type: integer
           required: true
@@ -977,81 +977,81 @@ paths:
           in: query
           type: string
         - name: beanName
-          description: spring bean名称
+          description: spring bean名稱
           in: query
           type: string
       responses:
         '200':
-          description: 返回定时任务日志列表
+          description: 返回定時任務日誌列表
           schema:
             $ref: '#/definitions/ScheduleJobLogEntityList'
   /sys/scheduleLog/info/{logId}:
     get:
       tags:
-        - 定时任务
-      summary: 获取定时任务日志信息
+        - 定時任務
+      summary: 獲取定時任務日誌信息
       produces:
         - application/json
       parameters:
         - name: logId
-          description: 日志ID
+          description: 日誌ID
           in: path
           type: integer
           required: true
       responses:
         '200':
-          description: 返回定时任务日志信息
+          description: 返回定時任務日誌信息
           schema:
             type: object
             properties:
               code:
-                description: 状态码 0：成功  非0：失败
+                description: 狀態碼 0：成功  非0：失敗
                 type: integer
                 format: int32
               schedule:
-                description: 定时任务日志信息
+                description: 定時任務日誌信息
                 $ref: '#/definitions/ScheduleJobLogEntity'
 
-#定义数据模型
+#定義數據模型
 definitions:
   R:
-      type: object
-      properties:
-        code:
-          description: 状态码 0：成功  非0：失败
-          type: integer
-          format: int32
-        msg:
-          description: 失败原因
-          type: string
+    type: object
+    properties:
+      code:
+        description: 狀態碼 0：成功  非0：失敗
+        type: integer
+        format: int32
+      msg:
+        description: 失敗原因
+        type: string
   Login:
-      type: object
-      properties:
-        code:
-          description: 状态码 0：成功  非0：失败
-          type: integer
-          format: int32
-        token:
-          description: token
-          type: string
-        expire:
-          description: 过期时长
-          type: integer
-          format: int32
-        msg:
-          description: 失败原因
-          type: string
+    type: object
+    properties:
+      code:
+        description: 狀態碼 0：成功  非0：失敗
+        type: integer
+        format: int32
+      token:
+        description: token
+        type: string
+      expire:
+        description: 過期時長
+        type: integer
+        format: int32
+      msg:
+        description: 失敗原因
+        type: string
   LoginForm:
     type: object
     properties:
       username:
-        description: 用户名
+        description: 用戶名
         type: string
       password:
-        description: 密码
+        description: 密碼
         type: string
       captcha:
-        description: 验证码
+        description: 驗證碼
         type: string
       uuid:
         description: UUID
@@ -1060,32 +1060,32 @@ definitions:
     type: object
     properties:
       password:
-        description: 原密码
+        description: 原密碼
         type: string
       newPassword:
-        description: 新密码
+        description: 新密碼
         type: string
   SysUserEntity:
     type: object
     properties:
       userId:
-        description: 用户ID
+        description: 用戶ID
         type: integer
         format: int64
       username:
-        description: 用户名
+        description: 用戶名
         type: string
       password:
-        description: 密码
+        description: 密碼
         type: string
       email:
-        description: 邮箱
+        description: 郵箱
         type: string
       mobile:
-        description: 手机号
+        description: 手機號
         type: string
       status:
-        description: 状态  0：禁用   1：正常
+        description: 狀態  0：禁用   1：正常
         type: integer
         format: int32
       roleIdList:
@@ -1095,37 +1095,37 @@ definitions:
           type: integer
           format: int64
       createUserId:
-        description: 创建者ID
+        description: 創建者ID
         type: integer
         format: int64
       createTime:
-        description: 创建时间
+        description: 創建時間
         type: string
         format: date-time
   SysUserEntityList:
     type: object
     properties:
       code:
-        description: 状态码 0：成功  非0：失败
+        description: 狀態碼 0：成功  非0：失敗
         type: integer
         format: int32
       page:
         type: object
         properties:
           totalCount:
-            description: 总记录数
+            description: 總記錄數
             type: integer
             format: int32
           pageSize:
-            description: 每页记录数
+            description: 每頁記錄數
             type: integer
             format: int32
           totalPage:
-            description: 总页数
+            description: 總頁數
             type: integer
             format: int32
           currPage:
-            description: 当前页数
+            description: 當前頁數
             type: integer
             format: int32
           list:
@@ -1133,34 +1133,34 @@ definitions:
             items:
               $ref: '#/definitions/SysUserEntity'
   SysUserEntityEdit:
-      type: object
-      properties:
-        userId:
-          description: 用户ID
-          type: integer
-          format: int64
-        username:
-          description: 用户名
-          type: string
-        password:
-          description: 密码
-          type: string
-        email:
-          description: 邮箱
-          type: string
-        mobile:
-          description: 手机号
-          type: string
-        status:
-          description: 状态  0：禁用   1：正常
+    type: object
+    properties:
+      userId:
+        description: 用戶ID
+        type: integer
+        format: int64
+      username:
+        description: 用戶名
+        type: string
+      password:
+        description: 密碼
+        type: string
+      email:
+        description: 郵箱
+        type: string
+      mobile:
+        description: 手機號
+        type: string
+      status:
+        description: 狀態  0：禁用   1：正常
+        type: integer
+        format: int32
+      roleIdList:
+        description: 角色ID列表
+        type: array
+        items:
           type: integer
           format: int32
-        roleIdList:
-          description: 角色ID列表
-          type: array
-          items:
-            type: integer
-            format: int32
 
   SysRoleEntity:
     type: object
@@ -1170,49 +1170,49 @@ definitions:
         type: integer
         format: int64
       roleName:
-        description: 角色名称
+        description: 角色名稱
         type: string
       remark:
-        description: 备注
+        description: 備註
         type: string
       menuIdList:
-        description: 菜单ID列表
+        description: 菜單ID列表
         type: array
         items:
           type: integer
           format: int64
       createUserId:
-        description: 创建者ID
+        description: 創建者ID
         type: integer
         format: int64
       createTime:
-        description: 创建时间
+        description: 創建時間
         type: string
         format: date-time
   SysRoleEntityList:
     type: object
     properties:
       code:
-        description: 状态码 0：成功  非0：失败
+        description: 狀態碼 0：成功  非0：失敗
         type: integer
         format: int32
       page:
         type: object
         properties:
           totalCount:
-            description: 总记录数
+            description: 總記錄數
             type: integer
             format: int32
           pageSize:
-            description: 每页记录数
+            description: 每頁記錄數
             type: integer
             format: int32
           totalPage:
-            description: 总页数
+            description: 總頁數
             type: integer
             format: int32
           currPage:
-            description: 当前页数
+            description: 當前頁數
             type: integer
             format: int32
           list:
@@ -1227,13 +1227,13 @@ definitions:
         type: integer
         format: int64
       roleName:
-        description: 角色名称
+        description: 角色名稱
         type: string
       remark:
-        description: 备注
+        description: 備註
         type: string
       menuIdList:
-        description: 菜单ID列表
+        description: 菜單ID列表
         type: array
         items:
           type: integer
@@ -1243,66 +1243,66 @@ definitions:
     type: object
     properties:
       menuId:
-        description: 菜单ID
+        description: 菜單ID
         type: integer
         format: int64
       name:
-        description: 菜单名称
+        description: 菜單名稱
         type: string
       parentId:
-        description: 父菜单ID，一级菜单为0
+        description: 父菜單ID，一級菜單為0
         type: integer
         format: int64
       parentName:
-        description: 父菜单名称
+        description: 父菜單名稱
         type: string
       url:
-        description: 菜单URL
+        description: 菜單URL
         type: string
       perms:
-        description: 授权标识
+        description: 授權標識
         type: string
       type:
-        description: 类型     0：目录   1：菜单   2：按钮
+        description: 類型     0：目錄   1：菜單   2：按鈕
         type: integer
         format: int32
       icon:
-        description: 菜单图标
+        description: 菜單圖標
         type: string
       orderNum:
         description: 排序
         type: integer
         format: int32
       open:
-        description: 是否展开   true：展开   false：不展开
+        description: 是否展開   true：展開   false：不展開
         type: boolean
         format: int32
   SysMenuEntityEdit:
     type: object
     properties:
       menuId:
-        description: 菜单ID
+        description: 菜單ID
         type: integer
         format: int64
       name:
-        description: 菜单名称
+        description: 菜單名稱
         type: string
       parentId:
-        description: 父菜单ID，一级菜单为0
+        description: 父菜單ID，一級菜單為0
         type: integer
         format: int64
       url:
-        description: 菜单URL
+        description: 菜單URL
         type: string
       perms:
-        description: 授权标识
+        description: 授權標識
         type: string
       type:
-        description: 类型     0：目录   1：菜单   2：按钮
+        description: 類型     0：目錄   1：菜單   2：按鈕
         type: integer
         format: int32
       icon:
-        description: 菜单图标
+        description: 菜單圖標
         type: string
       orderNum:
         description: 排序
@@ -1313,56 +1313,56 @@ definitions:
     type: object
     properties:
       id:
-        description: 日志ID
+        description: 日誌ID
         type: integer
         format: int64
       username:
-        description: 用户名
+        description: 用戶名
         type: string
       operation:
-        description: 用户操作
+        description: 用戶操作
         type: string
       method:
-        description: 请求方法
+        description: 請求方法
         type: string
       params:
-        description: 请求参数
+        description: 請求參數
         type: string
       time:
-        description: 执行时长(毫秒)
+        description: 執行時長(毫秒)
         type: integer
         format: int64
       ip:
         description: IP地址
         type: string
       createTime:
-        description: 创建时间
+        description: 創建時間
         type: string
         format: date-time
   SysLogEntityList:
     type: object
     properties:
       code:
-        description: 状态码 0：成功  非0：失败
+        description: 狀態碼 0：成功  非0：失敗
         type: integer
         format: int32
       page:
         type: object
         properties:
           totalCount:
-            description: 总记录数
+            description: 總記錄數
             type: integer
             format: int32
           pageSize:
-            description: 每页记录数
+            description: 每頁記錄數
             type: integer
             format: int32
           totalPage:
-            description: 总页数
+            description: 總頁數
             type: integer
             format: int32
           currPage:
-            description: 当前页数
+            description: 當前頁數
             type: integer
             format: int32
           list:
@@ -1374,42 +1374,42 @@ definitions:
     type: object
     properties:
       id:
-        description: 参数ID
+        description: 參數ID
         type: integer
         format: int64
       key:
-        description: 参数名
+        description: 參數名
         type: string
       value:
-        description: 参数值
+        description: 參數值
         type: string
       remark:
-        description: 备注
+        description: 備註
         type: string
   SysConfigEntityList:
     type: object
     properties:
       code:
-        description: 状态码 0：成功  非0：失败
+        description: 狀態碼 0：成功  非0：失敗
         type: integer
         format: int32
       page:
         type: object
         properties:
           totalCount:
-            description: 总记录数
+            description: 總記錄數
             type: integer
             format: int32
           pageSize:
-            description: 每页记录数
+            description: 每頁記錄數
             type: integer
             format: int32
           totalPage:
-            description: 总页数
+            description: 總頁數
             type: integer
             format: int32
           currPage:
-            description: 当前页数
+            description: 當前頁數
             type: integer
             format: int32
           list:
@@ -1428,33 +1428,33 @@ definitions:
         description: URL地址
         type: string
       createTime:
-        description: 创建时间
+        description: 創建時間
         type: string
         format: date-time
   SysOssEntityList:
     type: object
     properties:
       code:
-        description: 状态码 0：成功  非0：失败
+        description: 狀態碼 0：成功  非0：失敗
         type: integer
         format: int32
       page:
         type: object
         properties:
           totalCount:
-            description: 总记录数
+            description: 總記錄數
             type: integer
             format: int32
           pageSize:
-            description: 每页记录数
+            description: 每頁記錄數
             type: integer
             format: int32
           totalPage:
-            description: 总页数
+            description: 總頁數
             type: integer
             format: int32
           currPage:
-            description: 当前页数
+            description: 當前頁數
             type: integer
             format: int32
           list:
@@ -1465,14 +1465,14 @@ definitions:
     type: object
     properties:
       type:
-        description: 类型 1：七牛  2：阿里云  3：腾讯云
+        description: 類型 1：七牛  2：阿里雲  3：騰訊雲
         type: integer
         format: int32
       qiniuDomain:
-        description: 七牛绑定的域名
+        description: 七牛綁定的域名
         type: string
       qiniuPrefix:
-        description: 七牛路径前缀
+        description: 七牛路徑前綴
         type: string
       qiniuAccessKey:
         description: 七牛ACCESS_KEY
@@ -1481,115 +1481,115 @@ definitions:
         description: 七牛SECRET_KEY
         type: string
       qiniuBucketName:
-        description: 七牛存储空间名
+        description: 七牛存儲空間名
         type: string
       aliyunDomain:
-        description: 阿里云绑定的域名
+        description: 阿里雲綁定的域名
         type: string
       aliyunPrefix:
-        description: 阿里云路径前缀
+        description: 阿里雲路徑前綴
         type: string
       aliyunEndPoint:
-        description: 阿里云EndPoint
+        description: 阿里雲EndPoint
         type: string
       aliyunAccessKeyId:
-        description: 阿里云AccessKeyId
+        description: 阿里雲AccessKeyId
         type: string
       aliyunAccessKeySecret:
-        description: 阿里云AccessKeySecret
+        description: 阿里雲AccessKeySecret
         type: string
       aliyunBucketName:
-        description: 阿里云BucketName
+        description: 阿里雲BucketName
         type: string
       qcloudDomain:
-        description: 腾讯云绑定的域名
+        description: 騰訊雲綁定的域名
         type: string
       qcloudPrefix:
-        description: 腾讯云路径前缀
+        description: 騰訊雲路徑前綴
         type: string
       qcloudAppId:
-        description: 腾讯云AppId
+        description: 騰訊雲AppId
         type: string
       qcloudSecretId:
-        description: 腾讯云SecretId
+        description: 騰訊雲SecretId
         type: string
       qcloudSecretKey:
-        description: 腾讯云SecretKey
+        description: 騰訊雲SecretKey
         type: string
       qcloudBucketName:
-        description: 腾讯云BucketName
+        description: 騰訊雲BucketName
         type: string
       qcloudRegion:
-        description: 腾讯云COS所属地区
+        description: 騰訊雲COS所屬地區
         type: string
   FileUpload:
-      type: object
-      properties:
-        code:
-          description: 状态码 0：成功  非0：失败
-          type: integer
-          format: int32
-        url:
-          description: 文件URL地址
-          type: string
-        msg:
-          description: 失败原因
-          type: string
+    type: object
+    properties:
+      code:
+        description: 狀態碼 0：成功  非0：失敗
+        type: integer
+        format: int32
+      url:
+        description: 文件URL地址
+        type: string
+      msg:
+        description: 失敗原因
+        type: string
 
   ScheduleJobEntity:
     type: object
     properties:
       jobId:
-        description: 任务ID
+        description: 任務ID
         type: integer
         format: int64
       beanName:
-        description: spring bean名称
+        description: spring bean名稱
         type: string
       methodName:
         description: 方法名
         type: string
       params:
-        description: 参数
+        description: 參數
         type: string
       cronExpression:
-        description: cron表达式
+        description: cron表達式
         type: string
       status:
-        description: 任务状态  0：正常  1：暂停
+        description: 任務狀態  0：正常  1：暫停
         type: integer
         format: int32
       remark:
-        description: 备注
+        description: 備註
         type: string
       createTime:
-        description: 创建时间
+        description: 創建時間
         type: string
         format: date-time
   ScheduleJobEntityList:
     type: object
     properties:
       code:
-        description: 状态码 0：成功  非0：失败
+        description: 狀態碼 0：成功  非0：失敗
         type: integer
         format: int32
       page:
         type: object
         properties:
           totalCount:
-            description: 总记录数
+            description: 總記錄數
             type: integer
             format: int32
           pageSize:
-            description: 每页记录数
+            description: 每頁記錄數
             type: integer
             format: int32
           totalPage:
-            description: 总页数
+            description: 總頁數
             type: integer
             format: int32
           currPage:
-            description: 当前页数
+            description: 當前頁數
             type: integer
             format: int32
           list:
@@ -1601,61 +1601,61 @@ definitions:
     type: object
     properties:
       logId:
-        description: 日志id
+        description: 日誌id
         type: integer
         format: int64
       jobId:
-        description: 任务id
+        description: 任務id
         type: integer
         format: int64
       beanName:
-        description: spring bean名称
+        description: spring bean名稱
         type: string
       methodName:
         description: 方法名
         type: string
       params:
-        description: 参数
+        description: 參數
         type: string
       status:
-        description: 任务状态    0：成功    1：失败
+        description: 任務狀態    0：成功    1：失敗
         type: integer
         format: int32
       error:
-        description: 失败信息
+        description: 失敗信息
         type: string
       times:
-        description: 耗时(单位：毫秒)
+        description: 耗時(單位：毫秒)
         type: integer
         format: int32
       createTime:
-        description: 创建时间
+        description: 創建時間
         type: string
         format: date-time
   ScheduleJobLogEntityList:
     type: object
     properties:
       code:
-        description: 状态码 0：成功  非0：失败
+        description: 狀態碼 0：成功  非0：失敗
         type: integer
         format: int32
       page:
         type: object
         properties:
           totalCount:
-            description: 总记录数
+            description: 總記錄數
             type: integer
             format: int32
           pageSize:
-            description: 每页记录数
+            description: 每頁記錄數
             type: integer
             format: int32
           totalPage:
-            description: 总页数
+            description: 總頁數
             type: integer
             format: int32
           currPage:
-            description: 当前页数
+            description: 當前頁數
             type: integer
             format: int32
           list:

@@ -64,7 +64,7 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
             throw new RRException(jwtUtils.getHeader() + "失效，请重新登录", HttpStatus.UNAUTHORIZED.value());
         }
 
-        //设置userId到request里，后续根据userId，获取用户信息
+        //设置userId到request里，後续根据userId，获取用户信息
         request.setAttribute(USER_KEY, Long.parseLong(claims.getSubject()));
 
         return true;

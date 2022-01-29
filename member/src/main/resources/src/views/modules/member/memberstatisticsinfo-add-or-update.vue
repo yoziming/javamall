@@ -25,8 +25,8 @@
     <el-form-item label="退貨數量" prop="returnOrderCount">
       <el-input v-model="dataForm.returnOrderCount" placeholder="退貨數量"></el-input>
     </el-form-item>
-    <el-form-item label="登錄次數" prop="loginCount">
-      <el-input v-model="dataForm.loginCount" placeholder="登錄次數"></el-input>
+    <el-form-item label="登入次數" prop="loginCount">
+      <el-input v-model="dataForm.loginCount" placeholder="登入次數"></el-input>
     </el-form-item>
     <el-form-item label="關注數量" prop="attendCount">
       <el-input v-model="dataForm.attendCount" placeholder="關注數量"></el-input>
@@ -99,7 +99,7 @@
             { required: true, message: '退貨數量不能为空', trigger: 'blur' }
           ],
           loginCount: [
-            { required: true, message: '登錄次數不能为空', trigger: 'blur' }
+            { required: true, message: '登入次數不能为空', trigger: 'blur' }
           ],
           attendCount: [
             { required: true, message: '關注數量不能为空', trigger: 'blur' }

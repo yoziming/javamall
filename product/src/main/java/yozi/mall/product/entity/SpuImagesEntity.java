@@ -41,7 +41,7 @@ public class SpuImagesEntity implements Serializable {
 	 */
 	private Integer imgSort;
 	/**
-	 * 是否默認圖
+	 * 是否預設圖
 	 */
 	private Integer defaultImg;
 

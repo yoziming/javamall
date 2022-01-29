@@ -7,7 +7,7 @@ import yozi.mall.member.entity.MemberLoginLogEntity;
 import java.util.Map;
 
 /**
- * 會員登錄記錄
+ * 會員登入記錄
  *
  * @author yozi
  * @email yoziming@gmail.com

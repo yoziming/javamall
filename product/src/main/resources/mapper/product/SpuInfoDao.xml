@@ -3,7 +3,7 @@
 
 <mapper namespace="yozi.mall.product.dao.SpuInfoDao">
 
-	<!-- 可根据自己的需求，是否要使用 -->
+    <!-- 可根据自己的需求，是否要使用 -->
     <resultMap type="yozi.mall.product.entity.SpuInfoEntity" id="spuInfoMap">
         <result property="id" column="id"/>
         <result property="spuName" column="spu_name"/>
@@ -15,6 +15,11 @@
         <result property="createTime" column="create_time"/>
         <result property="updateTime" column="update_time"/>
     </resultMap>
+    <update id="updateSpuStatus">
+        UPDATE pms_spu_info
+        SET publish_status=#{code}
+        WHERE id = #{spuId}
+    </update>
 
 
 </mapper>

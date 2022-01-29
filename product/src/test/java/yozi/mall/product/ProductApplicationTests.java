@@ -3,19 +3,24 @@ package yozi.mall.product;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import yozi.mall.product.entity.BrandEntity;
-import yozi.mall.product.service.impl.BrandServiceImpl;
+import org.springframework.data.redis.core.StringRedisTemplate;
+import yozi.mall.product.dao.AttrGroupDao;
+import yozi.mall.product.vo.SpuItemAttrGroupVo;
 
-import javax.annotation.Resource;
+import java.util.List;
 
 @SpringBootTest
 class ProductApplicationTests {
+
     @Autowired
-    BrandServiceImpl brandService;
+    StringRedisTemplate stringRedisTemplate;
+
+    @Autowired
+    AttrGroupDao attrGroupDao;
+
     @Test
-    void contextLoads() {
-        BrandEntity brandEntity = new BrandEntity();
-        brandEntity.setName("哈哈哈");
-        System.out.println(brandService.save(brandEntity));
+    void test1() {
+        List<SpuItemAttrGroupVo> attrGroupWithAttrsBySpuId = attrGroupDao.getAttrGroupWithAttrsBySpuId(23L, 225L);
+        System.out.println(attrGroupWithAttrsBySpuId);
     }
 }

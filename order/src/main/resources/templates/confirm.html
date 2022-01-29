@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <script src="/static/order/confirm/js/jquery-3.1.1.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/order/confirm/css/JD2.css"/>
+    <title>訂單結算頁</title>
+</head>
+<body>
+<!--頂部-->
+<header>
+    <div class="header">
+        <ul class="header-left">
+            <li>
+                <img src="/static/order/confirm/img/header_1.png"/>
+                <a href="http://mall.com">首頁</a>
+            </li>
+            <li class="header-l-2">
+                <i class="fa fa-map-marker" style="color: #5C5452;"></i>
+                <a>台灣</a>
+                <div class="header-l-d">
+                    <ul>
+                        <li><a style="background: red; color: white;">台灣</a></li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+        <ul class="header-right">
+            <li>[[${session.loginUser.nickname}]]<img src="/static/order/confirm/img/03.png"
+                                                      style="margin-bottom: 0px;margin-left3: 3px;"/><img
+                    src="/static/order/confirm/img/06.png"/></li>
+            <li>|</li>
+            <li class="spacer"></li>
+            <li><a href="http://member.mall.com/memberOrder.html">我的訂單</a></li>
+            <!--            <li class="spacer"></li>-->
+            <!--            <li>-->
+            <!--                <a href="/static/order/confirm/">我的學院</a>-->
+            <!--                <i class="fa fa-angle-down"></i>-->
+            <!--                <div class="header-r-1 aa header-r-11">-->
+            <!--                    <div>-->
+            <!--                        <ol>-->
+            <!--                            <dd><a href="/static/order/confirm/">待處理訂單</a></dd>-->
+            <!--                            <dd><a href="/static/order/confirm/">返修退換貨</a></dd>-->
+            <!--                            <dd><a href="/static/order/confirm/">降價商品</a></dd>-->
+            <!--                        </ol>-->
+            <!--                        <ol>-->
+            <!--                            <dd><a href="/static/order/confirm/">消息</a></dd>-->
+            <!--                            <dd><a href="/static/order/confirm/">我的問答</a></dd>-->
+            <!--                            <dd><a href="/static/order/confirm/">我的關注</a></dd>-->
+            <!--                        </ol>-->
+            <!--                    </div>-->
+            <!--                    <div>-->
+            <!--                        <ol>-->
+            <!--                            <dd><a href="/static/order/confirm/">我的京豆</a></dd>-->
+            <!--                            <dd><a href="/static/order/confirm/">我的白條</a></dd>-->
+            <!--                        </ol>-->
+            <!--                        <ol>-->
+            <!--                            <dd><a href="/static/order/confirm/">我的優惠劵</a></dd>-->
+            <!--                            <dd><a href="/static/order/confirm/">我的理財</a></dd>-->
+            <!--                        </ol>-->
+            <!--                    </div>-->
+            <!--                    <div>-->
+            <!--                        <h4><a href="/static/order/confirm/">我的足跡</a><a href="/static/order/confirm/">更多 ></a></h4>-->
+            <!--                        <a href="/static/order/confirm/"><img src="/static/order/confirm/image/59ae02fcN529cc4a1.jpg"/></a>-->
+            <!--                        <a href="/static/order/confirm/"><img src="/static/order/confirm/image/59ce706fN6f3f2a4a.jpg"/></a>-->
+            <!--                        <a href="/static/order/confirm/"><img src="/static/order/confirm/image/57b191f2N15993cbb.jpg"/></a>-->
+            <!--                        <a href="/static/order/confirm/"><img src="/static/order/confirm/image/58ff269fN7b7e087b.jpg"/></a>-->
+            <!--                    </div>-->
+            <!--                </div>-->
+            <!--            </li>-->
+            <!--            <li class="spacer"></li>-->
+            <!--            <li><a href="/static/order/confirm/">學院會員</a></li>-->
+            <!--            <li class="spacer"></li>-->
+            <!--            <li><a href="/static/order/confirm/">企業採購</a></li>-->
+            <!--            <li class="spacer"></li>-->
+            <!--            <li>-->
+            <!--                <a href="/static/order/confirm/">客戶服務</a>-->
+            <!--                <i class="fa fa-angle-down"></i>-->
+            <!--                <div class="header-r-1 aa header-r-2">-->
+            <!--                    <div>-->
+            <!--                        <h4>客戶</h4>-->
+            <!--                        <ol>-->
+            <!--                            <dd><a href="/static/order/confirm/">幫助中心</a></dd>-->
+            <!--                            <dd><a href="/static/order/confirm/">在線客服</a></dd>-->
+            <!--                            <dd><a href="/static/order/confirm/">電話客服</a></dd>-->
+            <!--                            <dd><a href="/static/order/confirm/">金融諮詢</a></dd>-->
+            <!--                        </ol>-->
+            <!--                        <ol>-->
+            <!--                            <dd><a href="/static/order/confirm/">售後服務</a></dd>-->
+            <!--                            <dd><a href="/static/order/confirm/">意見建議</a></dd>-->
+            <!--                            <dd><a href="/static/order/confirm/">客服郵箱</a></dd>-->
+            <!--                            <dd><a href="/static/order/confirm/">售全球客服</a></dd>-->
+            <!--                        </ol>-->
+            <!--                    </div>-->
+            <!--                    <div>-->
+            <!--                        <h4>商戶</h4>-->
+            <!--                        <ol>-->
+            <!--                            <dd><a href="/static/order/confirm/">合作招商</a></dd>-->
+            <!--                            <dd><a href="/static/order/confirm/">商家後台</a></dd>-->
+            <!--                            <dd><a href="/static/order/confirm/">商家幫助</a></dd>-->
+            <!--                        </ol>-->
+            <!--                        <ol>-->
+            <!--                            <dd><a href="/static/order/confirm/">學習中心</a></dd>-->
+            <!--                            <dd><a href="/static/order/confirm/">京麥工作台</a></dd>-->
+            <!--                            <dd><a href="/static/order/confirm/">規則平台</a></dd>-->
+            <!--                        </ol>-->
+            <!--                    </div>-->
+            <!--                </div>-->
+            <!--            </li>-->
+            <!--            <li class="spacer"></li>-->
+            <!--            <li>-->
+            <!--                <a href="/static/order/confirm/">網址導航</a>-->
+            <!--                <i class="fa fa-angle-down"></i>-->
+            <!--                <div class="header-r-1 aa header-r-3">-->
+            <!--                    <div>-->
+            <!--                        <h4>特色主題</h4>-->
+            <!--                        <ol>-->
+            <!--                            <dd><a href="/static/order/confirm/">學院試用</a></dd>-->
+            <!--                            <dd><a href="/static/order/confirm/">國際站</a></dd>-->
+            <!--                            <dd><a href="/static/order/confirm/">買什麼</a></dd>-->
+            <!--                            <dd><a href="/static/order/confirm/">0元評測</a></dd>-->
+            <!--                            <dd><a href="/static/order/confirm/">優惠劵</a></dd>-->
+            <!--                            <dd><a href="/static/order/confirm/">印尼站</a></dd>-->
+            <!--                            <dd><a href="/static/order/confirm/">陪伴計劃</a></dd>-->
+            <!--                        </ol>-->
+            <!--                        <ol>-->
+            <!--                            <dd><a href="/static/order/confirm/">學院金融</a></dd>-->
+            <!--                            <dd><a href="/static/order/confirm/">學院會員</a></dd>-->
+            <!--                            <dd><a href="/static/order/confirm/">俄語站</a></dd>-->
+            <!--                            <dd><a href="/static/order/confirm/">定期送</a></dd>-->
+            <!--                            <dd><a href="/static/order/confirm/">秒殺</a></dd>-->
+            <!--                            <dd><a href="/static/order/confirm/">學院金融科技</a></dd>-->
+            <!--                            <dd><a href="/static/order/confirm/">出海招商</a></dd>-->
+            <!--                        </ol>-->
+            <!--                        <ol>-->
+            <!--                            <dd><a href="/static/order/confirm/">全球售</a></dd>-->
+            <!--                            <dd><a href="/static/order/confirm/">學院預售</a></dd>-->
+            <!--                            <dd><a href="/static/order/confirm/">裝機大師</a></dd>-->
+            <!--                            <dd><a href="/static/order/confirm/">港澳售</a></dd>-->
+            <!--                            <dd><a href="/static/order/confirm/">閃購</a></dd>-->
+            <!--                            <dd><a href="/static/order/confirm/">In貨推薦</a></dd>-->
+            <!--                        </ol>-->
+            <!--                    </div>-->
+            <!--                    <div>-->
+            <!--                        <h4>行業推薦</h4>-->
+            <!--                        <ol>-->
+            <!--                            <dd><a href="/static/order/confirm/">手機</a></dd>-->
+            <!--                            <dd><a href="/static/order/confirm/">玩3C</a></dd>-->
+            <!--                            <dd><a href="/static/order/confirm/">家用電器</a></dd>-->
+            <!--                            <dd><a href="/static/order/confirm/">服裝城</a></dd>-->
+            <!--                            <dd><a href="/static/order/confirm/">家裝城</a></dd>-->
+            <!--                            <dd><a href="/static/order/confirm/">食品</a></dd>-->
+            <!--                            <dd><a href="/static/order/confirm/">農資頻道</a></dd>-->
+            <!--                            <dd><a href="/static/order/confirm/">圖書</a></dd>-->
+            <!--                        </ol>-->
+            <!--                        <ol>-->
+            <!--                            <dd><a href="/static/order/confirm/">智能數碼</a></dd>-->
+            <!--                            <dd><a href="/static/order/confirm/">電腦辦公</a></dd>-->
+            <!--                            <dd><a href="/static/order/confirm/">學院智能</a></dd>-->
+            <!--                            <dd><a href="/static/order/confirm/">美妝館</a></dd>-->
+            <!--                            <dd><a href="/static/order/confirm/">母嬰</a></dd>-->
+            <!--                            <dd><a href="/static/order/confirm/">運動戶外</a></dd>-->
+            <!--                            <dd><a href="/static/order/confirm/">整車</a></dd>-->
+            <!--                        </ol>-->
+            <!--                    </div>-->
+            <!--                    <div>-->
+            <!--                        <h4>生活服務</h4>-->
+            <!--                        <ol>-->
+            <!--                            <dd><a href="/static/order/confirm/">學院眾籌</a></dd>-->
+            <!--                            <dd><a href="/static/order/confirm/">學院金融App</a></dd>-->
+            <!--                            <dd><a href="/static/order/confirm/">理財</a></dd>-->
+            <!--                            <dd><a href="/static/order/confirm/">話費</a></dd>-->
+            <!--                            <dd><a href="/static/order/confirm/">彩票</a></dd>-->
+            <!--                            <dd><a href="/static/order/confirm/">機票酒店</a></dd>-->
+            <!--                            <dd><a href="/static/order/confirm/">酒店到家</a></dd>-->
+            <!--                            <dd><a href="/static/order/confirm/">遊戲</a></dd>-->
+            <!--                        </ol>-->
+            <!--                        <ol>-->
+            <!--                            <dd><a href="/static/order/confirm/">白條</a></dd>-->
+            <!--                            <dd><a href="/static/order/confirm/">學院小金庫</a></dd>-->
+            <!--                            <dd><a href="/static/order/confirm/">智能家電</a></dd>-->
+            <!--                            <dd><a href="/static/order/confirm/">水電煤</a></dd>-->
+            <!--                            <dd><a href="/static/order/confirm/">旅行</a></dd>-->
+            <!--                            <dd><a href="/static/order/confirm/">電影票</a></dd>-->
+            <!--                            <dd><a href="/static/order/confirm/">學院眾測</a></dd>-->
+            <!--                        </ol>-->
+            <!--                    </div>-->
+            <!--                    <div>-->
+            <!--                        <h4>更多精選</h4>-->
+            <!--                        <ol>-->
+            <!--                            <dd><a href="/static/order/confirm/">合作招商</a></dd>-->
+            <!--                            <dd><a href="/static/order/confirm/">學院E卡</a></dd>-->
+            <!--                            <dd><a href="/static/order/confirm/">服務市場</a></dd>-->
+            <!--                            <dd><a href="/static/order/confirm/">鄉村招募</a></dd>-->
+            <!--                            <dd><a href="/static/order/confirm/">京友邦</a></dd>-->
+            <!--                            <dd><a href="/static/order/confirm/">智能社區</a></dd>-->
+            <!--                            <dd><a href="/static/order/confirm/">知識產權維權</a></dd>-->
+            <!--                        </ol>-->
+            <!--                        <ol>-->
+            <!--                            <dd><a href="/static/order/confirm/">學院通信</a></dd>-->
+            <!--                            <dd><a href="/static/order/confirm/">企業採購</a></dd>-->
+            <!--                            <dd><a href="/static/order/confirm/">辦公生活館</a></dd>-->
+            <!--                            <dd><a href="/static/order/confirm/">校園加盟</a></dd>-->
+            <!--                            <dd><a href="/static/order/confirm/">學院社區</a></dd>-->
+            <!--                            <dd><a href="/static/order/confirm/">遊戲社區</a></dd>-->
+            <!--                        </ol>-->
+            <!--                    </div>-->
+            <!--                </div>-->
+            <!--            </li>-->
+            <!--            <li class="spacer"></li>-->
+            <!--            <li class="header-r-4"><a href="/static/order/confirm/">手機學院</a>-->
+            <!--                <div class="aa h-r-1">-->
+            <!--                    <div>-->
+            <!--                        <div class="h-r-1img">-->
+            <!--                            <img src="/static/order/confirm/img/59a51bf6Nb8e478cc.png"/>-->
+            <!--                        </div>-->
+            <!--                        <h4><a href="/static/order/confirm/">手機學院</a></h4>-->
+            <!--                        <p>新人專享大禮</p>-->
+            <!--                        <div class="h-r-1img2">-->
+            <!--                            <a href="/static/order/confirm/"><img-->
+            <!--                                    src="/static/order/confirm/img/8104b36ae6b72043ae838599d36d007d.png" alt=""/></a>-->
+            <!--                            <a href="/static/order/confirm/"><img-->
+            <!--                                    src="/static/order/confirm/img/c0935b2c6504a5419e6ee507a5381bbe.png"/></a>-->
+            <!--                            <a href="/static/order/confirm/"><img-->
+            <!--                                    src="/static/order/confirm/img/a64b429ebf83d2459a0a73830f4ad4c4.png"/></a>-->
+            <!--                        </div>-->
+            <!--                    </div>-->
+            <!--                    <div>-->
+            <!--                        <div class="h-r-1img">-->
+            <!--                            <img src="/static/order/confirm/img/5874a54dNcec29924.jpg"/>-->
+            <!--                        </div>-->
+            <!--                        <h4><a href="/static/order/confirm/">關注學院微信</a></h4>-->
+            <!--                        <p>微信掃一掃關注新粉最高180元驚喜禮包</p>-->
+            <!--                        &lt;!&ndash;<div class="h-r-1img2">-->
+            <!--                            <a href="/static/order/confirm/"><img src="/static/order/confirm/image/8104b36ae6b72043ae838599d36d007d.png" alt="" /></a>-->
+            <!--                            <a href="/static/order/confirm/"><img src="/static/order/confirm/image/c0935b2c6504a5419e6ee507a5381bbe.png"/></a>-->
+            <!--                            <a href="/static/order/confirm/"><img src="/static/order/confirm/image/a64b429ebf83d2459a0a73830f4ad4c4.png"/></a>-->
+            <!--                        </div>&ndash;&gt;-->
+            <!--                    </div>-->
+            <!--                    <div>-->
+            <!--                        <div class="h-r-1img">-->
+            <!--                            <img src="/static/order/confirm/img/5874a555Ne8192324.jpg"/>-->
+            <!--                        </div>-->
+            <!--                        <h4><a href="/static/order/confirm/">學院金融客戶端</a></h4>-->
+            <!--                        <p>新人專享大禮</p>-->
+            <!--                        <div class="h-r-1img2">-->
+            <!--                            <a href="/static/order/confirm/"><img-->
+            <!--                                    src="/static/order/confirm/img/8104b36ae6b72043ae838599d36d007d.png" alt=""/></a>-->
+            <!--                            <a href="/static/order/confirm/"><img-->
+            <!--                                    src="/static/order/confirm/img/c0935b2c6504a5419e6ee507a5381bbe.png"/></a>-->
+            <!--                            <a href="/static/order/confirm/"><img-->
+            <!--                                    src="/static/order/confirm/img/a64b429ebf83d2459a0a73830f4ad4c4.png"/></a>-->
+            <!--                        </div>-->
+            <!--                    </div>-->
+            <!--                </div>-->
+            <!--            </li>-->
+        </ul>
+        <div style="clear: both;"></div>
+    </div>
+</header>
+<!--<nav>-->
+<!--<ul>-->
+<!--<li><img src="/static/order/confirm/img/01.png" />學院首頁</li>-->
+<!--<li class="in"><img src="/static/order/confirm/img/02.png" />北京-->
+<!--</li>-->
+<!--<li>尚硅谷<img src="/static/order/confirm/img/03.png" style="margin-bottom: -7px;margin-left: 3px;" /><img src="/static/order/confirm/img/06.png" /></li>-->
+<!--<li>|</li>-->
+<!--<li>我的訂單</li>-->
+<!--<li>|</li>-->
+<!--<li>我的學院<img src="/static/order/confirm/img/06.png" style="margin-bottom: -4px;margin-left: 3px;" /></li>-->
+<!--<li>|</li>-->
+<!--<li>學院會員</li>-->
+<!--<li>|</li>-->
+<!--<li>企業採購</li>-->
+<!--<li>|</li>-->
+<!--<li>客戶服務<img src="/static/order/confirm/img/06.png" style="margin-bottom: -4px;margin-left: 3px;" />-->
+<!--<ol class="ol">-->
+<!--<li>-->
+<!--<h4>客戶</h4>-->
+<!--</li>-->
+<!--<li>-->
+<!--<p class="z">幫助中心</p>-->
+<!--<p class="y">售後服務</p>-->
+<!--</li>-->
+<!--<li>-->
+<!--<p class="z">在線客服</p>-->
+<!--<p class="y">意見建議</p>-->
+<!--</li>-->
+<!--<li>-->
+<!--<p class="z">電話客服</p>-->
+<!--<p class="y">客服郵箱</p>-->
+<!--</li>-->
+<!--<li class="li">-->
+<!--<p class="z">金融資訊</p>-->
+<!--<p class="y">售全球客服</p>-->
+<!--</li>-->
+<!--<li class="li1">-->
+<!--<h4>商戶</h4>-->
+<!--</li>-->
+<!--<li>-->
+<!--<p class="z">合作招商</p>-->
+<!--<p class="y">學習中心</p>-->
+<!--</li>-->
+<!--<li>-->
+<!--<p class="z">商家後台</p>-->
+<!--<p class="y">京麥工作台</p>-->
+<!--</li>-->
+<!--<li>-->
+<!--<p class="z">商家幫助</p>-->
+<!--<p class="y">規則平台</p>-->
+<!--</li>-->
+<!--</ol>-->
+<!--<ol class="ol">-->
+<!--<li>-->
+<!--<h4>客戶</h4>-->
+<!--</li>-->
+<!--<li>-->
+<!--<p class="z">幫助中心</p>-->
+<!--<p class="y">售後服務</p>-->
+<!--</li>-->
+<!--<li>-->
+<!--<p class="z">在線客服</p>-->
+<!--<p class="y">意見建議</p>-->
+<!--</li>-->
+<!--<li>-->
+<!--<p class="z">電話客服</p>-->
+<!--<p class="y">客服郵箱</p>-->
+<!--</li>-->
+<!--<li class="li">-->
+<!--<p class="z">金融資訊</p>-->
+<!--<p class="y">售全球客服</p>-->
+<!--</li>-->
+<!--<li class="li1">-->
+<!--<h4>商戶</h4>-->
+<!--</li>-->
+<!--<li>-->
+<!--<p class="z">合作招商</p>-->
+<!--<p class="y">學習中心</p>-->
+<!--</li>-->
+<!--<li>-->
+<!--<p class="z">商家後台</p>-->
+<!--<p class="y">京麥工作台</p>-->
+<!--</li>-->
+<!--<li>-->
+<!--<p class="z">商家幫助</p>-->
+<!--<p class="y">規則平台</p>-->
+<!--</li>-->
+<!--</ol>-->
+<!--</li>-->
+<!--<li>|</li>-->
+<!--<li>網站導航<img src="/static/order/confirm/img/06.png" style="margin-bottom: -4px;margin-left: 3px;" /></li>-->
+<!--<li>|</li>-->
+<!--<li>手機學院</li>-->
+<!--</ul>-->
+<!--</nav>-->
+<!--logo圖片-->
+<div class="top-1">
+    <img src="/static/order/confirm/img/logo1.jpg" class="img1"/><span>結算頁</span>
+    <!--右側綠色-->
+    <img src="/static/order/confirm/img/08.png" class="img2"/>
+</div>
+<!--主體部分-->
+<!--<p class="p1">填寫並核對訂單信息</p>-->
+<!--<div class="section">-->
+<!--&lt;!&ndash;收貨人信息&ndash;&gt;-->
+<!--<div class="top-2">-->
+<!--<span>收貨人信息</span>-->
+<!--<span>新增收貨地址</span>-->
+<!--</div>-->
+<!--&lt;!&ndash;地址&ndash;&gt;-->
+<!--<div class="top-3">-->
+<!--<p>家裡</p><span>齊天大聖  北京市  昌平區城區晨曦小區-16號樓 吉利大學  150****2245</span>-->
+<!--</div>-->
+<!--<p class="p2">更多地址︾</p>-->
+<!--<hr class="hh1" />-->
+<!--&lt;!&ndash;********************************************************************************************&ndash;&gt;-->
+<!--&lt;!&ndash;學院自提&ndash;&gt;-->
+<!--<div class="top-4">-->
+<!--<p>學院自提</p>-->
+<!--<p>省運費·無續重·隨時取</p>-->
+<!--<p>詳情</p>-->
+<!--</div>-->
+<!--&lt;!&ndash;地址&ndash;&gt;-->
+<!--<div class="top-5">-->
+<!--<p>北京昌平區</p><span>北京市  昌平區城區晨曦小區-16號樓 吉利大學  齊天大聖  150****2245</span><img src="/static/order/confirm/img/09.png" /><span>距收貨人0米</span>-->
+<!--<p class="p3">距離最近</p><span>修改自提點</span>-->
+<!--</div>-->
+<!--<hr class="hh1" />-->
+<!--&lt;!&ndash;支付方式&ndash;&gt;-->
+<!--<h4 class="h4">支付方式</h4>-->
+<!--<div class="top-6">-->
+<!--<p>貨到付款</p>-->
+<!--<p><span>惠</span>在線支付</p>-->
+<!--</div>-->
+<!--&lt;!&ndash;送貨清單&ndash;&gt;-->
+<!--<h4 class="h4" style="margin-top: 5px;">送貨清單</h4>-->
+<!--<div class="top_1">-->
+<!--<div class="to_left">-->
+<!--<h5>配送方式<span><img src="/static/order/confirm/img/i_03.png"/> 對應商品</span></h5>-->
+<!--<div class="box">-->
+<!--學院快遞-->
+<!--</div>-->
+<!--<p class="biao">-->
+<!--<span class="til">標 准 達 ：</span>-->
+<!--<span class="con">預計 12月16日[今天] 15:00-19:00 送達</span>-->
+<!--<a href="/static/order/confirm/#">修改</a>-->
+<!--</p>-->
+<!--<div class="updata-1">-->
+<!--<img src="/static/order/confirm/img/im_06.png" />-->
+<!--<span>京准達 標準達</span>-->
+<!--<span style="color: black;"> 配送服務全面升級</span>-->
+<!--</div>-->
+<!--<hr />-->
+<!--<p class="tui">-->
+<!--<span class="til">退換無憂：</span>-->
+<!--<span class="con">-->
+<!--<input type="checkbox" />-->
+<!--自簽收后7天內退貨，15天內換<span> ＄ 0.50</span><br />-->
+<!--<span class="nul">貨，</span>可享1次上門取件服務 ﹀-->
+<!--</span>-->
+<!--<div class="updata-2">-->
+<!--<img src="/static/order/confirm/img/im_11.png" />-->
+<!--<span>京准達運費大促（限自營中小件）</span>-->
+<!--</div>-->
+<!--</p>-->
+<!--<p class="kg">總重量 :<span>0.095kg</span></p>-->
+<!--</div>-->
+<!--<div class="to_right">-->
+<!--<h5>商家：學院自營</h5>-->
+<!--<button>換購</button><span>已購滿20.00元，再加49.90元，可返回購物車領取贈品</span>-->
+<!--&lt;!&ndash;圖片&ndash;&gt;-->
+<!--<img src="/static/order/confirm/img/im_03.png" />-->
+<!--<div class="mi">-->
+<!--<p>小米（MI）小米手環2 智能運動 心率檢測 來 <span style="color: red;"> ＄ 149.00</span> <span> x1 </span> <span>有貨</span></p>-->
+<!--<p>電提醒 久坐提醒 LED显示器 時間显示 防水記 <span>0.095kg</span></p>-->
+<!--<p class="tui-1"><img src="/static/order/confirm/img/i_07.png" />支持7天無理由退貨</p>-->
+<!--</div>-->
+<!--<hr />-->
+<!--<p>退換無憂 <span class="money">＄ 0.00</span></p>-->
+<!--</div>-->
+<!--</div>-->
+<!--<div class="bto">-->
+<!--<hr />-->
+<!--<h4 class="float">發票信息</h4>-->
+<!--<div class="note float"><img src="/static/order/confirm/img/i_11.png" /> 開企業抬頭髮票須填寫納稅人識別號，以免影響報銷</div>-->
+<!--<ul style="clear: both;">-->
+<!--<li>电子普通發票 <img src="/static/order/confirm/img/i_14.png" /></li>-->
+<!--<li>個人</li>-->
+<!--<li>商品明細</li>-->
+<!--<li>-->
+<!--<a href="/static/order/confirm/">修改</a>-->
+<!--</li>-->
+<!--</ul>-->
+<!--<hr class="clear hr1" />-->
+<!--<h4 class="clear">使用優惠/禮品卡/抵用 ^</h4>-->
+<!--<ul>-->
+<!--<li class="red">優惠卡</li>-->
+<!--<li>禮品卡</li>-->
+<!--<li>京豆</li>-->
+<!--<li>餘額</li>-->
+<!--<li>領獎碼</li>-->
+<!--</ul>-->
+<!--<div class="tuijian clear">-->
+<!--<input type="checkbox" />-->
+<!--<span>優惠組合推薦</span>-->
+<!--</div>-->
+<!--</div>-->
+<!--<div class="xia">-->
+<!--<div class="qian">-->
+<!--<p class="qian_y">-->
+<!--<span>1</span>-->
+<!--<span>件商品，總商品金額：</span>-->
+<!--<span class="rmb">＄28.90</span>-->
+<!--</p>-->
+<!--<p class="qian_y">-->
+<!--<span>返現：</span>-->
+<!--<span class="rmb">  -＄0.00</span>-->
+<!--</p>-->
+<!--<p class="qian_y">-->
+<!--<span>運費： </span>-->
+<!--<span class="rmb"> &nbsp ＄0.00</span>-->
+<!--</p>-->
+<!--<p class="qian_y">-->
+<!--<span>服務費： </span>-->
+<!--<span class="rmb"> &nbsp ＄0.00</span>-->
+<!--</p>-->
+<!--<p class="qian_y">-->
+<!--<span>退換無憂： </span>-->
+<!--<span class="rmb"> &nbsp ＄0.00</span>-->
+<!--</p>-->
+<!--</div>-->
+<!--<div class="yfze">-->
+<!--<p class="yfze_a"><span>應付總額：</span><span class="hq">＄28.90</span></p>-->
+<!--<p class="yfze_b">寄送至： 北京 朝陽區 三環到四環之間 朝陽北路復興國際大廈23層麥田房產 IT-中心研發二部 收貨人：趙存權 188****5052</p>-->
+<!--</div>-->
+<!--<button class="tijiao">提交訂單</button>-->
+<!--</div>-->
+<!--</div>-->
+<!--主體部分-->
+<p class="p1">填寫並核對訂單信息 <span style="color: red" th:if="${msg!=null}" th:text="${msg}"></span></p>
+<div class="section">
+    <!--收貨人信息-->
+    <div class="top-2">
+        <span>收貨人信息</span>
+        <span>新增收貨地址</span>
+    </div>
+    <!--地址-->
+    <div class="top-3 addr-item" th:each="addr:${confirmOrderData.memberAddressTos}">
+        <p th:attr="def=${addr.defaultStatus},addrId=${addr.id}">[[${addr.name}]]</p><span>[[${addr.name}]]  [[${addr.province}]]  [[${addr.city}]] [[${addr.region}]] [[${addr.detailAddress}]]  [[${addr.phone}]]</span>
+    </div>
+    <!--    <p class="p2">更多地址︾</p>-->
+    <div class="hh1"/>
+</div>
+<!--********************************************************************************************-->
+<!--學院自提-->
+<!--<div class="top-4">-->
+<!--    <p>學院自提</p>-->
+<!--    <p>省運費·無續重·隨時取</p>-->
+<!--    <p class="xiang">詳情</p>-->
+<!--</div>-->
+<!--地址-->
+<!--支付方式-->
+<h4 class="h4">支付方式</h4>
+<div class="top-6">
+    <p>貨到付款</p>
+    <p><span>惠</span>線上支付</p>
+</div>
+<div class="hh1"></div>
+<!--送貨清單-->
+<h4 class="h4" style="margin-top: 5px;">送貨清單</h4>
+<div class="top_1">
+    <div class="to_left">
+        <h5><span class="peisong">配送方式</span><span class="dui"><img
+                src="/static/order/confirm/img/i_03.png"/> 對應商品</span></h5>
+        <div class="box">
+            黑貓快遞
+        </div>
+        <p class="biao">
+            <span class="til">配送：</span>
+            <span class="con">預計 2月25日 15:00-19:00 送達</span>
+            <a href="/static/order/confirm/#">修改</a>
+        </p>
+        <div class="updata-1">
+            <img src="/static/order/confirm/img/im_06.png"/>
+            <span>配送服務：</span>
+            <span style="color: black;"> 標準</span>
+        </div>
+        <div class="hh1"></div>
+        <!--        <p class="tui">-->
+        <!--            <span class="til">退換無憂：</span>-->
+        <!--            <span class="con">-->
+        <!--        							<input type="checkbox"/>-->
+        <!--        							自簽收后7天內退貨，15天內換<span style="font-size: 12px;margin-left: 5px"> ＄ 0.50</span><br/>-->
+        <!--        						<span class="nul">貨，</span>可享1次上門取件服務 ﹀-->
+        <!--        						</span>-->
+        <!--        <div class="updata-2">-->
+        <!--            <img src="/static/order/confirm/img/im_11.png"/>-->
+        <!--            <span>運費促銷（限自營中小件）</span>-->
+        <!--        </div>-->
+        <!--        </p>-->
+        <!--        <p class="kg" style="color:#666666;margin-top: 13px;font-size: 12px">總重量 :<span-->
+        <!--                style="color:#999999;font-size: 12px">0.095kg</span></p>-->
+    </div>
+    <div class="to_right">
+        <h5>商家：商城自營</h5>
+        <!--        <div>-->
+        <!--            <button>換購</button>-->
+        <!--            <span>已購滿20.00元，再加49.90元，可返回購物車領取贈品</span></div>-->
+        <!--圖片-->
+        <div class="yun1" th:each="item:${confirmOrderData.items}">
+            <img th:src="${item.image}" class="yun"/>
+            <div class="mi">
+                <p>[[${item.title}]]<span style="color: red;" th:text="'＄' + ${#numbers.formatDecimal(item.price,3,2)}"> ＄ 499.00</span>
+                    <span> [[${item.count}]] </span> <span> [[${confirmOrderData.stocks[item.skuId]?"有貨":"無貨"}]]</span>
+                </p>
+                <p><span>[[${item.weight}]]kg</span></p>
+                <p class="tui-1"><img src="/static/order/confirm/img/i_07.png"/>支持7天無理由退貨</p>
+            </div>
+        </div>
+        <div class="hh1"></div>
+        <!--    <p>退換無憂 <span class="money">＄ 0.00</span></p>-->
+    </div>
+</div>
+<div class="bto">
+    <div class="hh2"></div>
+    <h4 class="float">發票信息</h4>
+    <div class="note float"><img src="/static/order/confirm/img/i_11.png"/> <span>預設開立電子發票</span></div>
+    <ul style="clear: both;">
+        <li>普通發票 <img src="/static/order/confirm/img/i_14.png"/></li>
+        <li>個人</li>
+        <li>含商品明細</li>
+        <!--        <li>-->
+        <!--            <a href="/static/order/confirm/">修改</a>-->
+        <!--        </li>-->
+    </ul>
+    <div class="hh3"></div>
+    <h4 class="clear">使用優惠/禮品卡/抵用 ^</h4>
+    <ul>
+        <li class="red">優惠卡</li>
+        <!--        <li>禮品卡</li>-->
+        <!--        <li>京豆</li>-->
+        <!--        <li>餘額</li>-->
+        <!--        <li>領獎碼</li>-->
+    </ul>
+    <!--    <div class="tuijian clear">-->
+    <!--        <input type="checkbox"/>-->
+    <!--        <span>優惠組合推薦</span>-->
+    <!--    </div>-->
+</div>
+<div class="xia">
+    <div class="qian">
+        <p class="qian_y">
+            <span>[[${confirmOrderData.count}]]</span>
+            <span>件商品，總商品金額：</span>
+            <span class="rmb">＄[[${#numbers.formatDecimal(confirmOrderData.total, 1, 2)}]]</span>
+        </p>
+        <!--        <p class="qian_y">-->
+        <!--            <span>返現：</span>-->
+        <!--            <span class="rmb">  -＄0.00</span>-->
+        <!--        </p>-->
+        <p class="qian_y">
+            <span>運費：</span>
+            <span class="rmb"> &nbsp ＄0.00<b id="fare"></b></span>
+        </p>
+        <!--        <p class="qian_y">-->
+        <!--            <span>服務費： </span>-->
+        <!--            <span class="rmb"> &nbsp ＄0.00</span>-->
+        <!--        </p>-->
+        <!--        <p class="qian_y">-->
+        <!--            <span>退換無憂： </span>-->
+        <!--            <span class="rmb"> &nbsp ＄0.00</span>-->
+        <!--        </p>-->
+    </div>
+    <div class="yfze">
+        <p class="yfze_a"><span class="z">應付總額：</span><span class="hq">＄<b id="payPrice">[[${#numbers.formatDecimal(confirmOrderData.payPrice, 1, 2)}]]</b></span>
+        </p>
+        <p class="yfze_b">寄送至： <span id="receiveAddress"></span> 收貨人地址<span id="receiver"></span></p>
+    </div>
+    <form action="http://order.mall.com/submitOrder" method="post">
+        <input id="addrInput" type="hidden" name="addrId"/>
+        <input id="payPriceInput" type="hidden" name="payPrice">
+        <input name="orderToken" th:value="${confirmOrderData.orderToken}" type="hidden"/>
+        <button class="tijiao" type="submit">提交訂單</button>
+    </form>
+</div>
+</div>
+<!--<div class="headera">-->
+<!--    <div class="Logo-tu">-->
+<!--        <span><img src="/static/order/confirm/img/service_items_1.png"/></span>-->
+<!--        <span><img src="/static/order/confirm/img/service_items_2.png"/></span>-->
+<!--        <span><img src="/static/order/confirm/img/service_items_3.png"/></span>-->
+<!--        <span><img src="/static/order/confirm/img/service_items_4.png"/></span>-->
+<!--    </div>-->
+<!--    <div class="table">-->
+<!--        <dl>-->
+<!--            <dt><a href="/static/order/confirm/##">購物指南</a></dt>-->
+<!--            <dd>-->
+<!--                <a href="/static/order/confirm/##">購物流程</a>-->
+<!--            </dd>-->
+<!--            <dd>-->
+<!--                <a href="/static/order/confirm/##">會員介紹</a>-->
+<!--            </dd>-->
+<!--            <dd>-->
+<!--                <a href="/static/order/confirm/##">生活旅行/團購</a>-->
+<!--            </dd>-->
+<!--            <dd>-->
+<!--                <a href="/static/order/confirm/##">常見問題</a>-->
+<!--            </dd>-->
+<!--            <dd>-->
+<!--                <a href="/static/order/confirm/##">大家電</a>-->
+<!--            </dd>-->
+<!--            <dd>-->
+<!--                <a href="/static/order/confirm/##">練習客服</a>-->
+<!--            </dd>-->
+<!--        </dl>-->
+<!--        <dl>-->
+<!--            <dt><a href="/static/order/confirm/##">配送方式</a></dt>-->
+<!--            <dd>-->
+<!--                <a href="/static/order/confirm/##">上門自提</a>-->
+<!--            </dd>-->
+<!--            <dd>-->
+<!--                <a href="/static/order/confirm/##">211限時達</a>-->
+<!--            </dd>-->
+<!--            <dd>-->
+<!--                <a href="/static/order/confirm/##">配送服務查詢</a>-->
+<!--            </dd>-->
+<!--            <dd>-->
+<!--                <a href="/static/order/confirm/##"></a>-->
+<!--            </dd>-->
+<!--            <dd>-->
+<!--                <a href="/static/order/confirm/##">海外配送</a>-->
+<!--            </dd>-->
+<!--            <dd></dd>-->
+<!--        </dl>-->
+<!--        <dl>-->
+<!--            <dt><a href="/static/order/confirm/##">支付方式</a></dt>-->
+<!--            <dd>-->
+<!--                <a href="/static/order/confirm/##">貨到付款</a>-->
+<!--            </dd>-->
+<!--            <dd>-->
+<!--                <a href="/static/order/confirm/##">在線支付</a>-->
+<!--            </dd>-->
+<!--            <dd>-->
+<!--                <a href="/static/order/confirm/##">分期付款</a>-->
+<!--            </dd>-->
+<!--            <dd>-->
+<!--                <a href="/static/order/confirm/##">郵局匯款</a>-->
+<!--            </dd>-->
+<!--            <dd>-->
+<!--                <a href="/static/order/confirm/##">公司轉賬</a>-->
+<!--            </dd>-->
+<!--            <dd></dd>-->
+<!--        </dl>-->
+<!--        <dl>-->
+<!--            <dt><a href="/static/order/confirm/##">售後服務</a></dt>-->
+<!--            <dd>-->
+<!--                <a href="/static/order/confirm/##">售後政策</a>-->
+<!--            </dd>-->
+<!--            <dd>-->
+<!--                <a href="/static/order/confirm/##">價格保護</a>-->
+<!--            </dd>-->
+<!--            <dd>-->
+<!--                <a href="/static/order/confirm/##">退款說明</a>-->
+<!--            </dd>-->
+<!--            <dd>-->
+<!--                <a href="/static/order/confirm/##">返修/退換貨</a>-->
+<!--            </dd>-->
+<!--            <dd>-->
+<!--                <a href="/static/order/confirm/##">取消訂單</a>-->
+<!--            </dd>-->
+<!--            <dd></dd>-->
+<!--        </dl>-->
+<!--        <dl class="dls">-->
+<!--            <dt><a href="/static/order/confirm/##">特色服務</a></dt>-->
+<!--            <dd>-->
+<!--                <a href="/static/order/confirm/##">奪寶島</a>-->
+<!--            </dd>-->
+<!--            <dd>-->
+<!--                <a href="/static/order/confirm/##">DIY裝機</a>-->
+<!--            </dd>-->
+<!--            <dd>-->
+<!--                <a href="/static/order/confirm/##">延保服務</a>-->
+<!--            </dd>-->
+<!--            <dd>-->
+<!--                <a href="/static/order/confirm/##">學院E卡</a>-->
+<!--            </dd>-->
+<!--            <dd>-->
+<!--                <a href="/static/order/confirm/##">學院通信</a>-->
+<!--            </dd>-->
+<!--            <dd>-->
+<!--                <a href="/static/order/confirm/##">學院mall+</a>-->
+<!--            </dd>-->
+<!--        </dl>-->
+<!--    </div>-->
+<!--    <div class="guanyuwomen">-->
+<!--        <ul>-->
+<!--            <li>-->
+<!--                <a href="/static/order/confirm/##">關於我們</a>-->
+<!--            </li>-->
+<!--            <li>|</li>-->
+<!--            <li>-->
+<!--                <a href="/static/order/confirm/##">聯繫我們</a>-->
+<!--            </li>-->
+<!--            <li>|</li>-->
+<!--            <li>-->
+<!--                <a href="/static/order/confirm/##">聯繫客服</a>-->
+<!--            </li>-->
+<!--            <li>|</li>-->
+<!--            <li>-->
+<!--                <a href="/static/order/confirm/##">合作招商</a>-->
+<!--            </li>-->
+<!--            <li>|</li>-->
+<!--            <li>-->
+<!--                <a href="/static/order/confirm/##">商家幫助</a>-->
+<!--            </li>-->
+<!--            <li>|</li>-->
+<!--            <li>-->
+<!--                <a href="/static/order/confirm/##">營銷中心</a>-->
+<!--            </li>-->
+<!--            <li>|</li>-->
+<!--            <li>-->
+<!--                <a href="/static/order/confirm/##">手機學院</a>-->
+<!--            </li>-->
+<!--            <li>|</li>-->
+<!--            <li>-->
+<!--                <a href="/static/order/confirm/##">友情鏈接</a>-->
+<!--            </li>-->
+<!--            <li>|</li>-->
+<!--            <li>-->
+<!--                <a href="/static/order/confirm/##">銷售聯盟</a>-->
+<!--            </li>-->
+<!--            <li>|</li>-->
+<!--            <li>-->
+<!--                <a href="/static/order/confirm/##">學院社區</a>-->
+<!--            </li>-->
+<!--            <li>|</li>-->
+<!--            <li>-->
+<!--                <a href="/static/order/confirm/##">風險檢測</a>-->
+<!--            </li>-->
+<!--            <li>|</li>-->
+<!--            <li>-->
+<!--                <a href="/static/order/confirm/##">隱私政策</a>-->
+<!--            </li>-->
+<!--            <li>|</li>-->
+<!--            <li>-->
+<!--                <a href="/static/order/confirm/##">學院公益</a>-->
+<!--            </li>-->
+<!--            <li>|</li>-->
+<!--            <li>-->
+<!--                <a href="/static/order/confirm/##">English Site</a>-->
+<!--            </li>-->
+<!--            <li>|</li>-->
+<!--            <li>-->
+<!--                <a href="/static/order/confirm/##">Mdeila $ IR</a>-->
+<!--            </li>-->
+<!--        </ul>-->
+<!--    </div>-->
+<!--    <p class="p1">-->
+<!--        <a href="/static/order/confirm/##"> 京公網安備 11000002000088號</a>|-->
+<!--        <a href="/static/order/confirm/##"> 京ICP證070359號</a>|-->
+<!--        <a href="/static/order/confirm/##"> 互聯網藥品信息服務資格證編號(京)-經營性-2014-0008 </a>|-->
+<!--        <a href="/static/order/confirm/##">新出發京零 字第大120007號</a>-->
+<!--    </p>-->
+<!--    <p class="p1">-->
+<!--        <a href="/static/order/confirm/##"> 互聯網出版許可證編號新出網證(京)字150號</a>|-->
+<!--        <a href="/static/order/confirm/##"> 出版物經營許可證</a>|-->
+<!--        <a href="/static/order/confirm/##"> 網絡文化經營許可證京網文 </a>|-->
+<!--        <a href="/static/order/confirm/##">[2014]2148-348號 </a>|-->
+<!--        <a href="/static/order/confirm/##"> 違法和不良信息舉報電話 </a>|-->
+<!--        <a href="/static/order/confirm/##">：4006561155 </a>-->
+<!--    </p>-->
+<!--    <p class="p1">-->
+<!--        <a href="/static/order/confirm/##"> Copyright © 2004-2017 學院mall.com 版權所有</a>|-->
+<!--        <a href="/static/order/confirm/##"> 消費者維權熱線：4006067733 經營證照</a>|-->
+<!--    </p>-->
+<!--    <p class="p1">-->
+<!--        <a href="/static/order/confirm/##"> 學院旗下網站：學院支付</a>|-->
+<!--        <a href="/static/order/confirm/##"> 學院雲</a>-->
+<!--    </p>-->
+<!--    <p class="p3">-->
+<!--        <img src="/static/order/confirm/img/54b8871eNa9a7067e.png"/>-->
+<!--        <img src="/static/order/confirm/img/54b8872dNe37a9860.png"/>-->
+<!--        <img src="/static/order/confirm/img/54b8875fNad1e0c4c.png"/>-->
+<!--        <img src="/static/order/confirm/img/5698dc03N23f2e3b8.jpg"/>-->
+<!--        <img src="/static/order/confirm/img/5698dc16Nb2ab99df.jpg"/>-->
+<!--        <img src="/static/order/confirm/img/56a89b8fNfbaade9a.jpg"/>-->
+<!--    </p>-->
+<!--</div>-->
+<script>
+    $(document).ready(function () {
+        $('.header-right li:nth-of-type(6)').hover(function () {
+            $('.header-r-11').css('display', 'block')
+        }, function () {
+            $('.header-r-11').css('display', 'none')
+        })
+        $('.header-right li:nth-of-type(12)').hover(function () {
+            $('.header-r-2').css('display', 'block')
+        }, function () {
+            $('.header-r-2').css('display', 'none')
+        })
+        $('.header-right li:nth-of-type(14)').hover(function () {
+            $('.header-r-3').css('display', 'block')
+        }, function () {
+            $('.header-r-3').css('display', 'none')
+        })
+        $('.header-l-2').hover(function () {
+            $('.header-l-d').css('display', 'block')
+        }, function () {
+            $('.header-l-d').css('display', 'none')
+        })
+        $('.header-r-4').hover(function () {
+            $('.h-r-1').css('display', 'block')
+        }, function () {
+            $('.h-r-1').css('display', 'none')
+        });
+        highlightAddress();
+        var addrId = $(".addr-item p[def='1']").attr("addrId");
+        getFare(addrId)
+    });
+
+    function highlightAddress() {
+        $(".addr-item p").css({"border": "2px solid gray"});
+        $(".addr-item p[def='1']").css({"border": "2px solid red"});
+    }
+
+    $(".addr-item p").click(function () {
+        $(".addr-item p").attr("def", "0");
+        $(this).attr("def", "1");
+        highlightAddress();
+        //獲取到當前地址id
+        var addrId = $(this).attr("addrId");
+        //發送ajax請求獲取運費信息
+        getFare(addrId);
+    });
+
+    //查運費
+    function getFare(addrId) {
+        //給表單回填選擇的地址
+        $("#addrInput").val(addrId);
+        $.get("http://mall.com/api/ware/wareinfo/fare?addrId=" + addrId, function (resp) {
+            console.log(resp);
+            $("#fare").text(resp.data.fare);
+            var total = [[${confirmOrderData.total}]];
+            var payPrice = total * 1 + resp.data.fare * 1;
+            //設置運費
+            $("#payPrice").text(payPrice);
+            $("#payPriceInput").val(payPrice);
+            //設置收貨地址人信息
+            $("#receiveAddress").text(resp.data.address.province + " " + resp.data.address.city + " " + " " + resp.data.address.region + resp.data.address.detailAddress);
+            $("#receiver").text(resp.data.address.name);
+        })
+    }
+</script>
+</body>
+</html>

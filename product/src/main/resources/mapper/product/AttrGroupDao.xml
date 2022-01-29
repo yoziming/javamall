@@ -3,15 +3,37 @@
 
 <mapper namespace="yozi.mall.product.dao.AttrGroupDao">
 
-	<!-- 可根据自己的需求，是否要使用 -->
+    <!-- 可根据自己的需求，是否要使用 -->
     <resultMap type="yozi.mall.product.entity.AttrGroupEntity" id="attrGroupMap">
         <result property="attrGroupId" column="attr_group_id"/>
         <result property="attrGroupName" column="attr_group_name"/>
         <result property="sort" column="sort"/>
         <result property="descript" column="descript"/>
         <result property="icon" column="icon"/>
-        <result property="catelogId" column="catelog_id"/>
+        <result property="catalogId" column="catalog_id"/>
     </resultMap>
+    <!--只要有嵌套屬性就要封裝自定義結果集-->
+    <resultMap id="spuAttrGroup" type="yozi.mall.product.vo.SpuItemAttrGroupVo">
+        <result property="groupName" column="attr_group_name"/>
+        <collection property="attrs" ofType="yozi.mall.product.vo.Attr">
+            <result property="attrId" column="attr_id"></result>
+            <result property="attrName" column="attr_name"></result>
+            <result property="attrValue" column="attr_value"></result>
+        </collection>
+    </resultMap>
+    <select id="getAttrGroupWithAttrsBySpuId" resultMap="spuAttrGroup">
+        SELECT pav.spu_id,
+               pag.attr_group_id,
+               pag.attr_group_name,
+               pav.attr_id,
+               pav.attr_name,
+               pav.attr_value
+        FROM pms_product_attr_value pav
+                 LEFT JOIN pms_attr_attrgroup_relation pagr ON pav.attr_id = pagr.attr_id
+                 LEFT JOIN pms_attr_group pag ON pagr.attr_group_id = pag.attr_group_id
+        WHERE pav.spu_id = #{spuId}
+          AND pag.catalog_id = #{catalogId}
+    </select>
 
 
 </mapper>

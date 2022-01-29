@@ -1,9 +1,9 @@
 /**
- * Copyright (c) 2016-2019 人人开源 All rights reserved.
- *
+ * Copyright (c) 2016-2019 人人開源 All rights reserved.
+ * <p>
  * https://www.renren.io
- *
- * 版权所有，侵权必究！
+ * <p>
+ * 版權所有，侵權必究！
  */
 
 package yozi.mall.common.utils;
@@ -14,14 +14,14 @@ package yozi.mall.common.utils;
  * @author Mark sunlightcs@gmail.com
  */
 public class Constant {
-	/** 超级管理员ID */
-	public static final int SUPER_ADMIN = 1;
+    /** 超級管理員ID */
+    public static final int SUPER_ADMIN = 1;
     /**
-     * 当前页码
+     * 當前頁碼
      */
     public static final String PAGE = "page";
     /**
-     * 每页显示记录数
+     * 每頁显示記錄數
      */
     public static final String LIMIT = "limit";
     /**
@@ -36,24 +36,25 @@ public class Constant {
      *  升序
      */
     public static final String ASC = "asc";
-	/**
-	 * 菜单类型
-	 *
-	 * @author chenshun
-	 * @email sunlightcs@gmail.com
-	 * @date 2016年11月15日 下午1:24:29
-	 */
+
+    /**
+     * 菜單類型
+     *
+     * @author chenshun
+     * @email sunlightcs@gmail.com
+     * @date 2016年11月15日 下午1:24:29
+     */
     public enum MenuType {
         /**
-         * 目录
+         * 目錄
          */
-    	CATALOG(0),
+        CATALOG(0),
         /**
-         * 菜单
+         * 菜單
          */
         MENU(1),
         /**
-         * 按钮
+         * 按鈕
          */
         BUTTON(2);
 
@@ -69,7 +70,7 @@ public class Constant {
     }
 
     /**
-     * 定时任务状态
+     * 定時任務狀態
      *
      * @author chenshun
      * @email sunlightcs@gmail.com
@@ -79,11 +80,11 @@ public class Constant {
         /**
          * 正常
          */
-    	NORMAL(0),
+        NORMAL(0),
         /**
-         * 暂停
+         * 暫停
          */
-    	PAUSE(1);
+        PAUSE(1);
 
         private int value;
 
@@ -97,19 +98,19 @@ public class Constant {
     }
 
     /**
-     * 云服务商
+     * 雲服務商
      */
     public enum CloudService {
         /**
-         * 七牛云
+         * 七牛雲
          */
         QINIU(1),
         /**
-         * 阿里云
+         * 阿里雲
          */
         ALIYUN(2),
         /**
-         * 腾讯云
+         * 騰訊雲
          */
         QCLOUD(3);
 

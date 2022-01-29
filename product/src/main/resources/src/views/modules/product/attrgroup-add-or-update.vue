@@ -16,8 +16,8 @@
     <el-form-item label="組圖標" prop="icon">
       <el-input v-model="dataForm.icon" placeholder="組圖標"></el-input>
     </el-form-item>
-    <el-form-item label="所屬分類id" prop="catelogId">
-      <el-input v-model="dataForm.catelogId" placeholder="所屬分類id"></el-input>
+    <el-form-item label="所屬分類id" prop="catalogId">
+      <el-input v-model="dataForm.catalogId" placeholder="所屬分類id"></el-input>
     </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">
@@ -38,7 +38,7 @@
           sort: '',
           descript: '',
           icon: '',
-          catelogId: ''
+          catalogId: ''
         },
         dataRule: {
           attrGroupName: [
@@ -53,7 +53,7 @@
           icon: [
             { required: true, message: '組圖標不能为空', trigger: 'blur' }
           ],
-          catelogId: [
+          catalogId: [
             { required: true, message: '所屬分類id不能为空', trigger: 'blur' }
           ]
         }
@@ -76,7 +76,7 @@
                 this.dataForm.sort = data.attrGroup.sort
                 this.dataForm.descript = data.attrGroup.descript
                 this.dataForm.icon = data.attrGroup.icon
-                this.dataForm.catelogId = data.attrGroup.catelogId
+                this.dataForm.catalogId = data.attrGroup.catalogId
               }
             })
           }
@@ -95,7 +95,7 @@
                 'sort': this.dataForm.sort,
                 'descript': this.dataForm.descript,
                 'icon': this.dataForm.icon,
-                'catelogId': this.dataForm.catelogId
+                'catalogId': this.dataForm.catalogId
               })
             }).then(({data}) => {
               if (data && data.code === 0) {

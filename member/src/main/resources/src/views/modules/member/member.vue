@@ -134,19 +134,19 @@
         prop="socialUid"
         header-align="center"
         align="center"
-        label="社交登錄UID">
+        label="社交登入UID">
       </el-table-column>
       <el-table-column
         prop="accessToken"
         header-align="center"
         align="center"
-        label="社交登錄TOKEN">
+        label="社交登入TOKEN">
       </el-table-column>
       <el-table-column
         prop="expiresIn"
         header-align="center"
         align="center"
-        label="社交登錄過期時間">
+        label="社交登入過期時間">
       </el-table-column>
       <el-table-column
         fixed="right"

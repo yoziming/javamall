@@ -19,7 +19,7 @@ import yozi.mall.common.utils.R;
 
 
 /**
- * 會員登錄記錄
+ * 會員登入記錄
  *
  * @author yozi
  * @email yoziming@gmail.com

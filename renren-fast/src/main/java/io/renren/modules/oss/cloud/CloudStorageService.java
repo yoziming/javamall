@@ -27,7 +27,7 @@ public abstract class CloudStorageService {
     /**
      * 文件路径
      * @param prefix 前缀
-     * @param suffix 后缀
+     * @param suffix 後缀
      * @return 返回上传路径
      */
     public String getPath(String prefix, String suffix) {
@@ -54,7 +54,7 @@ public abstract class CloudStorageService {
     /**
      * 文件上传
      * @param data     文件字节数组
-     * @param suffix   后缀
+     * @param suffix   後缀
      * @return         返回http地址
      */
     public abstract String uploadSuffix(byte[] data, String suffix);
@@ -70,7 +70,7 @@ public abstract class CloudStorageService {
     /**
      * 文件上传
      * @param inputStream  字节流
-     * @param suffix       后缀
+     * @param suffix       後缀
      * @return             返回http地址
      */
     public abstract String uploadSuffix(InputStream inputStream, String suffix);

@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>商城註冊頁面</title>
+    <script src="/static/reg/libs/jquery-1.12.4.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/static/reg/js/jQuery/jquery-3.1.1.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/reg/bootStrap/bootstrap/css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/reg/sass/index.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/reg/css/index.css">
+</head>
+<body>
+<header>
+    <a href="http://mall.com"
+       class="logo"><img src="/static/reg/img/logo1.jpg" alt=""></a>
+    <div class="desc">歡迎註冊</div>
+    <div class="dfg">
+        <span>已有賬號？</span>
+        <a href="http://auth.mall.com/login.html">請登入</a>
+    </div>
+</header>
+<section>
+    <form action="/register" method="post" class="one">
+        <div class="register-box">
+            <label class="username_label">用 戶 名
+                <input name="userName" maxlength="20" type="text" placeholder="您的用戶名和登入名">
+            </label>
+        </div>
+        <div class="register-box">
+            <label class="other_label">設 置 密 碼
+                <input name="password" maxlength="20" type="password" placeholder="建議至少使用兩種字符組合">
+            </label>
+        </div>
+        <div class="register-box">
+            <label class="other_label">確 認 密 碼
+                <input maxlength="20" type="password" placeholder="請再次輸入密碼">
+            </label>
+            <div class="tips">
+            </div>
+        </div>
+        <div class="register-box">
+            <label class="other_label">
+                <span>台灣(+886) </span>
+                <input name="phone" class="phone" id="phoneNum" maxlength="20" type="text" placeholder="建議使用常用手機">
+            </label>
+        </div>
+        <div class="register-box">
+            <label class="other_label">驗 證 碼
+                <input name="code" maxlength="20" type="text" placeholder="請輸入驗證碼" class="caa">
+            </label>
+            <a id="sendCode" class=""> 發送驗證碼 </a>
+        </div>
+        <div class="arguement">
+            <input type="checkbox" id="xieyi"> 閱讀並同意
+            <a href="">《商城用戶註冊協議》</a>
+            <a href="">《隱私政策》</a>
+            <br/>
+            <br/>
+            <div class="submit_btn">
+                <button type="submit" id="submit_btn">立 即 注 冊</button>
+            </div>
+        </div>
+    </form>
+    <div class="two">
+        <div class="right_r">
+            <div class="right_r1">
+                <img src="/static/reg/img/a65a18e877a16246a92e1b755bd88a03_03.png"/>
+                <span>企業用戶註冊</span>
+            </div>
+            <div class="right_r2">
+                <img src="/static/reg/img/a65a18e877a16246a92e1b755bd88a03_06.png"/>
+                <span>INTERNATIONAL <br/> CUSTOMERS</span>
+            </div>
+        </div>
+    </div>
+</section>
+<br/><br/>
+<hr>
+<div class="footer">
+    <ul>
+        <li>
+            <a href="">關於我們</a>
+        </li>
+        <li>|</li>
+        <li>
+            <a href="">聯繫我們</a>
+        </li>
+        <li>|</li>
+        <li>
+            <a href="">人次招聘</a>
+        </li>
+        <li>|</li>
+        <li>
+            <a href="">商家入駐</a>
+        </li>
+        <li>|</li>
+        <li>
+            <a href="">廣告服務</a>
+        </li>
+        <li>|</li>
+        <li>
+            <a href="">手機商城</a>
+        </li>
+        <li>|</li>
+        <li>
+            <a href="">友情鏈接</a>
+        </li>
+        <li>|</li>
+        <li>
+            <a href="">銷售聯盟</a>
+        </li>
+        <li>|</li>
+        <li>
+            <a href="">商城社區</a>
+        </li>
+        <li>|</li>
+        <li>
+            <a href="">商城公益</a>
+        </li>
+        <li>|</li>
+        <li>
+            <a href="">English Site</a>
+        </li>
+    </ul>
+</div>
+<p class="bq">Copyright©2004-2099 商城mall.com 版權所有</p>
+<br/><br/>
+<script type="text/javascript" charset="utf-8">
+    $(function () {
+        var stuList = getStuList(); //設置傳送信息：學生的集合
+        //聚焦失焦input
+        $('input').eq(0).focus(function () {
+            if ($(this).val().length == 0) {
+                $(this).parent().next("div").text("5-20字的英數字");
+            }
+        })
+        $('input').eq(1).focus(function () {
+            if ($(this).val().length == 0) {
+                $(this).parent().next("div").text("5-20字的英數字");
+            }
+        })
+        $('input').eq(2).focus(function () {
+            if ($(this).val().length == 0) {
+                $(this).parent().next("div").text("請再次輸入密碼");
+            }
+        })
+        $('input').eq(3).focus(function () {
+            if ($(this).val().length == 0) {
+                $(this).parent().next("div").text("驗證完後，你可以使用該手機登入和找回密碼");
+            }
+        })
+        $('input').eq(4).focus(function () {
+            if ($(this).val().length == 0) {
+                $(this).parent().next().next("div").text("驗證碼請輸入1234");
+            }
+        })
+        //input各種判斷
+        //用戶名：
+        $('input').eq(0).blur(function () {
+            if ($(this).val().length == 0) {
+                $(this).parent().next("div").text("");
+                $(this).parent().next("div").css("color", '#ccc');
+            } else if ($(this).val().length > 0 && $(this).val().length < 5) {
+                $(this).parent().next("div").text("長度只能在5-20個字符之間");
+                $(this).parent().next("div").css("color", 'red');
+            } else if ($(this).val().length >= 4 && !isNaN($(this).val())) {
+                $(this).parent().next("div").text("用戶名不能為純数字");
+                $(this).parent().next("div").css("color", 'red');
+            } else {
+                for (var m = 0; m < stuList.length; m++) {
+                    if ($(this).val() == stuList[m].name) {
+                        $(this).parent().next("div").text("該用戶名已被註冊");
+                        $(this).parent().next("div").css("color", 'red');
+                        return;
+                    }
+                }
+                $(this).parent().next("div").text("");
+            }
+        })
+        //密碼
+        $('input').eq(1).blur(function () {
+            if ($(this).val().length == 0) {
+                $(this).parent().next("div").text("");
+                $(this).parent().next("div").css("color", '#ccc');
+            } else if ($(this).val().length > 0 && $(this).val().length < 5) {
+                $(this).parent().next("div").text("長度只能在5-20個字符之間");
+                $(this).parent().next("div").css("color", 'red');
+            } else {
+                $(this).parent().next("div").text("");
+            }
+        })
+        //	確認密碼
+        $('input').eq(2).blur(function () {
+            if ($(this).val().length == 0) {
+                $(this).parent().next("div").text("");
+                $(this).parent().next("div").css("color", '#ccc');
+            } else if ($(this).val() != $('input').eq(1).val()) {
+                $(this).parent().next("div").text("兩次密碼不匹配");
+                $(this).parent().next("div").css("color", 'red');
+            } else {
+                $(this).parent().next("div").text("");
+            }
+        })
+        //	手機號
+        $('input').eq(3).blur(function () {
+            if ($(this).val().length == 0) {
+                $(this).parent().next("div").text("");
+                $(this).parent().next("div").css("color", '#ccc');
+                // } else if ($(this).val().substr(0, 3) != 138 && $(this).val().substr(0, 3) != 189 && $(this).val().substr(0, 3) != 139 && $(this).val().substr(0, 3) != 158 && $(this).val().substr(0, 3) != 188 && $(this).val().substr(0, 3) != 157 || $(this).val().length != 11) {
+            } else if ($(this).val().length != 10) {
+                $(this).parent().next("div").text("手機號格式不正確");
+                $(this).parent().next("div").css("color", 'red');
+            } else {
+                $(this).parent().next("div").text("");
+            }
+        })
+        // 	驗證碼
+        //	 驗證碼刷新
+        function code() {
+            var str = "qwertyuiopasdfghjklzxcvbnm1234567890QWERTYUIOPLKJHGFDSAZXCVBNM";
+            var str1 = 0;
+            for (var i = 0; i < 4; i++) {
+                str1 += str.charAt(Math.floor(Math.random() * 62))
+            }
+            str1 = str1.substring(1)
+            $("#code").text(str1);
+        }
+
+        code();
+        $("#code").click(code);
+        //	驗證碼驗證
+        $('input').eq(4).blur(function () {
+            if ($(this).val().length == 0) {
+                $(this).parent().next().next("div").text("");
+                $(this).parent().next().next("div").css("color", '#ccc');
+                // } else if ($(this).val().toUpperCase() != $("#code").text().toUpperCase()) {
+            } else if ($(this).val() !== "1234") {
+                $(this).parent().next().next("div").text("驗證碼不正確");
+                $(this).parent().next().next("div").css("color", 'red');
+            } else {
+                $(this).parent().next().next("div").text("");
+            }
+        })
+        //  提交按鈕
+        // $("#submit_btn").click(function (e) {
+        //     for (var j = 0; j < 5; j++) {
+        //         if ($('input').eq(j).val().length == 0) {
+        //             $('input').eq(j).focus();
+        //             if (j == 4) {
+        //                 $('input').eq(j).parent().next().next("div").text("此處不能為空");
+        //                 $('input').eq(j).parent().next().next("div").css("color", 'red');
+        //                 e.preventDefault();
+        //                 return;
+        //             }
+        //             $('input').eq(j).parent().next(".tips").text("此處不能為空");
+        //             $('input').eq(j).parent().next(".tips").css("color", 'red');
+        //             e.preventDefault();
+        //             return;
+        //         }
+        //     }
+        //     //協議
+        //     if ($("#xieyi")[0].checked) {
+        //         //向變量stuList數組添加一個數值，數值內部格式Student(name,password,tel,id)
+        //         //發送用戶信息
+        //         stuList.push(new Student($('input').eq(0).val(), $('input').eq(1).val(), $('input').eq(3).val(), stuList.length + 1));
+        //         localStorage.setItem('stuList', JSON.stringify(stuList));
+        //         alert("註冊成功");
+        //         window.open("userlist.html", "_blank");
+        //     } else {
+        //         $("#xieyi").next().next().next(".tips").text("請勾選協議");
+        //         $("#xieyi").next().next().next(".tips").css("color", 'red');
+        //         e.preventDefault();
+        //         return;
+        //     }
+        // })
+        //  建立構造函數，構造學生信息模板
+        function Student(name, password, tel, id) {
+            this.name = name;
+            this.password = password;
+            this.tel = tel;
+            this.id = id;
+        }
+
+        //	獲取之前所有已經註冊的用戶集合
+        function getStuList() {
+            var list = localStorage.getItem('stuList');
+            if (list != null) {
+                return JSON.parse(list);
+            } else {
+                return new Array();
+            }
+        }
+    })
+    $(".ty").click(function () {
+        $(".zong").hide();
+        $(".laoda").hide();
+    });
+    $(".cuo").click(function () {
+        $(".zong").hide();
+    });
+    $(function () {
+        $("#sendCode").click(function () {
+            //2、倒計時
+            if ($(this).hasClass("disabled")) {
+                //正在倒計時中
+            } else {
+                //1、給指定手機號發送驗證碼
+                $.get("/sms/sendCode?phone=" + $("#phoneNum").val(), function (data) {
+                    if (data.code != 0) {
+                        alert(data.msg);
+                    }
+                });
+                timeoutChangeStyle();
+            }
+        });
+    });
+    var num = 60;
+
+    function timeoutChangeStyle() {
+        $("#sendCode").attr("class", "disabled");
+        if (num == 0) {
+            $("#sendCode").text("發送驗證碼");
+            num = 60;
+            $("#sendCode").attr("class", "");
+        } else {
+            var str = num + "s 後再次發送";
+            $("#sendCode").text(str);
+            setTimeout("timeoutChangeStyle()", 1000);
+        }
+        num--;
+    }
+</script>
+</body>
+</html>

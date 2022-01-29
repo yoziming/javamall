@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>商城訂單</title>
+    <link rel="stylesheet" href="/static/order/list/css/index.css">
+    <style media="screen">
+        * {
+            font-family: "微軟雅黑";
+        }
+    </style>
+</head>
+<body>
+<div id="nav">
+    <nav>
+        <div class="myjd">
+            <h3>我的商城</h3>
+            <button onclick="location.href='http://mall.com'">返回商城首頁</button>
+        </div>
+        <ul class="nav_ul">
+            <li>首頁</li>
+            <li class="li hover">賬戶設置<i class="ul_i"></i>
+                <ol>
+                    <li>個人信息</li>
+                    <li>賬戶安全</li>
+                    <li>我的尺碼</li>
+                    <li>賬號綁定</li>
+                    <li>收貨地址</li>
+                    <li>用藥人信息</li>
+                    <li>分享綁定</li>
+                    <li>郵件訂閱</li>
+                    <li>應用授權</li>
+                    <li>快捷支付</li>
+                    <li>增票資質</li>
+                    <li>企業發票</li>
+                    <li>採購需求單</li>
+                </ol>
+            </li>
+            <li class="li">社區<i class="ul_i"></i>
+                <ol>
+                    <li>個人主頁</li>
+                    <li>我的活動</li>
+                    <li>我的圈子</li>
+                    <li>我的帖子</li>
+                </ol>
+            </li>
+            <li>消息</li>
+        </ul>
+        <div class="right">
+            <div class="btn">
+                <input type="text" placeholder="空調">
+                <button>搜索</button>
+            </div>
+            <ul class="shop">
+                <li><i class="shop_che"></i>我的購物車 >
+                    <ol>
+                        <li>
+                            <img src="/static/order/list/img/shop.png" alt="">
+                            <div>購物車中還沒有商品，趕緊選購吧</div>
+                            <div style="clear:both;"></div>
+                        </li>
+                    </ol>
+                </li>
+            </ul>
+        </div>
+        <div style="clear:both;"></div>
+    </nav>
+</div>
+<div style="clear:both;"></div>
+<div id="big">
+    <div id="bigLeft">
+        <ul>
+            <h5>訂單中心</h5>
+            <li style="color:#E4393C;font-weight:800;">我的訂單</li>
+            <li>我的活動</li>
+            <li>評價曬單</li>
+            <li>我的常購商品<img src="/static/order/list/img/new.png"></li>
+            <li>購物助手</li>
+        </ul>
+        <ul>
+            <h5>關注中心</h5>
+            <li>關注的商品</li>
+            <li>關注的店鋪</li>
+            <li>關注的專輯</li>
+            <li>收藏的內容<img src="/static/order/list/img/new.png"></li>
+            <li>關注的活動</li>
+            <li>瀏覽歷史</li>
+        </ul>
+        <ul>
+            <h5>資產中心</h5>
+            <li>小金庫</li>
+            <li>商城白條</li>
+            <li>領貨碼</li>
+            <li>餘額</li>
+            <li>優惠券</li>
+            <li>禮品卡</li>
+            <li>京豆</li>
+            <li>商城鋼鏰<img src="/static/order/list/img/new.png"></li>
+        </ul>
+        <ul>
+            <h5>特色業務</h5>
+            <li>我的營業廳</li>
+            <li>商城通信</li>
+            <li>定期購</li>
+            <li>我的回收單</li>
+            <li>節能補貼</li>
+            <li>醫藥服務</li>
+            <li>流量加油站</li>
+            <li>黃金託管</li>
+            <li>視頻教育訂單</li>
+            <li>海外房產預約</li>
+            <li>我的全球購</li>
+            <li>裝修服務</li>
+        </ul>
+        <ul>
+            <h5>客戶服務</h5>
+            <li>返修退換貨</li>
+            <li>價格保護</li>
+            <li>意見建議</li>
+            <li>我的問答</li>
+            <li>購買諮詢</li>
+            <li>交易糾紛</li>
+            <li>商城維修</li>
+            <li>上門預約服務</li>
+            <li>我的發票</li>
+            <li>舉報中心</li>
+        </ul>
+        <ul>
+            <h5>設置</h5>
+            <li>個人信息</li>
+            <li>收貨地址</li>
+            <li><img src="/static/order/list/img/59126ae3N1b306e2c.jpg" alt=""></li>
+        </ul>
+    </div>
+    <div id="bigRight">
+        <div class="myOrder">
+            <p>我的訂單</p>
+        </div>
+        <div class="allBig">
+            <div class="allOrder">
+                <ul class="allOrderTop">
+                    <li>
+                        <ol>
+                            <li>全部訂單</li>
+                            <li>待付款</li>
+                            <li>待收貨</li>
+                            <li>待評價</li>
+                            <div style="clear:both;"></div>
+                        </ol>
+                    </li>
+                    <li class="allOrderTopLi">我的常購商品</li>
+                    <li class="allOrderTopLi">好貨清倉</li>
+                    <li class="allOrderTopLastLi">
+                        <span>訂單回收站</span>
+                        <div>
+                            <input type="text" placeholder="商品名稱/商品編號/訂單號">
+                            <button class="search"></button>
+                            <button calss="gao">高級<i></i></button>
+                        </div>
+                    </li>
+                    <div class="clear:both;"></div>
+                </ul>
+            </div>
+            <div class="details">
+                <ul class="detailsUl">
+                    <div class="detailsUlDiv">
+                        <li class="detailsLiok detailsLi">近三個月訂單<i class="allBig_i"></i>
+                            <ol>
+                                <li>近三個月訂單</li>
+                                <li>今年內訂單</li>
+                                <li>今年內訂單</li>
+                                <li>2016年訂單</li>
+                                <li>2015年訂單</li>
+                                <li>2014年訂單</li>
+                                <li>2014年以前訂單</li>
+                            </ol>
+                        </li>
+                        <li class="detailsLi">訂單詳情</li>
+                        <div style="clear:both;"></div>
+                    </div>
+                    <li class="detailsLi1">收貨人</li>
+                    <li class="detailsLi1">金額</li>
+                    <li class="detailsLi1 detailsLiok">全部狀態<i class="allBig_i"></i>
+                        <ol>
+                            <li>全部狀態</li>
+                            <li>等待付款</li>
+                            <li>等待收貨</li>
+                            <li>已完成</li>
+                            <li>已取消</li>
+                        </ol>
+                    </li>
+                    <li class="detailsLi1">操作</li>
+                    <div style="clear:both;"></div>
+                </ul>
+            </div>
+            <table class="table">
+                <tr>
+                    <td colspan="7" style="background:#F7F7F7">
+                        <span style="color:#AAAAAA">2017-12-09 20:50:10</span>
+                        <span><ruby style="color:#AAAAAA">訂單號:</ruby> 70207298274</span>
+                        <span>慕熙威爾官方旗艦店<i class="table_i"></i></span>
+                        <i class="table_i5 isShow"></i>
+                    </td>
+                </tr>
+                <tr class="tr">
+                    <td colspan="3">
+                        <img src="/static/order/list/img/ding.jpg" alt="" class="img">
+                        <div>
+                            <p>MUXIWEIERPU皮手套男冬季加絨保暖戶外騎<br/>
+                                車開車觸摸屏全指防寒全指手套 黑色 均碼</p>
+                            <div><i class="table_i4"></i>找搭配</div>
+                        </div>
+                        <div style="margin-left:15px;">x1</div>
+                        <div style="clear:both"></div>
+                    </td>
+                    <td>張三<i><i class="table_i1"></i></i></td>
+                    <td style="padding-left:10px;color:#AAAAB1;">
+                        <p style="margin-bottom:5px;">總額 ＄26.00</p>
+                        <hr style="width:90%;">
+                        <p>在線支付</p>
+                    </td>
+                    <td>
+                        <ul>
+                            <li style="color:#71B247;">等待收貨</li>
+                            <li style="margin:4px 0;" class="hide"><i class="table_i2"></i>跟蹤<i class="table_i3"></i>
+                                <div class="hi">
+                                    <div class="p-tit">
+                                        普通快遞 運單號:390085324974
+                                    </div>
+                                    <div class="hideList">
+                                        <ul>
+                                            <li>
+                                                [北京市] 在北京昌平區南口公司進行簽收掃描,快件已被拍照(您
+                                                的快件已簽收,感謝您使用韻達快遞)簽收
+                                            </li>
+                                            <li>
+                                                [北京市] 在北京昌平區南口公司進行簽收掃描,快件已被拍照(您
+                                                的快件已簽收,感謝您使用韻達快遞)簽收
+                                            </li>
+                                            <li>
+                                                [北京昌平區南口公司] 在北京昌平區南口公司進行派件掃描
+                                            </li>
+                                            <li>
+                                                [北京市] 在北京昌平區南口公司進行派件掃描;派送業務員:業務員;聯繫電話:17319268636
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="tdLi">訂單詳情</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <button>確認收貨</button>
+                        <p style="margin:4px 0; ">取消訂單</p>
+                        <p>催單</p>
+                    </td>
+                </tr>
+            </table>
+            <table class="table">
+                <tr>
+                    <td colspan="7" style="background:#F7F7F7">
+                        <span style="color:#AAAAAA">2017-12-09 20:50:10</span>
+                        <span><ruby style="color:#AAAAAA">訂單號:</ruby> 70207298274</span>
+                        <span>慕熙威爾官方旗艦店<i class="table_i"></i></span>
+                        <i class="table_i5 isShow"></i>
+                    </td>
+                </tr>
+                <tr class="tr">
+                    <td colspan="3">
+                        <img src="/static/order/list/img/ding1.jpg" alt="" class="img">
+                        <div>
+                            <p>QOOVI 半入耳式手機耳機OPPOR11 R9s A57<br/>
+                                華為VIVOx9小米通話耳塞 一鍵線控C07</p>
+                            <div><i class="table_i4"></i>找搭配</div>
+                        </div>
+                        <div style="margin-left:15px;">x1</div>
+                        <div style="clear:both"></div>
+                    </td>
+                    <td>張三<i><i class="table_i1"></i></i></td>
+                    <td style="padding-left:10px;color:#AAAAB1;">
+                        <p style="margin-bottom:5px;">總額 ＄26.00</p>
+                        <hr style="width:90%;">
+                        <p>在線支付</p>
+                    </td>
+                    <td>
+                        <ul>
+                            <li style="color:#71B247;">等待收貨</li>
+                            <li style="margin:4px 0; " class="hide"><i class="table_i2"></i>跟蹤<i class="table_i3"></i>
+                                <div class="hi">
+                                    <div class="p-tit">
+                                        普通快遞 運單號:390085324974
+                                    </div>
+                                    <div class="hideList">
+                                        <ul>
+                                            <li>
+                                                [北京市] 在北京昌平區南口公司進行簽收掃描,快件已被拍照(您
+                                                的快件已簽收,感謝您使用韻達快遞)簽收
+                                            </li>
+                                            <li>
+                                                [北京市] 在北京昌平區南口公司進行簽收掃描,快件已被拍照(您
+                                                的快件已簽收,感謝您使用韻達快遞)簽收
+                                            </li>
+                                            <li>
+                                                [北京昌平區南口公司] 在北京昌平區南口公司進行派件掃描
+                                            </li>
+                                            <li>
+                                                [北京市] 在北京昌平區南口公司進行派件掃描;派送業務員:業務員;聯繫電話:17319268636
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="tdLi">訂單詳情</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <button>確認收貨</button>
+                        <p style="margin:4px 0; ">取消訂單</p>
+                        <p>催單</p>
+                    </td>
+                </tr>
+            </table>
+            <table class="table">
+                <tr>
+                    <td colspan="7" style="background:#F7F7F7">
+                        <span style="color:#AAAAAA">2017-12-09 20:50:10</span>
+                        <span><ruby style="color:#AAAAAA">訂單號:</ruby> 70207298274</span>
+                        <span>慕熙威爾官方旗艦店<i class="table_i"></i></span>
+                        <i class="table_i5 isShow"></i>
+                    </td>
+                </tr>
+                <tr class="tr">
+                    <td colspan="3">
+                        <img src="/static/order/list/img/ding2.jpg" alt="" class="img">
+                        <div>
+                            <p>歐維沃加絨棉鞋男士休閑鞋男鞋子潮流男生韓<br/>
+                                版加厚保暖學生板鞋 黑色 42</p>
+                            <div><i class="table_i4"></i>找搭配</div>
+                        </div>
+                        <div style="margin-left:15px;">x1</div>
+                        <div style="clear:both"></div>
+                    </td>
+                    <td>張三<i><i class="table_i1"></i></i></td>
+                    <td style="padding-left:10px;color:#AAAAB1;">
+                        <p style="margin-bottom:5px;">總額 ＄26.00</p>
+                        <hr style="width:90%;">
+                        <p>在線支付</p>
+                    </td>
+                    <td>
+                        <ul>
+                            <li style="color:#71B247;">等待收貨</li>
+                            <li style="margin:4px 0; " class="hide"><i class="table_i2"></i>跟蹤<i class="table_i3"></i>
+                                <div class="hi">
+                                    <div class="p-tit">
+                                        普通快遞 運單號:390085324974
+                                    </div>
+                                    <div class="hideList">
+                                        <ul>
+                                            <li>
+                                                [北京市] 在北京昌平區南口公司進行簽收掃描,快件已被拍照(您
+                                                的快件已簽收,感謝您使用韻達快遞)簽收
+                                            </li>
+                                            <li>
+                                                [北京市] 在北京昌平區南口公司進行簽收掃描,快件已被拍照(您
+                                                的快件已簽收,感謝您使用韻達快遞)簽收
+                                            </li>
+                                            <li>
+                                                [北京昌平區南口公司] 在北京昌平區南口公司進行派件掃描
+                                            </li>
+                                            <li>
+                                                [北京市] 在北京昌平區南口公司進行派件掃描;派送業務員:業務員;聯繫電話:17319268636
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="tdLi">訂單詳情</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <button>確認收貨</button>
+                        <p style="margin:4px 0; ">取消訂單</p>
+                        <p>催單</p>
+                    </td>
+                </tr>
+            </table>
+            <table class="table">
+                <tr>
+                    <td colspan="7" style="background:#F7F7F7">
+                        <span style="color:#AAAAAA">2017-12-09 20:50:10</span>
+                        <span><ruby style="color:#AAAAAA">訂單號:</ruby> 70207298274</span>
+                        <span>慕熙威爾官方旗艦店<i class="table_i"></i></span>
+                        <i class="table_i5 isShow"></i>
+                    </td>
+                </tr>
+                <tr class="tr">
+                    <td colspan="3">
+                        <img src="/static/order/list/img/ding3.jpg" alt="" class="img">
+                        <div>
+                            <p>永日（yongri） 電動剃鬚刀男士電動刮鬍刀<br/>
+                                剃鬍刀便攜式三刀頭電須刀充電智能鬍鬚刀</p>
+                            <div><i class="table_i4"></i>找搭配</div>
+                        </div>
+                        <div style="margin-left:15px;">x1</div>
+                        <div style="clear:both"></div>
+                    </td>
+                    <td>張三<i><i class="table_i1"></i></i></td>
+                    <td style="padding-left:10px;color:#AAAAB1;">
+                        <p style="margin-bottom:5px;">總額 ＄26.00</p>
+                        <hr style="width:90%;">
+                        <p>在線支付</p>
+                    </td>
+                    <td>
+                        <ul>
+                            <li style="color:#71B247;">等待收貨</li>
+                            <li style="margin:4px 0; " class="hide"><i class="table_i2"></i>跟蹤<i class="table_i3"></i>
+                                <div class="hi">
+                                    <div class="p-tit">
+                                        普通快遞 運單號:390085324974
+                                    </div>
+                                    <div class="hideList">
+                                        <ul>
+                                            <li>
+                                                [北京市] 在北京昌平區南口公司進行簽收掃描,快件已被拍照(您
+                                                的快件已簽收,感謝您使用韻達快遞)簽收
+                                            </li>
+                                            <li>
+                                                [北京市] 在北京昌平區南口公司進行簽收掃描,快件已被拍照(您
+                                                的快件已簽收,感謝您使用韻達快遞)簽收
+                                            </li>
+                                            <li>
+                                                [北京昌平區南口公司] 在北京昌平區南口公司進行派件掃描
+                                            </li>
+                                            <li>
+                                                [北京市] 在北京昌平區南口公司進行派件掃描;派送業務員:業務員;聯繫電話:17319268636
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="tdLi">訂單詳情</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <button>確認收貨</button>
+                        <p style="margin:4px 0; ">取消訂單</p>
+                        <p>催單</p>
+                    </td>
+                </tr>
+            </table>
+            <table class="table">
+                <tr>
+                    <td colspan="7" style="background:#F7F7F7">
+                        <span style="color:#AAAAAA">2017-12-09 20:50:10</span>
+                        <span><ruby style="color:#AAAAAA">訂單號:</ruby> 70207298274</span>
+                        <span>慕熙威爾官方旗艦店<i class="table_i"></i></span>
+                        <i class="table_i5 isShow"></i>
+                    </td>
+                </tr>
+                <tr class="tr">
+                    <td colspan="3">
+                        <img src="/static/order/list/img/ding4.jpg" alt="" class="img">
+                        <div>
+                            <p>ISIDO oppo r9s手機殼R9sk/r9splus保護套防<br/>
+                                摔磨砂全包硬殼男女款 R9s【黑】蝙蝠俠</p>
+                            <div><i class="table_i4"></i>找搭配</div>
+                        </div>
+                        <div style="margin-left:15px;">x1</div>
+                        <div style="clear:both"></div>
+                    </td>
+                    <td>張三<i><i class="table_i1"></i></i></td>
+                    <td style="padding-left:10px;color:#AAAAB1;">
+                        <p style="margin-bottom:5px;">總額 ＄26.00</p>
+                        <hr style="width:90%;">
+                        <p>在線支付</p>
+                    </td>
+                    <td>
+                        <ul>
+                            <li style="color:#71B247;">等待收貨</li>
+                            <li style="margin:4px 0; " class="hide"><i class="table_i2"></i>跟蹤<i class="table_i3"></i>
+                                <div class="hi">
+                                    <div class="p-tit">
+                                        普通快遞 運單號:390085324974
+                                    </div>
+                                    <div class="hideList">
+                                        <ul>
+                                            <li>
+                                                [北京市] 在北京昌平區南口公司進行簽收掃描,快件已被拍照(您
+                                                的快件已簽收,感謝您使用韻達快遞)簽收
+                                            </li>
+                                            <li>
+                                                [北京市] 在北京昌平區南口公司進行簽收掃描,快件已被拍照(您
+                                                的快件已簽收,感謝您使用韻達快遞)簽收
+                                            </li>
+                                            <li>
+                                                [北京昌平區南口公司] 在北京昌平區南口公司進行派件掃描
+                                            </li>
+                                            <li>
+                                                [北京市] 在北京昌平區南口公司進行派件掃描;派送業務員:業務員;聯繫電話:17319268636
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="tdLi">訂單詳情</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <button>確認收貨</button>
+                        <p style="margin:4px 0; ">取消訂單</p>
+                        <p>催單</p>
+                    </td>
+                </tr>
+            </table>
+            <div class="order_btm">
+                <div>
+                    <button>上一頁</button>
+                    <span>1</span>
+                    <button>下一頁</button>
+                </div>
+            </div>
+            <div style="clear:both;"></div>
+        </div>
+        <div class="buy">
+            <div class="buy_top">
+                <div>買什麼</div>
+                <div>查看更多商品專輯</div>
+            </div>
+            <div style="clear:both;"></div>
+            <div class="buy_btm">
+                <dl>
+                    <dt>
+                        <div>最適合冬季的茶</div>
+                        <p>不入魔不成仙</p>
+                    </dt>
+                    <dd class="ab_goods">
+                        <div><img src="/static/order/list/img/bu.jpg" alt=""></div>
+                        <div>
+                            <img src="/static/order/list/img/1xb.jpg" alt="">
+                            <img src="/static/order/list/img/1xb1.jpg" alt="">
+                            <div>32</div>
+                        </div>
+                    </dd>
+                    <div style="clear:both;"></div>
+                    <dd class="ab_operate">
+                        <ul>
+                            <li class="guanzhu"><i class="buy_btm_i1 buy_btm_i"></i>關注 5</li>
+                            <li class="zhan"><i class="buy_btm_i2 buy_btm_i0"></i>贊 5</li>
+                            <div style="clear:both;"></div>
+                        </ul>
+                    </dd>
+                </dl>
+                <dl>
+                    <dt>
+                        <div>用新奇搞怪獻給那些有趣的靈魂</div>
+                        <p>小太陽驥少</p>
+                    </dt>
+                    <dd class="ab_goods">
+                        <div><img src="/static/order/list/img/bu1.jpg" alt=""></div>
+                        <div>
+                            <img src="/static/order/list/img/2xb.jpg" alt="">
+                            <img src="/static/order/list/img/2xb1.jpg" alt="">
+                            <div>17</div>
+                        </div>
+                    </dd>
+                    <div style="clear:both;"></div>
+                    <dd class="ab_operate">
+                        <ul>
+                            <li class="guanzhu"><i class="buy_btm_i1 buy_btm_i"></i>關注 5</li>
+                            <li class="zhan"><i class="buy_btm_i2 buy_btm_i0"></i>贊 5</li>
+                            <div style="clear:both;"></div>
+                        </ul>
+                    </dd>
+                </dl>
+                <dl>
+                    <dt>
+                        <div>流感來了，如何做好防護？</div>
+                        <p>mall-guliyuan</p>
+                    </dt>
+                    <dd class="ab_goods">
+                        <div><img src="/static/order/list/img/bu2.jpg" alt=""></div>
+                        <div>
+                            <img src="/static/order/list/img/3xb.jpg" alt="">
+                            <img src="/static/order/list/img/3xb1.jpg" alt="">
+                            <div>23</div>
+                        </div>
+                    </dd>
+                    <div style="clear:both;"></div>
+                    <dd class="ab_operate">
+                        <ul>
+                            <li class="guanzhu"><i class="buy_btm_i1 buy_btm_i"></i>關注 2</li>
+                            <li class="zhan"><i class="buy_btm_i2 buy_btm_i0"></i>贊 5</li>
+                            <div style="clear:both;"></div>
+                        </ul>
+                    </dd>
+                </dl>
+                <dl>
+                    <dt>
+                        <div>流感來了，如何做好防護？</div>
+                        <p>mall-guliyuan</p>
+                    </dt>
+                    <dd class="ab_goods">
+                        <div><img src="/static/order/list/img/bu3.jpg" alt=""></div>
+                        <div>
+                            <img src="/static/order/list/img/xb.jpg" alt="">
+                            <img src="/static/order/list/img/xb1.jpg" alt="">
+                            <div>23</div>
+                        </div>
+                    </dd>
+                    <div style="clear:both;"></div>
+                    <dd class="ab_operate">
+                        <ul>
+                            <li class="guanzhu"><i class="buy_btm_i1 buy_btm_i"></i>關注 4</li>
+                            <li class="zhan"><i class="buy_btm_i2 buy_btm_i0"></i>贊 11</li>
+                            <div style="clear:both;"></div>
+                        </ul>
+                    </dd>
+                </dl>
+                <div style="clear:both;"></div>
+            </div>
+        </div>
+        <div class="mySwiper">
+            <div class="mySwiper_like">
+                <div class="left">猜你喜歡</div>
+                <ol>
+                    <li class="liList">1</li>
+                    <li class="liList">2</li>
+                    <li class="liList">3</li>
+                    <div style="clear:both"></div>
+                </ol>
+                <div style="clear:both"></div>
+            </div>
+            <ul>
+                <li style="display:block;">
+                    <dl>
+                        <dt><img src="/static/order/list/image/lunbo.jpg" alt=""></dt>
+                        <dd>
+                            <div>花王 (Merries) 妙而舒 紙尿褲</div>
+                            <div>大號 L54片 尿不濕（9-14千克）</div>
+                            <p>¥83.90</p>
+                            <span>(已有363668人評價)</span>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt><img src="/static/order/list/image/lunbo1.jpg" alt=""></dt>
+                        <dd>
+                            <div>三隻松鼠 肉乾肉脯 休閑零食</div>
+                            <div>豬肉脯自然片150g/袋子</div>
+                            <p>¥26.90</p>
+                            <span>(已有448374人評價)</span>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt><img src="/static/order/list/image/lunbo2.jpg" alt=""></dt>
+                        <dd>
+                            <div>滿減不止5折三隻松鼠_小賤牛</div>
+                            <div>板筋120gx1袋休閑零食特產</div>
+                            <p>¥22.80</p>
+                            <span>(已有169149人評價)</span>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt><img src="/static/order/list/image/lunbo3.jpg" alt=""></dt>
+                        <dd>
+                            <div>良品鋪子鴨脖子 甜辣味真空小包裝</div>
+                            <div>香辣滷味零食休閑小吃熟食190g</div>
+                            <p>¥21.90</p>
+                            <span>(已有208040人評價)</span>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt><img src="/static/order/list/image/lunbo4.jpg" alt=""></dt>
+                        <dd>
+                            <div>歐萊雅（LOREAL）男士控油</div>
+                            <div>（男士洗面奶 收縮毛孔 去黑頭）</div>
+                            <p>¥39.00</p>
+                            <span>(已有604670人評價)</span>
+                        </dd>
+                    </dl>
+                    <div style="clear:both;"></div>
+                </li>
+                <li>
+                    <dl>
+                        <dt><img src="/static/order/list/image/live.jpg" alt=""></dt>
+                        <dd>
+                            <div>花王 (Merries) 妙而舒 紙尿褲</div>
+                            <div>大號 L54片 尿不濕（9-14千克）</div>
+                            <p>¥83.90</p>
+                            <span>(已有363668人評價)</span>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt><img src="/static/order/list/image/live1.jpg" alt=""></dt>
+                        <dd>
+                            <div>三隻松鼠 肉乾肉脯 休閑零食</div>
+                            <div>豬肉脯自然片150g/袋子</div>
+                            <p>¥26.90</p>
+                            <span>(已有448374人評價)</span>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt><img src="/static/order/list/image/live2.jpg" alt=""></dt>
+                        <dd>
+                            <div>滿減不止5折三隻松鼠_小賤牛</div>
+                            <div>板筋120gx1袋休閑零食特產</div>
+                            <p>¥22.80</p>
+                            <span>(已有169149人評價)</span>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt><img src="/static/order/list/image/live3.jpg" alt=""></dt>
+                        <dd>
+                            <div>良品鋪子鴨脖子 甜辣味真空小包裝</div>
+                            <div>香辣滷味零食休閑小吃熟食190g</div>
+                            <p>¥21.90</p>
+                            <span>(已有208040人評價)</span>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt><img src="/static/order/list/image/live4.jpg" alt=""></dt>
+                        <dd>
+                            <div>歐萊雅（LOREAL）男士控油</div>
+                            <div>（男士洗面奶 收縮毛孔 去黑頭）</div>
+                            <p>¥39.00</p>
+                            <span>(已有604670人評價)</span>
+                        </dd>
+                    </dl>
+                    <div style="clear:both;"></div>
+                </li>
+                <li>
+                    <dl>
+                        <dt><img src="/static/order/list/image/lunbo5.jpg" alt=""></dt>
+                        <dd>
+                            <div>花王 (Merries) 妙而舒 紙尿褲</div>
+                            <div>大號 L54片 尿不濕（9-14千克）</div>
+                            <p>¥83.90</p>
+                            <span>(已有363668人評價)</span>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt><img src="/static/order/list/image/lunbo6.jpg" alt=""></dt>
+                        <dd>
+                            <div>三隻松鼠 肉乾肉脯 休閑零食</div>
+                            <div>豬肉脯自然片150g/袋子</div>
+                            <p>¥26.90</p>
+                            <span>(已有448374人評價)</span>
+                        </dd>
+                    </dl>
+                    <div style="clear:both;"></div>
+                </li>
+            </ul>
+        </div>
+        <div id="logo">
+            <img src="/static/order/list/img/datu.jpg" alt="">
+            <img src="/static/order/list/img/datu1.jpg" alt="">
+        </div>
+    </div>
+    <div style="clear:both;"></div>
+</div>
+<div class="footer">
+    <div class="top">
+        <ul>
+            <li class="item fore1">
+                <i></i>
+                品類齊全，輕鬆購物
+            </li>
+            <li class="item fore2">
+                <i></i>
+                多倉直發，極速配送
+            </li>
+            <li class="item fore3">
+                <i></i>
+                正品行貨，精緻服務
+            </li>
+            <li class="item fore4">
+                <i></i>
+                天天低價，暢選無憂
+            </li>
+            <div style="clear:both;"></div>
+        </ul>
+    </div>
+    <!--  <div class="wrap">-->
+    <!--    <div class="wrap1">-->
+    <!--      <div class="wrap2">-->
+    <!--        <dl>-->
+    <!--          <dt>購物指南</dt>-->
+    <!--          <dd>購物流程</dd>-->
+    <!--          <dd>會員介紹</dd>-->
+    <!--          <dd>生活旅行/團購</dd>-->
+    <!--          <dd>常見問題</dd>-->
+    <!--          <dd>大家電</dd>-->
+    <!--          <dd>聯繫客服</dd>-->
+    <!--        </dl>-->
+    <!--        <dl>-->
+    <!--          <dt>配送方式</dt>-->
+    <!--          <dd>上門自提</dd>-->
+    <!--          <dd>211限時達</dd>-->
+    <!--          <dd>配送服務查詢</dd>-->
+    <!--          <dd>配送費收取標準</dd>-->
+    <!--          <dd>海外配送</dd>-->
+    <!--        </dl>-->
+    <!--        <dl>-->
+    <!--          <dt>支付方式</dt>-->
+    <!--          <dd>貨到付款</dd>-->
+    <!--          <dd>在線支付</dd>-->
+    <!--          <dd>分期付款</dd>-->
+    <!--          <dd>郵局匯款</dd>-->
+    <!--          <dd>公司轉賬</dd>-->
+    <!--        </dl>-->
+    <!--        <dl>-->
+    <!--          <dt>公司轉賬</dt>-->
+    <!--          <dd>售後政策</dd>-->
+    <!--          <dd>價格保護</dd>-->
+    <!--          <dd>退款說明</dd>-->
+    <!--          <dd>返修/退換貨</dd>-->
+    <!--          <dd>取消訂單</dd>-->
+    <!--        </dl>-->
+    <!--        <dl>-->
+    <!--          <dt>特色服務</dt>-->
+    <!--          <dd>奪寶島</dd>-->
+    <!--          <dd>DIY裝機</dd>-->
+    <!--          <dd>延保服務</dd>-->
+    <!--          <dd>商城E卡</dd>-->
+    <!--          <dd>商城通信</dd>-->
+    <!--          <dd>商城mall+</dd>-->
+    <!--        </dl>-->
+    <!--      </div>-->
+    <!--    </div>-->
+    <!--  </div>-->
+    <!--  <p class="p1">-->
+    <!--    <a href="#">關於我們</a>-->
+    <!--    <a href="#">聯繫我們</a>-->
+    <!--    <a href="#">聯繫客服</a>-->
+    <!--    <a href="#">合作招商</a>-->
+    <!--    <a href="#">合作招商</a>-->
+    <!--    <a href="#">營銷中心</a>-->
+    <!--    <a href="#" style="width:80px;">手機商城</a>-->
+    <!--    <a href="#">友情鏈接</a>-->
+    <!--    <a href="#">銷售聯盟</a>-->
+    <!--    <a href="#" style="width:80px;">商城社區</a>-->
+    <!--    <a href="#">風險監測</a>-->
+    <!--    <a href="#">隱私政策</a>-->
+    <!--    <a href="#" style="width:80px;">商城公益</a>-->
+    <!--    <a href="#" style="width:80px;">English Site</a>-->
+    <!--    <a href="#" style="border-right: none">Contact Us</a>-->
+    <!--  </p>-->
+    <!--  <p class="p2">-->
+    <!--    <a href="#">京公網安備 11000002000088號</a>-->
+    <!--    <a href="#">京ICP證070359號</a>-->
+    <!--    <a href="#">互聯網藥品信息服務資格證編號(京)-經營性-2014-0008</a>-->
+    <!--    <a href="#">新出發京零 字第大120007號</a>-->
+    <!--  </p>-->
+    <!--  <p class="p3">-->
+    <!--    <a href="#">互聯網出版許可證編號新出網證(京)字150號</a>-->
+    <!--    <a href="#">出版物經營許可證</a>-->
+    <!--    <a href="#">網絡文化經營許可證京網文[2014]2148-348號</a>-->
+    <!--    <a href="#">違法和不良信息舉報電話：4006561155</a>-->
+    <!--  </p>-->
+    <!--  <p class="p4">-->
+    <!--    <a href="#">Copyright © 2004 - 2017 商城mall.com 版權所有</a>-->
+    <!--    <a href="#">消費者維權熱線：4006067733</a>-->
+    <!--    <a href="#">經營證照</a>-->
+    <!--  </p>-->
+    <!--  <p class="p5">-->
+    <!--    <a href="#">商城旗下網站：商城錢包</a>-->
+    <!--    <a href="#">商城雲</a>-->
+    <!--  </p>-->
+    <p class="img">
+        <span class="span icon1"></span>
+        <span class="span icon2"></span>
+        <span class="span icon3"></span>
+        <span class="span icon4"></span>
+        <span class="span icon5"></span>
+        <span class="span icon6"></span>
+    </p>
+    <div style="clear: both"></div>
+</div>
+<div class="fixed">
+    <div class="teSe">
+        <ul>
+            <li class="test_li1">
+                <ol>
+                    <div></div>
+                    <li>寬帶</li>
+                    <li>我的旅行訂單</li>
+                    <li>奪寶箱</li>
+                    <li>我的定期送</li>
+                    <li>我的競拍保證金</li>
+                    <li>商城白條</li>
+                    <li>商城回收</li>
+                    <li>裝機大師</li>
+                    <li>黃金託管業務</li>
+                </ol>
+            </li>
+            <li class="test_li2"></li>
+            <li><a href="#" class="test_li3"></a></li>
+        </ul>
+    </div>
+</div>
+</body>
+<script src="/static/order/list/js/jquery-3.1.1.min.js"></script>
+<script src="/static/order/list/js/index.js"></script>
+</html>

@@ -1,0 +1,1169 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE"/>
+    <link rel="stylesheet" type="text/css" href="/static/order/detail/bootstrap/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/order/detail/css/scss.css"/>
+</head>
+<body>
+<div id="max">
+    <!--頂部-->
+    <header>
+        <div class="min">
+            <ul class="header_ul_left">
+                <li class="glyphicon glyphicon-home">
+                    <a href="http://mall.com" class="aa">商城首頁</a>
+                </li>
+                <li class="glyphicon glyphicon-map-marker">
+                    <a href="">北京</a>
+                    <ol id="beijing">
+                        <li style="background: red;">
+                            <a href="" style="color: white;">北京</a>
+                        </li>
+                        <a href="">台灣</a>
+                        </li>
+                        <li>
+                            <a href="">釣魚島</a>
+                        </li>
+                        <li>
+                            <a href="">海外</a>
+                        </li>
+                    </ol>
+                </li>
+            </ul>
+            <ul class="header_ul_right">
+                <li style="width: 100px;">
+                    <a th:if="${session.loginUser != null}">歡迎, [[${session.loginUser.nickname}]]</a>
+                    <a th:if="${session.loginUser == null}" href="http://auth.mall.com/login.html">你好，請登入</a>
+                </li>
+                <li>
+                    <a th:if="${session.loginUser == null}" href="http://auth.mall.com/reg.html"
+                       class="li_2">免費註冊</a>
+                </li>
+                <a href="http://order.mall.com/list.html" class="aa">我的訂單</a> |</li>
+                <li class="jingdong" style="width:95px;">
+                    <a href="http://mall.com/">我的商城</a><span class="glyphicon glyphicon-menu-down">|</span>
+                    <ol class="jingdong_ol">
+                        <li>
+                            <a href="">待處理訂單</a>
+                        </li>
+                        <li>
+                            <a href="">消息</a>
+                        </li>
+                        <li>
+                            <a href="">返修退換貨</a>
+                        </li>
+                        <li>
+                            <a href="">我的回答</a>
+                        </li>
+                        <li>
+                            <a href="">降價商品</a>
+                        </li>
+                        <li>
+                            <a href="">我的關注</a>
+                        </li>
+                        <li style="width: 100%;height: 1px;background: lavender;margin-top: 15px;"></li>
+                        <li style="margin-top: 0;">
+                            <a href="">我的京豆</a>
+                        </li>
+                        <li style="margin-top: 0;">
+                            <a href="">我的優惠券</a>
+                        </li>
+                        <li style="margin-bottom: 10px;">
+                            <a href="">我的白條</a>
+                        </li>
+                        <li style="margin-bottom: 10px;">
+                            <a href="">我的理財</a>
+                        </li>
+                        <p><span>我的足跡</span><span class="span1">更多 > </span></p>
+                        <div>
+                            <img src="/static/order/detail/img/59dd8156N3d39c5d5.jpg"/>
+                            <img src="/static/order/detail/img/59ce706fN6f3f2a4a.jpg"/>
+                            <img src="/static/order/detail/img/599079abNa63762a2.jpg"/>
+                            <img src="/static/order/detail/img/59bfbe3cN63e4979b.jpg"/>
+                        </div>
+                    </ol>
+                </li>
+                <li style="width:80px;">
+                    <a href="" class="aa">商城會員</a> |
+                </li>
+                <li>
+                    <a href="" class="aa">企業採購</a> |
+                </li>
+                <li class="fuwu">
+                    <a href="">客戶服務</a><span
+                        class="glyphicon glyphicon-menu-down"></span> |
+                    <ol class="fuwu_ol">
+                        <h6>客戶</h6>
+                        <li>
+                            <a href="">幫助中心</a>
+                        </li>
+                        <li>
+                            <a href="">售後服務</a>
+                        </li>
+                        <li>
+                            <a href="">在線客服</a>
+                        </li>
+                        <li>
+                            <a href="">意見建議</a>
+                        </li>
+                        <li>
+                            <a href="">電話客服</a>
+                        </li>
+                        <li>
+                            <a href="">客服郵箱</a>
+                        </li>
+                        <li style="margin-bottom: -5px;">
+                            <a href="">金融諮詢</a>
+                        </li>
+                        <li style="margin-bottom: -5px;">
+                            <a href="">售全球客服</a>
+                        </li>
+                        <h6 style="border-top: 1px dashed darkgray;height: 30px;line-height: 30px;">商戶</h6>
+                        <li style="margin-top: -5px;">
+                            <a href="">合作招商</a>
+                        </li>
+                        <li style="margin-top: -5px;">
+                            <a href="">學習中心</a>
+                        </li>
+                        <li>
+                            <a href="">商家後台</a>
+                        </li>
+                        <li>
+                            <a href="">京麥工作台</a>
+                        </li>
+                        <li>
+                            <a href="">商家幫助</a>
+                        </li>
+                        <li>
+                            <a href="">規則平台</a>
+                        </li>
+                    </ol>
+                </li>
+                <li class="daohang">
+                    <a href="">網站導航</a><span
+                        class="glyphicon glyphicon-menu-down"></span> |
+                    <ol class="daohang_ol">
+                        <li style="width: 34%;">
+                            <h5>特色主題</h5>
+                            <p>
+                                <a href="">商城試用</a>
+                                <a href="">商城金融</a>
+                                <a href="">全球售</a>
+                                <a href="">國際站</a>
+                            </p>
+                            <p>
+                                <a href="">商城會員</a>
+                                <a href="">商城預售</a>
+                                <a href="">買什麼</a>
+                                <a href="">俄語站</a>
+                            </p>
+                            <p>
+                                <a href="">裝機大師</a>
+                                <a href="">0元評測</a>
+                                <a href="">定期送</a>
+                                <a href="">港澳售</a>
+                            </p>
+                            <p>
+                                <a href="">優惠券</a>
+                                <a href="">秒殺</a>
+                                <a href="">閃購</a>
+                                <a href="">印尼站</a>
+                            </p>
+                            <p>
+                                <a href="">商城金融科技</a>
+                                <a href="">In貨推薦</a>
+                                <a href="">陪伴計劃</a>
+                                <a href="">出海招商</a>
+                            </p>
+                        </li>
+                        <li>
+                            <h5>行業頻道</h5>
+                            <p>
+                                <a href="" class="aa_2">手機</a>
+                                <a href="" class="aa_2">智能數碼</a>
+                                <a href="" class="aa_2">玩3C</a>
+                            </p>
+                            <p>
+                                <a href="" class="aa_2">電腦辦公</a>
+                                <a href="" class="aa_2">家用電器</a>
+                                <a href="" class="aa_2">商城智能</a>
+                            </p>
+                            <p>
+                                <a href="" class="aa_2">服裝城</a>
+                                <a href="" class="aa_2">美妝館</a>
+                                <a href="" class="aa_2">家裝城</a>
+                            </p>
+                            <p>
+                                <a href="" class="aa_2">母嬰</a>
+                                <a href="" class="aa_2">食品</a>
+                                <a href="" class="aa_2">運動戶外</a>
+                            </p>
+                            <p>
+                                <a href="" class="aa_2">農資頻道</a>
+                                <a href="" class="aa_2">整車</a>
+                                <a href="" class="aa_2">圖書</a>
+                            </p>
+                        </li>
+                        <li>
+                            <h5>生活服務</h5>
+                            <p>
+                                <a href="" class="aa_2">商城眾籌</a>
+                                <a href="" class="aa_2">白條</a>
+                                <a href="" class="aa_2">商城金融APP</a>
+                            </p>
+                            <p>
+                                <a href="" class="aa_2">商城小金庫</a>
+                                <a href="" class="aa_2">理財</a>
+                                <a href="" class="aa_2">智能家電</a>
+                            </p>
+                            <p>
+                                <a href="" class="aa_2">話費</a>
+                                <a href="" class="aa_2">水電煤</a>
+                                <a href="" class="aa_2">彩票</a>
+                            </p>
+                            <p>
+                                <a href="" class="aa_2">旅行</a>
+                                <a href="" class="aa_2">機票酒店</a>
+                                <a href="" class="aa_2">電影票</a>
+                            </p>
+                            <p>
+                                <a href="" class="aa_2">商城到家</a>
+                                <a href="" class="aa_2">商城眾測</a>
+                                <a href="" class="aa_2">遊戲</a>
+                            </p>
+                        </li>
+                        <li style="border: 0;">
+                            <h5>更多精選</h5>
+                            <p>
+                                <a href="" class="aa_2">合作招商</a>
+                                <a href="" class="aa_2">商城通信</a>
+                                <a href="" class="aa_2">商城E卡</a>
+                            </p>
+                            <p>
+                                <a href="" class="aa_2">企業採購</a>
+                                <a href="" class="aa_2">服務市場</a>
+                                <a href="" class="aa_2">辦公生活館</a>
+                            </p>
+                            <p>
+                                <a href="" class="aa_2">鄉村招募</a>
+                                <a href="" class="aa_2">校園加盟</a>
+                                <a href="" class="aa_2">京友邦</a>
+                            </p>
+                            <p>
+                                <a href="" class="aa_2">商城社區</a>
+                                <a href="" class="aa_2">智能社區</a>
+                                <a href="" class="aa_2">遊戲社區</a>
+                            </p>
+                            <p>
+                                <a href="" class="aa_2">知識產權維權</a>
+                                <a href="" class="aa_2"></a>
+                                <a href="" class="aa_2"></a>
+                            </p>
+                        </li>
+                    </ol>
+                </li>
+                <li class="sjjd" style="border: 0;">
+                    <a href="" class="aa">手機商城</a>
+                    <div class="er">
+                        <div class="er_1">
+                            <img src="/static/order/detail/img/59a51bf6Nb8e478cc.png"/>
+                            <div class="er_1_1">
+                                <h6><a href="/static/order/detail/#">手機商城</a></h6>
+                                <p>新人專享大禮包</p>
+                                <div>
+                                    <a href="/static/order/detail/#"><img src="/static/order/detail/img/11.png"/></a>
+                                    <a href="/static/order/detail/#"><img src="/static/order/detail/img/22.png"/></a>
+                                    <a href="/static/order/detail/#"><img src="/static/order/detail/img/33.png"/></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="er_1">
+                            <img src="/static/order/detail/img/5874a54dNcec29924.jpg"/>
+                            <div class="er_1_1">
+                                <h6><a href="/static/order/detail/#">關注商城微信</a></h6>
+                                <p>微信掃一掃關注新粉最高180元驚喜禮包</p>
+                            </div>
+                        </div>
+                        <div class="er_1" style="border: 0;">
+                            <img src="/static/order/detail/img/5874a555Ne8192324.jpg"/>
+                            <div class="er_1_1">
+                                <h6><a href="/static/order/detail/#">商城金融客戶端</a></h6>
+                                <p>新人專享大禮包</p>
+                                <div>
+                                    <a href="/static/order/detail/#"><img src="/static/order/detail/img/11.png"/></a>
+                                    <a href="/static/order/detail/#"><img src="/static/order/detail/img/22.png"/></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </header>
+    <!--導航-->
+    <nav>
+        <div class="nav_min">
+            <div class="nav_top">
+                <div class="nav_top_one">
+                    <a href="http://mall.com/"><img src="/static/order/detail/img/logo1.jpg"/></a>
+                </div>
+                <div class="nav_top_two"><input type="text"/>
+                    <button>搜索</button>
+                </div>
+                <div class="nav_top_three">
+                    <a href="http://cart.mall.com/cart.html">我的購物車</a><span
+                        class="glyphicon glyphicon-shopping-cart"></span>
+                    <div class="nav_top_three_1">
+                        <img src="/static/order/detail/img/44.png"/>購物車還沒有商品，趕緊選購吧！
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!--等待付款內容-->
+    <div class="content">
+        <div class="emph-tips">
+            <div class="emph-tipss">
+                <b></b>安全提醒：為了您的財產安全，<strong>不要點擊陌生鏈接、不要向陌生人轉賬</strong>或透漏銀行卡和驗證碼信息，<strong>謹防詐騙</strong>！
+            </div>
+        </div>
+        <div class="content_myjd">
+            <div class="breadcrumb">
+                <a href="/static/order/detail/home.jd.com/">我的商城</a><span>&nbsp;&gt;&nbsp;<a
+                    href="/static/order/detail/order.jd.com/center/list.action">訂單中心</a>&nbsp;&gt;&nbsp;<strong>訂單：70716422916</strong></span>
+            </div>
+        </div>
+        <div class="order-state01">
+            <div class="state-cont">
+                <!-- 工具條 -->
+                <div class="state-lcol">
+                    <div class="state-top">訂單號：70716422916</div>
+                    <h3 class="state-txt">等待付款</h3>
+                    <span class="remain-time" style=""><b class="b1"></b>剩餘4時51分</span>
+                    <div class="state-btns">
+                        <a class="btn-1">付款</a>
+                        <a class="btn-2">找人代付</a>
+                    </div>
+                    <div class="state-bottom">
+                        <span class="span1"><b class="b1"></b>打印訂單</span>
+                        <span class="span2"><b class="b2"></b>取消訂單</span>
+                    </div>
+                </div>
+                <!-- 進度條 -->
+                <div class="state-rcol">
+                    <div class="state-rtop">
+                        <!--提示信息 -->
+                        <div class="ftx-03">
+                            該訂單會為您保留6.0小時（從下單之日算起），6.0小時之後如果還未付款，系統將自動取消該訂單。
+                        </div>
+                    </div>
+                    <!--進度條 -->
+                    <div id="process-04" class="order-process order-strike-process">
+                        <div class="lioucheng">
+                            <ul>
+                                <li>等待付款</li>
+                                <li></li>
+                                <li></li>
+                                <li></li>
+                            </ul>
+                        </div>
+                        <div class="lioucheng_1">
+                            <ul>
+                                <li class="a1"></li>
+                                <li class="b1"><img src="/static/order/detail/image/hongde.png"/></li>
+                                <li class="a2"></li>
+                                <li class="b2"><img src="/static/order/detail/image/huide.png"/></li>
+                                <li class="a3"></li>
+                                <li class="b2"><img src="/static/order/detail/image/huide.png"/></li>
+                                <li class="a4"></li>
+                                <li class="b2"><img src="/static/order/detail/image/huide.png"/></li>
+                                <li class="a5"></li>
+                            </ul>
+                        </div>
+                        <div class="lioucheng_2">
+                            <ul>
+                                <li>
+                                    <p>提交訂單</p>
+                                    <p id='time'></p>
+                                </li>
+                                <li>
+                                    <p class="color_p">付款成功</p>
+                                    <p></p>
+                                </li>
+                                <li>
+                                    <p class="color_p">商品出庫</p>
+                                    <p></p>
+                                </li>
+                                <li>
+                                    <p class="color_p">等待收貨</p>
+                                    <p></p>
+                                </li>
+                                <li class="wancheng">
+                                    <p class="color_p">完成</p>
+                                    <p></p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="state-others">
+                        <span class="txt">完成訂單可能獲得：</span>
+                        <a href="/static/order/detail/#none" class="btn-bean mr10"
+                           clstag="click|keycount|orderinfo|xqjingdou"><b class="b1"></b>京豆</a>
+                        <a href="/static/order/detail/#none" class="btn-coupon mr10"
+                           clstag="click|keycount|orderinfo|xqyouhuiquan"><b class="b2"></b>優惠券</a>
+                    </div>
+                </div>
+                <div class="xian">
+                </div>
+            </div>
+            <div class="mb"></div>
+        </div>
+        <!--配貨方式-->
+        <div class="sta_pei">
+            <div class="sta_left">
+                <div class="sta_1">
+                    <img src="/static/order/detail/image/5886ffa5Na5e39e2d.jpg"/>
+                    <span>
+                                送貨方式：普通快遞
+							</span>
+                </div>
+            </div>
+            <div class="sta_rifht">
+                <ul>
+                    <li class="afterdate first"><i class="node-icon"></i><span class="date">2017-12-26<span
+                            class="week">/周二</span></span><span class="time">09:39:49</span><strong class="txt">您提交了訂單，請等待系統確認</strong>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!--配送信息-->
+        <div class="sta_xinxi">
+            <ul>
+                <li>
+                    <div class="dl">
+                        <div class="dt">
+                            <h4>收貨人信息
+                            </h4>
+                        </div>
+                        <div class="dd">
+                            <div class="item">
+                                <span class="label">收貨人：</span>
+                                <div class="info-rcol">
+                                    張亞飛
+                                </div>
+                            </div>
+                            <div class="item">
+                                <span class="label">地址：</span>
+                                <div class="info-rcol">
+                                    北京昌平區六環以內北京吉利大學學生公寓-馬池口鎮吉利大學
+                                </div>
+                            </div>
+                            <div class="item">
+                                <span class="label">手機號碼：</span>
+                                <div class="info-rcol">
+                                    147****4726
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="dl">
+                        <div class="dt">
+                            <h4>配送信息</h4>
+                        </div>
+                        <div class="dd">
+                            <div class="item">
+										<span class="label">
+                    配送方式：
+                </span>
+                                <div class="info-rcol">
+                                    普通快遞
+                                </div>
+                            </div>
+                            <div class="item">
+										<span class="label">
+                        運費：
+                    </span>
+                                <div class="info-rcol">
+											<span class="f-price">
+                       	 	¥12.00
+                       	 </span>
+                                </div>
+                            </div>
+                            <div class="item">
+										<span class="label">
+                                        送貨日期：
+                                    </span>
+                                <div class="info-rcol">
+                                    2018-01-01
+                                </div>
+                            </div>
+                            <div class="item">
+										<span class="label">
+                                        配送時間：
+                                    </span>
+                                <div class="info-rcol">
+                                    18:00-20:00<span class="delivery-type">京准達</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="dl" id="pay-info-nozero">
+                        <div class="dt">
+                            <h4>付款信息</h4>
+                        </div>
+                        <div class="dd">
+                            <div class="item">
+										<span class="label">
+						付款方式：
+					</span>
+                                <div class="info-rcol">
+                                    在線支付
+                                </div>
+                            </div>
+                            <div class="item">
+										<span class="label">
+    							商品總額：
+    						</span>
+                                <div class="info-rcol">
+											<span class="f-price">
+                               	 ¥21.80
+    							</span>
+                                </div>
+                            </div>
+                            <div class="item">
+										<span class="label">
+							應支付金額：
+						</span>
+                                <div class="info-rcol">
+											<span class="f-price">
+                            	¥33.80
+							</span>
+                                </div>
+                            </div>
+                            <div class="item">
+										<span class="label">
+						運費金額：
+					</span>
+                                <div class="info-rcol">
+											<span class="f-price">
+                    ¥12.00
+                    </span>
+                                    <span class="help-tip"></span></div>
+                            </div>
+                        </div>
+                        <!-- 續重運費	-->
+                        <div id="freshTips" style="display:none">
+                            <div class="prompt-box prompt-box-yf">
+                                <div class="pc">
+                                    <div class="yf-item">
+                                        <div class="yf-title">
+                                            <span class="title">生鮮商品</span><span class="tips">(總重：1.600 kg)</span>
+                                        </div>
+                                        <div class="yf-box">
+                                            <div class="item"><label>基礎運費：</label><span>＄12.00</span></div>
+                                            <div class="item"><label>續重運費：</label><span>＄0.00</span>
+                                                <a href="/static/order/detail/help.jd.com/user/issue/109-188.html"
+                                                   target="_blank"> 查看續重標準&gt;</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="more">
+                            <span class="txt">更多</span><b></b>
+                        </div>
+                        <!-- 更多費用	-->
+                        <div id="pay-info-allfee" style="display:none">
+                            <div class="item">
+										<span class="label">
+						優惠券：
+					</span>
+                                <div class="info-rcol">
+											<span class="f-price">
+                        ¥0.00
+                    </span>
+                                </div>
+                            </div>
+                            <div class="item">
+										<span class="label">
+						返現：
+					</span>
+                                <div class="info-rcol">
+											<span class="f-price">
+                        ¥0.00
+                    </span>
+                                </div>
+                            </div>
+                            <div class="item">
+										<span class="label">
+						禮品卡-領貨碼
+					</span>
+                                <div class="info-rcol">
+											<span class="f-price">
+                        ¥<0 class="00"></0>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="item">
+										<span class="label">
+						餘額：
+					</span>
+                                <div class="info-rcol">
+											<span class="f-price">
+                        ¥0.00
+                    </span>
+                                </div>
+                            </div>
+                            <div class="item">
+										<span class="label">
+						稅費：
+					</span>
+                                <div class="info-rcol">
+											<span class="f-price">
+                        ¥0.00
+                    </span>
+                                </div>
+                            </div>
+                            <div class="item">
+										<span class="label">
+						京豆：
+					</span>
+                                <div class="info-rcol">
+											<span class="f-price">
+                        ¥0.00
+                    </span>
+                                </div>
+                            </div>
+                            <div class="item">
+										<span class="label">
+						訂單優惠：
+					</span>
+                                <div class="info-rcol">
+											<span class="f-price">
+                        ¥0.00
+                    </span>
+                                </div>
+                            </div>
+                            <div class="item">
+										<span class="label">
+						退換無憂：
+					</span>
+                                <div class="info-rcol">
+											<span class="f-price">
+                        ¥0.00
+                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div id="J-invoice-info" class="dl">
+                        <div class="dt">
+                            <h4>發票信息</h4>
+                        </div>
+                        <div class="dd">
+                            <div class="item">
+										<span class="label">
+                               發票類型：
+                            </span>
+                                <div class="info-rcol">
+                                    电子普通發票
+                                </div>
+                            </div>
+                            <div class="item">
+										<span class="label">
+                            發票抬頭：
+                        </span>
+                                <div class="info-rcol">
+                                    個人
+                                </div>
+                            </div>
+                            <div class="item">
+										<span class="label">
+                           發票內容：
+                        </span>
+                                <div class="info-rcol">
+                                    商品明細
+                                </div>
+                            </div>
+                            <div id="invoiceTips" style="display:none">
+                                <div class="prompt-box info-prompt-box">
+                                    商品明細
+                                </div>
+                            </div>
+                            <div class="item J-e-invoice">
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <!--商城-->
+        <div class="jdwenzi">商城<span></span></div>
+        <!--商品信息-->
+        <div class="shop_sta_xinin">
+            <table>
+                <tr>
+                    <th style="width: 500px;">商品</th>
+                    <th>商品編號</th>
+                    <th>商城價</th>
+                    <th>商品數量</th>
+                    <th>京豆</th>
+                    <th>操作</th>
+                </tr>
+                <tr>
+                    <td><img src="/static/order/detail/image/5886ffa5Na5e39e2d.jpg"/>
+                        <div style="display: inline-block;">
+                            <p><b></b><a href="/static/order/detail/item.jd.com/1778772.html" class="a-link"
+                                         target="_blank" title="伊利 風味發酵乳 原味酸奶100g*8（兩件起售）">伊利 風味發酵乳 原味酸奶100g*8（兩件起售）</a>
+                            </p>
+                            <p class="txt">益消 原味八連杯100g*</p>
+                        </div>
+                    </td>
+                    <td>1778772</td>
+                    <td>¥10.90</td>
+                    <td>2</td>
+                    <td>0</td>
+                    <td></td>
+                </tr>
+            </table>
+            <div class="ccccc">
+                <div class="right">
+                    <div class="shuxing">
+                        <p>商品總額：</p>
+                        <p>返　　現：</p>
+                        <p>運　　費：</p>
+                        <p style="color: red;">應付總額：</p>
+                    </div>
+                    <div class="shuxingzhi">
+                        <p>¥21.80</p>
+                        <p>-¥0.00</p>
+                        <p><b class="b1"></b> ¥12.00</p>
+                        <p class="p1">¥33.80</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--猜你喜歡-->
+        <div class="cainixihuan">
+            <div class="cainixihuan_1">
+                <div class="l1" style="margin-left: 30px;">猜你喜歡</div>
+                <div class="r1" style="margin-right: 30px;">
+                    <span class="span1" style="background: red;color: white;">1</span>
+                    <span class="span2">2</span>
+                    <span class="span3">3</span>
+                </div>
+            </div>
+            <!-- 選項卡 -->
+            <div class="xuanxiangka">
+                <ul class="ul1">
+                    <li>
+                        <ul class="ul2"
+                        ">
+                    <li>
+                        <img src="/static/order/detail/image/5a0bf933N27e3b0be.jpg"/>
+                        <p class="p1">展卉 泰國進口龍眼 1kg 新鮮水果</p>
+                        <p class="p2">＄19.90</p>
+                        <p class="p3">
+                            <button class="btn_jiaru"><b></b>加入購物車</button>
+                        </p>
+                    </li>
+                    <li>
+                        <img src="/static/order/detail/image/57c3a568N2d970e3f.jpg"/>
+                        <p class="p1">xuenair 手機膜 適用於oppo r9高清膜 R9軟膜保護膜普通膜 R9高清軟膜</p>
+                        <p class="p2">＄9.90</p>
+                        <p class="p3">
+                            <button class="btn_jiaru"><b></b>加入購物車</button>
+                        </p>
+                    </li>
+                    <li>
+                        <img src="/static/order/detail/image/57d288afNb3f03376.jpg"/>
+                        <p class="p1">關鍵 全屏覆蓋膜高清手機保護軟貼膜 適用於OPPOR9/m/R9tm/R9/R9CM 全屏3D高清熱彎軟膜-PET熱彎膜</p>
+                        <p class="p2">＄23.90</p>
+                        <p class="p3">
+                            <button class="btn_jiaru"><b></b>加入購物車</button>
+                        </p>
+                    </li>
+                    <li>
+                        <img src="/static/order/detail/image/58ae8d6fNec021b75.jpg"/>
+                        <p class="p1">銘卡 3D曲面全覆蓋膜全屏高清軟膜全貼合不翹邊手機保護貼膜無白邊 適用於OPPO R9 全包軟膜1盒3片裝-OPPO R9Plus</p>
+                        <p class="p2">＄19.90</p>
+                        <p class="p3">
+                            <button class="btn_jiaru"><b></b>加入購物車</button>
+                        </p>
+                    </li>
+                    <li>
+                        <img src="/static/order/detail/image/57cd2cdfN536d176e.jpg"/>
+                        <p class="p1">金龍魚 食用油 非轉基因 壓榨 一級 純正玉米油4L</p>
+                        <p class="p2">＄59.90</p>
+                        <p class="p3">
+                            <button class="btn_jiaru"><b></b>加入購物車</button>
+                        </p>
+                    </li>
+                </ul>
+                </li>
+                <li style="display: none;">
+                    <ul class="ul2">
+                        <li>
+                            <img src="/static/order/detail/image/59cf0288N70c5550e.jpg"/>
+                            <p class="p1">維達(Vinda) 捲紙 藍色經典3層140g衛生紙*27卷(整箱銷售)</p>
+                            <p class="p2">＄21.90</p>
+                            <p class="p3">
+                                <button class="btn_jiaru"><b></b>加入購物車</button>
+                            </p>
+                        </li>
+                        <li>
+                            <img src="/static/order/detail/image/59dad98dN844ade9a.jpg"/>
+                            <p class="p1">花王（Merries）紙尿褲 XL44片 加大號尿不濕（12-20kg）（日本原裝進口）</p>
+                            <p class="p2">＄9.90</p>
+                            <p class="p3">
+                                <button class="btn_jiaru"><b></b>加入購物車</button>
+                            </p>
+                        </li>
+                        <li>
+                            <img src="/static/order/detail/image/574d9d9aNe4e6fa7a.jpg"/>
+                            <p class="p1">小米（MI）小米手環2 智能運動 心率監測 來電提醒 久坐提醒 LED显示屏 時間显示 防水計步器 無感腕帶</p>
+                            <p class="p2">＄23.90</p>
+                            <p class="p3">
+                                <button class="btn_jiaru"><b></b>加入購物車</button>
+                            </p>
+                        </li>
+                        <li>
+                            <img src="/static/order/detail/image/55dfbd92Necddda85.jpg"/>
+                            <p class="p1">德芙Dove巧克力分享碗裝 絲滑牛奶巧克力糖果巧克力休閑零食252g</p>
+                            <p class="p2">＄19.90</p>
+                            <p class="p3">
+                                <button class="btn_jiaru"><b></b>加入購物車</button>
+                            </p>
+                        </li>
+                        <li>
+                            <img src="/static/order/detail/image/582e96dfNb2297429.jpg"/>
+                            <p class="p1">Ferrero Rocher費列羅榛果威化糖果巧克力禮盒16粒200g</p>
+                            <p class="p2">＄59.90</p>
+                            <p class="p3">
+                                <button class="btn_jiaru"><b></b>加入購物車</button>
+                            </p>
+                        </li>
+                    </ul>
+                </li>
+                <li style="display: none;">
+                    <ul class="ul2">
+                        <li>
+                            <img src="/static/order/detail/image/5703e5b3N55d82839.jpg"/>
+                            <p class="p1">Ferrero Rocher費列羅榛果威化糖果巧克力禮盒48粒600g</p>
+                            <p class="p2">＄19.90</p>
+                            <p class="p3">
+                                <button class="btn_jiaru"><b></b>加入購物車</button>
+                            </p>
+                        </li>
+                        <li>
+                            <img src="/static/order/detail/image/59229ca7N12620168.jpg"/>
+                            <p class="p1">花王 (Merries) 妙而舒 紙尿褲 大號 L54片 尿不濕（9-14千克） （日本官方直采）</p>
+                            <p class="p2">＄19.90</p>
+                            <p class="p3">
+                                <button class="btn_jiaru"><b></b>加入購物車</button>
+                            </p>
+                        </li>
+                        <li>
+                            <img src="/static/order/detail/image/59bf3c47N91d65c73.jpg"/>
+                            <p class="p1">關鍵 全屏覆蓋膜高清手機保護軟貼膜 適用於OPPOR9/m/R9tm/R9/R9CM 全屏3D高清熱彎軟膜-PET熱彎膜</p>
+                            <p class="p2">＄213.90</p>
+                            <p class="p3">
+                                <button class="btn_jiaru"><b></b>加入購物車</button>
+                            </p>
+                        </li>
+                        <li>
+                            <img src="/static/order/detail/image/58ae8d6fNec021b75.jpg"/>
+                            <p class="p1">榮耀8 4GB+64GB 全網通4G手機 魅海藍</p>
+                            <p class="p2">＄19.90</p>
+                            <p class="p3">
+                                <button class="btn_jiaru"><b></b>加入購物車</button>
+                            </p>
+                        </li>
+                        <li>
+                            <img src="/static/order/detail/image/58be1d28Naaca124c.jpg"/>
+                            <p class="p1">Ferrero Rocher費列羅榛果威化糖果巧克力禮盒8粒心形裝100g</p>
+                            <p class="p2">＄39.90</p>
+                            <p class="p3">
+                                <button class="btn_jiaru"><b></b>加入購物車</button>
+                            </p>
+                        </li>
+                    </ul>
+                </li>
+                </ul>
+            </div>
+        </div>
+        <script src="/static/order/detail/js/jquery-3.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+        <script type="text/javascript">
+            $(".r1 span").mouseover(function () {
+                var index = $(this).index(); //獲取被按下按鈕的索引值，需要注意index是從0開始的
+                console.log(index)
+                $(this).css('background', 'red').siblings().css('background', 'white')
+                $(this).css('color', 'white').siblings().css('color', 'black')
+                $(".xuanxiangka .ul1>li").eq(index).css('display', 'block').siblings().css('display', 'none');
+            });
+        </script>
+    </div>
+    <!--底部-->
+    <footer>
+        <div class="bg_top">
+            <ol class="slogen">
+                <li class="item fore1">
+                    <i>多</i>品類齊全，輕鬆購物
+                </li>
+                <li class="item fore2">
+                    <i>快</i>多倉直發，極速配送
+                </li>
+                <li class="item fore3">
+                    <i>好</i>正品行貨，精緻服務
+                </li>
+                <li class="item fore4">
+                    <i>省</i>天天低價，暢選無憂
+                </li>
+            </ol>
+        </div>
+        <div class="dj_help">
+            <div class="dj_w">
+                <div class="dj_wrap">
+                    <dl class="fore1">
+                        <dt>購物指南</dt>
+                        <dd>
+                            <a href="">購物流程</a>
+                        </dd>
+                        <dd>
+                            <a href="">會員介紹</a>
+                        </dd>
+                        <dd>
+                            <a href="">生活旅行/團購</a>
+                        </dd>
+                        <dd>
+                            <a href="">常見問題</a>
+                        </dd>
+                        <dd>
+                            <a href="">大家電</a>
+                        </dd>
+                        <dd>
+                            <a href="">聯繫客服</a>
+                        </dd>
+                    </dl>
+                    <dl class="fore2">
+                        <dt>配送方式</dt>
+                        <dd>
+                            <a href="">上門自提</a>
+                        </dd>
+                        <dd>
+                            <a href="">211限時達</a>
+                        </dd>
+                        <dd>
+                            <a href="">配送服務查詢</a>
+                        </dd>
+                        <dd>
+                            <a href="">配送費收取標準</a>
+                        </dd>
+                        <dd>
+                            <a href="">海外配送</a>
+                        </dd>
+                    </dl>
+                    <dl class="fore3">
+                        <dt>支付方式</dt>
+                        <dd>
+                            <a href="">貨到付款</a>
+                        </dd>
+                        <dd>
+                            <a href="">在線支付</a>
+                        </dd>
+                        <dd>
+                            <a href="">分期付款</a>
+                        </dd>
+                        <dd>
+                            <a href="">郵局匯款</a>
+                        </dd>
+                        <dd>
+                            <a href="">公司轉賬</a>
+                        </dd>
+                    </dl>
+                    <dl class="fore4">
+                        <dt>售後服務</dt>
+                        <dd>
+                            <a href="">售後政策</a>
+                        </dd>
+                        <dd>
+                            <a href="">價格保護</a>
+                        </dd>
+                        <dd>
+                            <a href="">退款說明</a>
+                        </dd>
+                        <dd>
+                            <a href="">返修/退換貨</a>
+                        </dd>
+                        <dd>
+                            <a href="">取消訂單</a>
+                        </dd>
+                    </dl>
+                    <dl class="fore5">
+                        <dt>特色服務</dt>
+                        <dd>
+                            <a href="">奪寶島</a>
+                        </dd>
+                        <dd>
+                            <a href="">DIY裝機</a>
+                        </dd>
+                        <dd>
+                            <a href="">延保服務</a>
+                        </dd>
+                        <dd>
+                            <a href="">商城E卡</a>
+                        </dd>
+                        <dd>
+                            <a href="">商城通信</a>
+                        </dd>
+                        <dd>
+                            <a href="">商城JD+</a>
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <div class="bg_info_footer">
+        <!--		<div class="bg_wrap">-->
+        <!--			<div class="bg_links">-->
+        <!--				<p>-->
+        <!--					<a href="" target="_blank">關於我們</a><span-->
+        <!--						class="copyright_split">|</span>-->
+        <!--					<a href="" target="_blank">聯繫我們</a><span-->
+        <!--						class="copyright_split">|</span>-->
+        <!--					<a href="" target="_blank">聯繫客服</a><span-->
+        <!--						class="copyright_split">|</span>-->
+        <!--					<a href="" target="_blank">合作招商</a><span-->
+        <!--						class="copyright_split">|</span>-->
+        <!--					<a href="" target="_blank">商家幫助</a><span-->
+        <!--						class="copyright_split">|</span>-->
+        <!--					<a href="" target="_blank">營銷中心</a><span-->
+        <!--						class="copyright_split">|</span>-->
+        <!--					<a href="" target="_blank">手機商城</a><span class="copyright_split">|</span>-->
+        <!--					<a href="" target="_blank">友情鏈接</a><span-->
+        <!--						class="copyright_split">|</span>-->
+        <!--					<a href="" target="_blank">銷售聯盟</a><span-->
+        <!--						class="copyright_split">|</span>-->
+        <!--					<a href="" target="_blank">商城社區</a><span class="copyright_split">|</span>-->
+        <!--					<a href="" target="_blank">風險監測</a><span-->
+        <!--						class="copyright_split">|</span>-->
+        <!--					<a href="" target="_blank">隱私政策</a><span-->
+        <!--						class="copyright_split">|</span>-->
+        <!--					<a href="" target="_blank">商城公益</a><span class="copyright_split">|</span>-->
+        <!--					<a href="" target="_blank">English Site</a><span-->
+        <!--						class="copyright_split">|</span>-->
+        <!--					<a href="" target="_blank">Contact Us</a>-->
+        <!--				</p>-->
+        <!--			</div>-->
+        <!--			<div class="bg_info_sky">-->
+        <!--				<p class="bg_info_p">-->
+        <!--					<a href="" target="_blank">京公網安備 11000002000088號</a><span-->
+        <!--						class="copyright_split">|</span><span>京ICP證070359號</span><span class="copyright_split">|</span>-->
+        <!--					<a href="" target="_blank">互聯網藥品信息服務資格證編號(京)-經營性-2014-0008</a><span-->
+        <!--						class="copyright_split">|</span><span>新出發京零&nbsp;字第大120007號</span>-->
+        <!--				</p>-->
+        <!--				<p class="bg_info_p">-->
+        <!--					<span>互聯網出版許可證編號新出網證(京)字150號</span><span class="copyright_split">|</span>-->
+        <!--					<a href="" target="_blank">出版物經營許可證</a><span-->
+        <!--						class="copyright_split">|</span>-->
+        <!--					<a href="" target="_blank">網絡文化經營許可證京網文[2014]2148-348號</a><span-->
+        <!--						class="copyright_split">|</span><span>違法和不良信息舉報電話：4006561155</span>-->
+        <!--				</p>-->
+        <!--				<p class="bg_info_p">-->
+        <!--                    <span class="copyright_text">Copyright&nbsp;©&nbsp;2004&nbsp;-&nbsp;<em-->
+        <!--							id="copyright_year">2017</em>&nbsp;&nbsp;商城mall.com&nbsp;版權所有</span><span-->
+        <!--						class="copyright_split">|</span><span>消費者維權熱線：4006067733</span>-->
+        <!--					<a href="" target="_blank" class="copyright_license">經營證照</a>-->
+        <!--				</p>-->
+        <!--				<p class="bg_info_p">-->
+        <!--					<span>商城旗下網站：</span>-->
+        <!--					<a href="" target="_blank">商城錢包</a><span class="copyright_split">|</span>-->
+        <!--					<a href="" target="_blank">商城雲</a>-->
+        <!--				</p>-->
+        <!--				<p class="bg_info_dy">-->
+        <!--					<a class="copyright_auth_ico copyright_auth_ico_1" href=""-->
+        <!--					   target="_blank">經營性網站備案中心</a>-->
+        <!--					<a id="urlknet" class="copyright_auth_ico copyright_auth_ico_2"-->
+        <!--					   href="" target="_blank">可信網站信用評估</a>-->
+        <!--					<a class="copyright_auth_ico copyright_auth_ico_3" href=""-->
+        <!--					   target="_blank">網絡警察提醒你</a>-->
+        <!--					<a class="copyright_auth_ico copyright_auth_ico_4" href=""-->
+        <!--					   target="_blank">誠信網站</a>-->
+        <!--					<a class="copyright_auth_ico copyright_auth_ico_5" href="/static/order/detail/javascrit:;"-->
+        <!--					   target="_blank">中國互聯網舉報中心</a>-->
+        <!--					<a class="copyright_auth_ico copyright_auth_ico_6" href=""-->
+        <!--					   target="_blank">網絡舉報APP下載</a>-->
+        <!--				</p>-->
+        <!--			</div>-->
+        <!--		</div>-->
+    </div>
+</div>
+<div class="fix_ed">
+    <ul class="uls">
+        <li class="i1">
+            <div class="xian_hied">
+                <div class="service-cont problem-cont">
+                    <div class="problem-top">
+                        <h5>常見問題</h5>
+                        <a href="/static/order/detail/#none" class="close">x</a>
+                    </div>
+                    <div class="problem-list">
+                        <a href="/static/order/detail/help.jd.com/user/issue/102-250.html">1、我的包裹幾天可以收到？</a>
+                        <a href="/static/order/detail/help.jd.com/user/issue/103-983.html">2、我的地址都支持什麼配送服務？</a>
+                        <a href="/static/order/detail/help.jd.com/user/issue/108-385.html">3、訂單簽收異常了怎麼辦？</a>
+                        <a href="/static/order/detail/help.jd.com/user/issue/75-244.html">4、下單后可以修改訂單嗎？</a>
+                        <a href="/static/order/detail/help.jd.com/user/issue/100-1014.html">5、自提點位置如何查詢？</a>
+                        <a href="/static/order/detail/help.jd.com/user/index.html" class="more">更多問題&nbsp;&gt;</a>
+                    </div>
+                </div>
+        </li>
+        <li class="i2">
+            <div class="weweima">
+                <p>微信掃描隨時隨地查訂單</p>
+                <img src="/static/order/detail/image/erweima.png"/>
+            </div>
+        </li>
+        <li class="i3"></li>
+        <li class="i4"></li>
+    </ul>
+</div>
+</div>
+<script type="text/javascript">
+    $('.uls .i1').hover(function () {
+        $('.xian_hied').css('display', 'block')
+    }, function () {
+        $('.xian_hied').css('display', 'none')
+    })
+    $('.uls .i2').hover(function () {
+        $('.weweima').css('display', 'block')
+    }, function () {
+        $('.weweima').css('display', 'none')
+    })
+    $('.uls .i4').click(function () {
+        $('html,body').animate({//$('html,body')兼容問題body屬於chrome
+            scrollTop: 0
+        })
+    })
+    $('.close').click(function () {
+        $('.xian_hied').toggle()
+    })
+</script>
+<div class="erweima">
+</div>
+</body>
+<script src="/static/order/detail/js/jquery-3.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="/static/order/detail/bootstrap/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="/static/order/detail/js/index.js" type="text/javascript" charset="utf-8"></script>
+<script src="/static/order/detail/swiper/swiper-3.4.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="/static/order/detail/js/lunbo.js" type="text/javascript" charset="utf-8"></script>
+</html>

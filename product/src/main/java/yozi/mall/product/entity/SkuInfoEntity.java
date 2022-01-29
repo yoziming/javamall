@@ -46,7 +46,7 @@ public class SkuInfoEntity implements Serializable {
 	 */
 	private Long brandId;
 	/**
-	 * 默認圖片
+	 * 預設圖片
 	 */
 	private String skuDefaultImg;
 	/**

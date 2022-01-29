@@ -34,7 +34,7 @@ public class MemberLevelEntity implements Serializable {
 	 */
 	private Integer growthPoint;
 	/**
-	 * 是否為默認等級[0->不是；1->是]
+	 * 是否為預設等級[0->不是；1->是]
 	 */
 	private Integer defaultStatus;
 	/**
