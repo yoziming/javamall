@@ -19,8 +19,8 @@ public class OrderSubmitVo {
      * 支付方式
      **/
     private Integer payType;
-    //無需提交要購買的商品，去購物車再獲取一遍
-    //優惠、發票
+    // 無需提交要購買的商品，去購物車再獲取一遍
+    // 優惠、發票
 
     /**
      * 防重令牌

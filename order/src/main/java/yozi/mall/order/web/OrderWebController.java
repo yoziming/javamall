@@ -30,12 +30,7 @@ public class OrderWebController {
         return "confirm";
     }
 
-    /**
-     * 下單功能
-     *
-     * @param vo
-     * @return
-     */
+    // 下單
     @PostMapping(value = "/submitOrder")
     public String submitOrder(OrderSubmitVo vo, Model model, RedirectAttributes attributes) {
 

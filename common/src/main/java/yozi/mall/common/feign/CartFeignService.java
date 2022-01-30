@@ -10,7 +10,7 @@ import java.util.List;
 @FeignClient(name = "cart", configuration = FeignConfig.class)
 public interface CartFeignService {
 
-    // 查詢當前用戶購物車選中的商品項，OrderItemTo是CartItemVo的超集
+    // 查詢當前用戶購物車選中的商品項，OrderItemTo是CartItemVo的超集 done
     @GetMapping(value = "/currentUserCartItems")
     List<OrderItemTo> getCurrentCartItems();
 

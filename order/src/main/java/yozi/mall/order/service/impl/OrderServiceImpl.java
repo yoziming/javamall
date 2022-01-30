@@ -184,47 +184,42 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
 
         confirmVoThreadLocal.set(vo);
 
+        // 下單後準備返回的結果
         SubmitOrderResponseVo responseVo = new SubmitOrderResponseVo();
-        //去創建、下訂單、驗令牌、驗價格、鎖定庫存...
-
-        //獲取當前用戶登入的信息
+        responseVo.setCode(0); // 預設返回0是成功
+        // 獲取當前用戶登入的信息
         MemberResponseTo memberResponseTo = LoginUserInterceptor.loginUser.get();
-        responseVo.setCode(0);
-
-        //1、驗證令牌是否合法【令牌的對比和刪除必須保證原子性】
+        // 驗證令牌是否合法，令牌的對比和刪除必須保證原子性，LUA腳本
         String script = "if redis.call('get', KEYS[1]) == ARGV[1] then return redis.call('del', KEYS[1]) else return " +
                 "0 end";
+        // 拿前端傳來的token
         String orderToken = vo.getOrderToken();
-
-        //通過lure腳本原子驗證令牌和刪除令牌
+        // 通過腳本原子驗證令牌和刪除令牌
         Long result = redisTemplate.execute(new DefaultRedisScript<Long>(script, Long.class),
                 Arrays.asList(USER_ORDER_TOKEN_PREFIX + memberResponseTo.getId()),
                 orderToken);
-
+        // 若令牌驗證失敗，注意腳本0是失敗，跟前面SubmitOrderResponseVo 0=成功相反
         if (result == 0L) {
-            //令牌驗證失敗
             responseVo.setCode(1);
             return responseVo;
         } else {
-            //令牌驗證成功
-            //1、創建訂單、訂單項等信息
+            // 令牌驗證成功，創建、下訂單、驗令牌、驗價格、鎖定庫存
+            // 1、創建訂單、訂單項等信息
             OrderCreateTo order = createOrder();
-
-            //2、驗證價格
+            // 2、驗證價格
             BigDecimal payAmount = order.getOrder().getPayAmount();
             BigDecimal payPrice = vo.getPayPrice();
 
             if (Math.abs(payAmount.subtract(payPrice).doubleValue()) < 0.01) {
-                //金額對比
-                //TODO 3、保存訂單
+                // 金額對比，保存
                 saveOrder(order);
 
-                //4、庫存鎖定,只要有異常，回滾訂單數據
-                //訂單號、所有訂單項信息(skuId,skuNum,skuName)
+                // 4、庫存鎖定,只要有異常，回滾訂單數據
+                // 訂單號、所有訂單項信息(skuId,skuNum,skuName)
                 WareSkuLockTo lockVo = new WareSkuLockTo();
                 lockVo.setOrderSn(order.getOrder().getOrderSn());
 
-                //獲取出要鎖定的商品數據信息【order裡面存儲的是Entity】
+                // 獲取出要鎖定的商品數據信息【order裡面存儲的是Entity】
                 List<OrderItemTo> orderItemTos = order.getOrderItems().stream().map((item) -> {
                     OrderItemTo orderItemTo = new OrderItemTo();
                     orderItemTo.setSkuId(item.getSkuId());
@@ -234,19 +229,16 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
                 }).collect(Collectors.toList());
                 lockVo.setLocks(orderItemTos);
 
-                //TODO 調用遠程鎖定庫存的方法
-                //出現的問題：扣減庫存成功了，但是由於網絡原因超時，出現異常，導致訂單事務回滾，庫存事務不回滾(解決方案：seata)
-                //為了保證高併發，不推薦使用seata，因為是加鎖，并行化，提升不了效率,可以發消息給庫存服務
+                // 出現的問題：扣減庫存成功了，但是由於網絡原因超時，出現異常，導致訂單事務回滾，庫存事務不回滾(解決方案：seata)
+                // 為了保證高併發，不推薦使用seata，因為是加鎖，并行化，提升不了效率,可以發消息給庫存服務
                 R r = wareFeignService.orderLockStock(lockVo);
                 if (r.getCode() == 0) {
-                    //鎖定成功
+                    // 鎖定成功
                     responseVo.setOrder(order.getOrder());
                     //int i = 10/0;
-
-                    //TODO 訂單創建成功，發送消息給MQ
+                    // 訂單創建成功，發送消息給MQ
                     rabbitTemplate.convertAndSend("order-event-exchange", "order.create.order", order.getOrder());
-
-                    //刪除購物車裡的數據
+                    // 刪除購物車裡的數據
                     redisTemplate.delete(CART_PREFIX + memberResponseTo.getId());
                     return responseVo;
                 } else {
@@ -265,9 +257,6 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
 
     /**
      * 按照訂單號獲取訂單信息
-     *
-     * @param orderSn
-     * @return
      */
     @Override
     public OrderEntity getOrderByOrderSn(String orderSn) {
@@ -383,21 +372,16 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
      */
     private OrderCreateTo createOrder() {
         OrderCreateTo createTo = new OrderCreateTo();
-
-        //1、生成訂單號
+        // 1、生成訂單號，用mybatis給的IdWorker根據時間創立
         String orderSn = IdWorker.getTimeId();
         // 構建訂單數據【封裝價格】
         OrderEntity orderEntity = builderOrder(orderSn);
-
-        //2、獲取到所有的訂單項【封裝價格】
+        // 2、獲取到所有的訂單項【封裝價格】
         List<OrderItemEntity> orderItemEntities = builderOrderItems(orderSn);
-
-        //3、驗價(計算價格、積分等信息)
+        // 3、驗價(計算價格、積分等信息)
         computePrice(orderEntity, orderItemEntities);
-
         createTo.setOrder(orderEntity);
         createTo.setOrderItems(orderItemEntities);
-
         return createTo;
     }
 
@@ -460,7 +444,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
      */
     private OrderEntity builderOrder(String orderSn) {
 
-        //獲取當前用戶登入信息
+        // 獲取當前用戶登入信息
         MemberResponseTo memberResponseTo = LoginUserInterceptor.loginUser.get();
 
         OrderEntity orderEntity = new OrderEntity();
@@ -470,18 +454,18 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
 
         OrderSubmitVo orderSubmitVo = confirmVoThreadLocal.get();
 
-        //遠程獲取收貨地址和運費信息
+        // 遠程獲取收貨地址和運費信息
         R fareAddressVo = wareFeignService.getFare(orderSubmitVo.getAddrId());
         FareVo fareResp = fareAddressVo.getData("data", new TypeReference<FareVo>() {
         });
 
-        //獲取到運費信息
+        // 獲取到運費信息
         BigDecimal fare = fareResp.getFare();
         orderEntity.setFreightAmount(fare);
 
-        //獲取到收貨地址信息
+        // 獲取到收貨地址信息
         MemberAddressTo address = fareResp.getAddress();
-        //設置收貨人信息
+        // 設置收貨人信息
         orderEntity.setReceiverName(address.getName());
         orderEntity.setReceiverPhone(address.getPhone());
         orderEntity.setReceiverPostCode(address.getPostCode());
@@ -490,7 +474,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
         orderEntity.setReceiverRegion(address.getRegion());
         orderEntity.setReceiverDetailAddress(address.getDetailAddress());
 
-        //設置訂單相關的狀態信息
+        // 設置訂單相關的狀態信息
         orderEntity.setStatus(OrderStatusEnum.CREATE_NEW.getCode());
         orderEntity.setAutoConfirmDay(7);
         orderEntity.setConfirmStatus(0);
@@ -506,11 +490,11 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
 
         List<OrderItemEntity> orderItemEntityList = new ArrayList<>();
 
-        //最後確定每個購物項的價格
+        // 最後確定每個購物項的價格
         List<OrderItemTo> currentCartItems = cartFeignService.getCurrentCartItems();
         if (currentCartItems != null && currentCartItems.size() > 0) {
             orderItemEntityList = currentCartItems.stream().map((items) -> {
-                //構建訂單項數據
+                // 構建訂單項數據
                 OrderItemEntity orderItemEntity = builderOrderItem(items);
                 orderItemEntity.setOrderSn(orderSn);
 

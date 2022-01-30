@@ -13,13 +13,13 @@ public interface CouponFeignService {
     @RequestMapping("/coupon/coupon/membercoupon")
     R memberCoupon();
 
-    // 上傳商品時，保存 遠程調用的積分訊息
+    // 上傳商品時，保存 遠程調用的積分訊息 done
     @PostMapping("/coupon/spubounds/save")
     R saveSpuBounds(@RequestBody SpuBoundsTo spuBoundsTo);
     // 相當於 R save(@RequestBody SpuBoundsEntity spuBounds)
     // 因為都是轉成JSON在傳送，轉回來屬性能對上就行
 
-    // 上傳商品時，保存 遠程調用的滿減、會員優惠訊息
+    // 上傳商品時，保存 遠程調用的滿減、會員優惠訊息 done
     @PostMapping("/coupon/skufullreduction/saveinfo")
     R saveSkuReduction(@RequestBody SkuReductionTo skuReductionTo);
 }

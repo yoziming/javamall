@@ -33,4 +33,8 @@ public interface MemberFeignService {
      */
     @GetMapping(value = "/member/memberreceiveaddress/{memberId}/address")
     List<MemberAddressTo> getAddress(@PathVariable("memberId") Long memberId);
+
+    // 根據id獲取用戶地址信息  done
+    @RequestMapping("/member/memberreceiveaddress/info/{id}")
+    R info(@PathVariable("id") Long id);
 }

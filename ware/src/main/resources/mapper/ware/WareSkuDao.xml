@@ -23,6 +23,27 @@
         FROM wms_ware_sku
         WHERE sku_id = #{e}
     </select>
+    <select id="listWareIdHasSkuStock" resultType="java.lang.Long">
+        SELECT ware_id
+        FROM wms_ware_sku
+        WHERE sku_id = #{skuId}
+          AND stock - stock_locked > 0
+    </select>
+
+    <update id="lockSkuStock">
+        UPDATE wms_ware_sku
+        SET stock_locked = stock_locked + #{num}
+        WHERE sku_id = #{skuId}
+          AND ware_id = #{wareId}
+          AND stock - stock_locked > 0
+    </update>
+
+    <update id="unLockStock">
+        UPDATE wms_ware_sku
+        SET stock_locked = stock_locked - #{num}
+        WHERE sku_id = ${skuId}
+          AND ware_id = #{wareId}
+    </update>
 
 
 </mapper>
