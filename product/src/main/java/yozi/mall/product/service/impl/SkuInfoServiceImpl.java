@@ -136,9 +136,9 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoDao, SkuInfoEntity> i
             }
         }, executor);
 
-        // // 3、查詢當前sku是否參与秒殺活動
+        // // 3、查詢當前sku是否參與秒殺活動
         // CompletableFuture<Void> seckillFuture = CompletableFuture.runAsync(() -> {
-        //     //3、遠程調用查詢當前sku是否參与秒殺優惠活動
+        //     //3、遠程調用查詢當前sku是否參與秒殺優惠活動
         //     R skuSeckilInfo = seckillFeignService.getSkuSeckilInfo(skuId);
         //     if (skuSeckilInfo.getCode() == 0) {
         //         //查詢成功

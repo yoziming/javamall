@@ -36,6 +36,17 @@ public class OrderController {
     }
 
     /**
+     * member遠程調用：分頁查詢當前登錄用戶的所有訂單信息
+     */
+    @PostMapping("/listWithItem")
+    //@RequiresPermissions("order:order:list")
+    public R listWithItem(@RequestBody Map<String, Object> params) {
+        PageUtils page = orderService.queryPageWithItem(params);
+
+        return R.ok().put("page", page);
+    }
+
+    /**
      * 列表
      */
     @RequestMapping("/list")

@@ -73,7 +73,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuDao, SysMenuEntity> i
 	public void delete(Long menuId){
 		//删除菜单
 		this.removeById(menuId);
-		//删除菜单与角色关联
+		//删除菜单與角色关联
 		sysRoleMenuService.removeByMap(new MapUtils().put("menu_id", menuId));
 	}
 

@@ -69,7 +69,7 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleDao, SysRoleEntity> i
         //检查权限是否越权
         checkPrems(role);
 
-        //保存角色与菜单关系
+        //保存角色與菜单关系
         sysRoleMenuService.saveOrUpdate(role.getRoleId(), role.getMenuIdList());
     }
 
@@ -81,7 +81,7 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleDao, SysRoleEntity> i
         //检查权限是否越权
         checkPrems(role);
 
-        //更新角色与菜单关系
+        //更新角色與菜单关系
         sysRoleMenuService.saveOrUpdate(role.getRoleId(), role.getMenuIdList());
     }
 
@@ -91,10 +91,10 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleDao, SysRoleEntity> i
         //删除角色
         this.removeByIds(Arrays.asList(roleIds));
 
-        //删除角色与菜单关联
+        //删除角色與菜单关联
         sysRoleMenuService.deleteBatch(roleIds);
 
-        //删除角色与用户关联
+        //删除角色與用户关联
         sysUserRoleService.deleteBatch(roleIds);
     }
 

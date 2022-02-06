@@ -335,12 +335,12 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
                         .eq("member_id", memberResponseVo.getId()).orderByDesc("create_time")
         );
 
-        //遍歷所有訂單集合
+        // 遍歷所有訂單集合
         List<OrderEntity> orderEntityList = page.getRecords().stream().map(order -> {
-            //根據訂單號查詢訂單項里的數據
+            // 根據訂單號查詢訂單項里的數據
             List<OrderItemEntity> orderItemEntities = orderItemService.list(new QueryWrapper<OrderItemEntity>()
                     .eq("order_sn", order.getOrderSn()));
-            // order.setOrderItemEntityList(orderItemEntities);
+            order.setOrderItemEntityList(orderItemEntities);
             return order;
         }).collect(Collectors.toList());
 

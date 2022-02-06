@@ -1,6 +1,7 @@
 package yozi.mall.common.feign;
 
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,4 +23,13 @@ public interface CouponFeignService {
     // 上傳商品時，保存 遠程調用的滿減、會員優惠訊息 done
     @PostMapping("/coupon/skufullreduction/saveinfo")
     R saveSkuReduction(@RequestBody SkuReductionTo skuReductionTo);
+
+    /**
+     * 查詢最近三天需要參加秒殺商品的信息
+     * done
+     *
+     * @return
+     */
+    @GetMapping(value = "/coupon/seckillsession/Lates3DaySession")
+    R getLates3DaySession();
 }

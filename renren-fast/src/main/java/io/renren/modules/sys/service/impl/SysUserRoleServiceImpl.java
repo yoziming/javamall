@@ -20,7 +20,7 @@ import java.util.List;
 
 
 /**
- * 用户与角色对应关系
+ * 用户與角色对应关系
  *
  * @author Mark sunlightcs@gmail.com
  */
@@ -29,14 +29,14 @@ public class SysUserRoleServiceImpl extends ServiceImpl<SysUserRoleDao, SysUserR
 
 	@Override
 	public void saveOrUpdate(Long userId, List<Long> roleIdList) {
-		//先删除用户与角色关系
+		//先删除用户與角色关系
 		this.removeByMap(new MapUtils().put("user_id", userId));
 
 		if(roleIdList == null || roleIdList.size() == 0){
 			return ;
 		}
 
-		//保存用户与角色关系
+		//保存用户與角色关系
 		for(Long roleId : roleIdList){
 			SysUserRoleEntity sysUserRoleEntity = new SysUserRoleEntity();
 			sysUserRoleEntity.setUserId(userId);

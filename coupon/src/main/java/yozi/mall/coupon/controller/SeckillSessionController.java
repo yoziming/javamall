@@ -1,22 +1,15 @@
 package yozi.mall.coupon.controller;
 
-import java.util.Arrays;
-import java.util.Map;
-
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
-import yozi.mall.coupon.entity.SeckillSessionEntity;
-import yozi.mall.coupon.service.SeckillSessionService;
+import org.springframework.web.bind.annotation.*;
 import yozi.mall.common.utils.PageUtils;
 import yozi.mall.common.utils.R;
+import yozi.mall.coupon.entity.SeckillSessionEntity;
+import yozi.mall.coupon.service.SeckillSessionService;
 
-
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 秒殺活動場次
@@ -32,24 +25,37 @@ public class SeckillSessionController {
     private SeckillSessionService seckillSessionService;
 
     /**
+     * 查詢最近三天需要參加秒殺商品的信息
+     * done
+     *
+     * @return
+     */
+    @GetMapping(value = "/Lates3DaySession")
+    public R getLates3DaySession() {
+
+        List<SeckillSessionEntity> seckillSessionEntities = seckillSessionService.getLates3DaySession();
+
+        return R.ok().setData(seckillSessionEntities);
+    }
+
+    /**
      * 列表
      */
     @RequestMapping("/list")
     //@RequiresPermissions("coupon:seckillsession:list")
-    public R list(@RequestParam Map<String, Object> params){
+    public R list(@RequestParam Map<String, Object> params) {
         PageUtils page = seckillSessionService.queryPage(params);
 
         return R.ok().put("page", page);
     }
-
 
     /**
      * 信息
      */
     @RequestMapping("/info/{id}")
     //@RequiresPermissions("coupon:seckillsession:info")
-    public R info(@PathVariable("id") Long id){
-		SeckillSessionEntity seckillSession = seckillSessionService.getById(id);
+    public R info(@PathVariable("id") Long id) {
+        SeckillSessionEntity seckillSession = seckillSessionService.getById(id);
 
         return R.ok().put("seckillSession", seckillSession);
     }
@@ -59,8 +65,8 @@ public class SeckillSessionController {
      */
     @RequestMapping("/save")
     //@RequiresPermissions("coupon:seckillsession:save")
-    public R save(@RequestBody SeckillSessionEntity seckillSession){
-		seckillSessionService.save(seckillSession);
+    public R save(@RequestBody SeckillSessionEntity seckillSession) {
+        seckillSessionService.save(seckillSession);
 
         return R.ok();
     }
@@ -70,8 +76,8 @@ public class SeckillSessionController {
      */
     @RequestMapping("/update")
     //@RequiresPermissions("coupon:seckillsession:update")
-    public R update(@RequestBody SeckillSessionEntity seckillSession){
-		seckillSessionService.updateById(seckillSession);
+    public R update(@RequestBody SeckillSessionEntity seckillSession) {
+        seckillSessionService.updateById(seckillSession);
 
         return R.ok();
     }
@@ -81,8 +87,8 @@ public class SeckillSessionController {
      */
     @RequestMapping("/delete")
     //@RequiresPermissions("coupon:seckillsession:delete")
-    public R delete(@RequestBody Long[] ids){
-		seckillSessionService.removeByIds(Arrays.asList(ids));
+    public R delete(@RequestBody Long[] ids) {
+        seckillSessionService.removeByIds(Arrays.asList(ids));
 
         return R.ok();
     }

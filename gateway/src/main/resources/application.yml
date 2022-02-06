@@ -5,7 +5,7 @@ spring:
         - id: product_route
           uri: lb://product
           predicates:
-            - Path=/api/product/**,/hello
+            - Path=/api/product/**
           filters:
             - RewritePath=/api/(?<segment>.*),/$\{segment}
 
@@ -23,12 +23,26 @@ spring:
           filters:
             - RewritePath=/api/(?<segment>.*),/$\{segment}
 
+        - id: coupon_route
+          uri: lb://coupon
+          predicates:
+            - Path=/api/coupon/**
+          filters:
+            - RewritePath=/api/(?<segment>.*),/$\{segment}
+
         - id: upload_route
           uri: lb://third-party
           predicates:
             - Path=/api/third-party/**
           filters:
             - RewritePath=/api/third-party/(?<segment>.*),/$\{segment}
+
+        - id: admin_route
+          uri: lb://renren-fast
+          predicates:
+            - Path=/api/**
+          filters:
+            - RewritePath=/api/(?<segment>.*),/renren-fast/$\{segment}
 
         - id: mall_host_route
           uri: lb://product
@@ -55,9 +69,13 @@ spring:
           predicates:
             - Host=order.mall.com
 
-        - id: admin_route
-          uri: lb://renren-fast
+        - id: mall_member_route
+          uri: lb://member
           predicates:
-            - Path=/api/**
-          filters:
-            - RewritePath=/api/(?<segment>.*),/renren-fast/$\{segment}
+            - Host=member.mall.com
+
+        - id: mall_seckill_route
+          uri: lb://seckill
+          predicates:
+            - Host=seckill.mall.com
+

@@ -9,6 +9,7 @@ import lombok.Data;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 訂單
@@ -192,5 +193,8 @@ public class OrderEntity implements Serializable {
      * 修改時間
      */
     private Date modifyTime;
+
+    @TableField(exist = false)
+    private List<OrderItemEntity> orderItemEntityList;
 
 }

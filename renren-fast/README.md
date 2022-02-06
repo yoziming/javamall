@@ -48,7 +48,7 @@ renren-fast
 ```
 <br> 
 
-**如何交流、反馈、参与贡献？** 
+**如何交流、反馈、参與贡献？** 
 - 开发文档：https://www.renren.io/guide
 - Git仓库：https://gitee.com/renrenio/renren-fast
 - [人人开源社区](https://www.renren.io/community)：https://www.renren.io/community
