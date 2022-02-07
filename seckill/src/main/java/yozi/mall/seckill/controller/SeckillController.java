@@ -1,5 +1,6 @@
 package yozi.mall.seckill.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +14,7 @@ import yozi.mall.seckill.service.SeckillService;
 
 import java.util.List;
 
+@Slf4j
 @Controller
 public class SeckillController {
 
@@ -25,6 +27,8 @@ public class SeckillController {
     @GetMapping(value = "/getCurrentSeckillSkus")
     @ResponseBody
     public R getCurrentSeckillSkus() {
+        // 測試sentinel
+        log.info("sentinel");
         // 獲取到當前可以參加秒殺商品的信息
         List<SeckillSkuRedisTo> vos = seckillService.getCurrentSeckillSkus();
         return R.ok().setData(vos);
@@ -42,7 +46,6 @@ public class SeckillController {
 
     /**
      * 商品進行秒殺(秒殺開始)
-     * 查看錶 oms_order_item
      */
     @GetMapping(value = "/kill")
     public String seckill(@RequestParam("killId") String killId,

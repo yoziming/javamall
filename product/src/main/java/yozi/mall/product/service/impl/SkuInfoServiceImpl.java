@@ -1,19 +1,23 @@
 package yozi.mall.product.service.impl;
 
 import cn.hutool.core.util.ArrayUtil;
+import com.alibaba.fastjson.TypeReference;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import yozi.mall.common.feign.SeckillFeignService;
 import yozi.mall.common.utils.PageUtils;
 import yozi.mall.common.utils.Query;
+import yozi.mall.common.utils.R;
 import yozi.mall.product.dao.SkuInfoDao;
 import yozi.mall.product.entity.SkuImagesEntity;
 import yozi.mall.product.entity.SkuInfoEntity;
 import yozi.mall.product.entity.SpuInfoDescEntity;
 import yozi.mall.product.service.*;
+import yozi.mall.product.vo.SeckillSkuVo;
 import yozi.mall.product.vo.SkuItemSaleAttrVo;
 import yozi.mall.product.vo.SkuItemVo;
 import yozi.mall.product.vo.SpuItemAttrGroupVo;
@@ -41,8 +45,8 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoDao, SkuInfoEntity> i
     @Resource
     ThreadPoolExecutor executor;
 
-    //    @Autowired
-    //    SeckillFeignService seckillFeignService;
+    @Autowired
+    SeckillFeignService seckillFeignService;
 
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
@@ -136,24 +140,24 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoDao, SkuInfoEntity> i
             }
         }, executor);
 
-        // // 3、查詢當前sku是否參與秒殺活動
-        // CompletableFuture<Void> seckillFuture = CompletableFuture.runAsync(() -> {
-        //     //3、遠程調用查詢當前sku是否參與秒殺優惠活動
-        //     R skuSeckilInfo = seckillFeignService.getSkuSeckilInfo(skuId);
-        //     if (skuSeckilInfo.getCode() == 0) {
-        //         //查詢成功
-        //         SeckillSkuVo seckilInfoData = skuSeckilInfo.getData("data", new TypeReference<SeckillSkuVo>() {
-        //         });
-        //         skuItemVo.setSeckillSkuVo(seckilInfoData);
-        //
-        //         if (seckilInfoData != null) {
-        //             long currentTime = System.currentTimeMillis();
-        //             if (currentTime > seckilInfoData.getEndTime()) {
-        //                 skuItemVo.setSeckillSkuVo(null);
-        //             }
-        //         }
-        //     }
-        // }, executor);
+        //  查詢當前sku是否參與秒殺活動
+        CompletableFuture<Void> seckillFuture = CompletableFuture.runAsync(() -> {
+            // 遠程調用查詢當前sku是否參與秒殺優惠活動
+            R skuSeckilInfo = seckillFeignService.getSkuSeckilInfo(skuId);
+            if (skuSeckilInfo.getCode() == 0) {
+                // 查詢成功
+                SeckillSkuVo seckilInfoData = skuSeckilInfo.getData("data", new TypeReference<SeckillSkuVo>() {
+                });
+                skuItemVo.setSeckillSkuVo(seckilInfoData);
+
+                if (seckilInfoData != null) {
+                    long currentTime = System.currentTimeMillis();
+                    if (currentTime > seckilInfoData.getEndTime()) {
+                        skuItemVo.setSeckillSkuVo(null);
+                    }
+                }
+            }
+        }, executor);
 
         // 等到所有任務都完成
         CompletableFuture.allOf(saleAttrFuture, descFuture, baseAttrFuture, imageFuture).get();

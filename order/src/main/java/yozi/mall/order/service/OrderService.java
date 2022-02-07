@@ -1,6 +1,7 @@
 package yozi.mall.order.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import yozi.mall.common.to.mq.SeckillOrderTo;
 import yozi.mall.common.utils.PageUtils;
 import yozi.mall.order.entity.OrderEntity;
 import yozi.mall.order.vo.*;
@@ -80,10 +81,12 @@ public interface OrderService extends IService<OrderEntity> {
     // String asyncNotify(String notifyData);
     //
     //
-    // /**
-    //  * 創建秒殺單
-    //  * @param orderTo
-    //  */
-    // void createSeckillOrder(SeckillOrderTo orderTo);
+
+    /**
+     * 創建秒殺單
+     *
+     * @param orderTo
+     */
+    void createSeckillOrder(SeckillOrderTo orderTo);
 }
 

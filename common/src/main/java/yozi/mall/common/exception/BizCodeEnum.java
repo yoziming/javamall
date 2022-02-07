@@ -21,7 +21,7 @@ public enum BizCodeEnum {
 
     UNKNOWN_EXCEPTION(10000, "系統未知異常"),
     VALID_EXCEPTION(10001, "參數格式校驗失敗"),
-    TO_MANY_REQUEST(10002, "請求流量過大，請稍後再試"),
+    TOO_MANY_REQUEST(10002, "請求流量過大，請稍後再試"),
     SMS_CODE_EXCEPTION(10002, "驗證碼獲取頻率太高，請稍後再試"),
     PRODUCT_UP_EXCEPTION(11000, "商品上架異常"),
     PRODUCT_NULL_EXCEPTION(11099, "查無商品相關訊息"),

@@ -8,6 +8,8 @@ import lombok.Data;
 @Data
 public class MemberAddressTo {
 
+    private static final long serialVersionUID = 1L;
+
     private Long id;
     /**
      * member_id

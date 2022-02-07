@@ -162,8 +162,6 @@ public class SeckillServiceImpl implements SeckillService {
 
     /**
      * 獲取到當前可以參加秒殺商品的信息
-     *
-     * @return
      */
     // @SentinelResource(value = "getCurrentSeckillSkusResource", blockHandler = "blockHandler")
     @Override
@@ -213,34 +211,29 @@ public class SeckillServiceImpl implements SeckillService {
 
     /**
      * 根據skuId查詢商品是否參加秒殺活動
-     *
-     * @param skuId
-     * @return
      */
     @Override
     public SeckillSkuRedisTo getSkuSeckilInfo(Long skuId) {
 
-        //1、找到所有需要秒殺的商品的key信息---seckill:skus
+        // 找到所有需要秒殺的商品的key信息---seckill:skus
         BoundHashOperations<String, String, String> hashOps = redisTemplate.boundHashOps(SECKILL_CHARE_PREFIX);
-
-        //拿到所有的key
+        // 拿到所有的key
         Set<String> keys = hashOps.keys();
         if (keys != null && keys.size() > 0) {
-            //4-45 正則表達式進行匹配
+            // 正則表達式進行匹配
             String reg = "\\d-" + skuId;
             for (String key : keys) {
-                //如果匹配上了
+                // 如果匹配上了
                 if (Pattern.matches(reg, key)) {
-                    //從Redis中取出數據來
+                    // 從Redis中取出商品數據
                     String redisValue = hashOps.get(key);
-                    //進行序列化
+                    // 進行序列化
                     SeckillSkuRedisTo redisTo = JSON.parseObject(redisValue, SeckillSkuRedisTo.class);
 
-                    //隨機碼
                     Long currentTime = System.currentTimeMillis();
                     Long startTime = redisTo.getStartTime();
                     Long endTime = redisTo.getEndTime();
-                    //如果當前時間大於等於秒殺活動開始時間並且要小於活動結束時間
+                    // 如果當前時間大於等於秒殺活動開始時間並且要小於活動結束時間
                     if (currentTime >= startTime && currentTime <= endTime) {
                         return redisTo;
                     }
@@ -254,60 +247,54 @@ public class SeckillServiceImpl implements SeckillService {
 
     /**
      * 當前商品進行秒殺（秒殺開始）
-     *
-     * @param killId
-     * @param key
-     * @param num
-     * @return
      */
     @Override
     public String kill(String killId, String key, Integer num) throws InterruptedException {
 
         long s1 = System.currentTimeMillis();
-        //獲取當前用戶的信息
+        // 獲取當前用戶的信息
         MemberResponseTo user = LoginUserInterceptor.loginUser.get();
 
-        //1、獲取當前秒殺商品的詳細信息從Redis中獲取
+        // 獲取當前秒殺商品的詳細信息從Redis中獲取
         BoundHashOperations<String, String, String> hashOps = redisTemplate.boundHashOps(SECKILL_CHARE_PREFIX);
         String skuInfoValue = hashOps.get(killId);
         if (StringUtils.isEmpty(skuInfoValue)) {
             return null;
         }
-        //(合法性效驗)
+        // 合法性效驗
         SeckillSkuRedisTo redisTo = JSON.parseObject(skuInfoValue, SeckillSkuRedisTo.class);
         Long startTime = redisTo.getStartTime();
         Long endTime = redisTo.getEndTime();
         long currentTime = System.currentTimeMillis();
-        //判斷當前這個秒殺請求是否在活動時間區間內(效驗時間的合法性)
+        // 判斷當前這個秒殺請求是否在活動時間區間內(效驗時間的合法性)
         if (currentTime >= startTime && currentTime <= endTime) {
 
-            //2、效驗隨機碼和商品id
+            // 效驗隨機碼和商品id
             String randomCode = redisTo.getRandomCode();
             String skuId = redisTo.getPromotionSessionId() + "-" + redisTo.getSkuId();
             if (randomCode.equals(key) && killId.equals(skuId)) {
-                //3、驗證購物數量是否合理和庫存量是否充足
+                // 驗證購物數量是否合理和庫存量是否充足
                 Integer seckillLimit = redisTo.getSeckillLimit();
 
-                //獲取信號量
+                // 獲取信號量
                 String seckillCount = redisTemplate.opsForValue().get(SKU_STOCK_SEMAPHORE + randomCode);
                 Integer count = Integer.valueOf(seckillCount);
-                //判斷信號量是否大於0,並且買的數量不能超過庫存
+                // 判斷信號量是否大於0,並且買的數量不能超過庫存
                 if (count > 0 && num <= seckillLimit && count > num) {
-                    //4、驗證這個人是否已經買過了（冪等性處理）,如果秒殺成功，就去佔位。userId-sessionId-skuId
-                    //SETNX 原子性處理
+                    // 驗證這個人是否已經買過了，如果秒殺成功，就去redis佔位，靠setIfAbsent(userId-sessionId-skuId
+                    // SETNX 原子性處理
                     String redisKey = user.getId() + "-" + skuId;
-                    //設置自動過期(活動結束時間-當前時間)
+                    // 設置自動過期(活動結束時間-當前時間)
                     Long ttl = endTime - currentTime;
                     Boolean aBoolean = redisTemplate.opsForValue().setIfAbsent(redisKey, num.toString(), ttl,
                             TimeUnit.MILLISECONDS);
                     if (aBoolean) {
-                        //佔位成功說明從來沒有買過,分佈式鎖(獲取信號量-1)【分佈式鎖-1】
+                        // 佔位成功說明沒買過，要消費掉信號量，用try
                         RSemaphore semaphore = redissonClient.getSemaphore(SKU_STOCK_SEMAPHORE + randomCode);
-                        //TODO 秒殺成功，快速下單
                         boolean semaphoreCount = semaphore.tryAcquire(num, 100, TimeUnit.MILLISECONDS);
-                        //保證Redis中還有商品庫存
+                        // 保證Redis中還有商品庫存
                         if (semaphoreCount) {
-                            //創建訂單號和訂單信息發送給MQ
+                            // 創建訂單號和訂單信息發送給MQ
                             // 秒殺成功 快速下單 發送消息到 MQ 整個操作時間在 10ms 左右
                             String timeId = IdWorker.getTimeId();
                             SeckillOrderTo orderTo = new SeckillOrderTo();

@@ -4,7 +4,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import yozi.mall.seckill.service.SeckillService;
 
@@ -31,7 +30,7 @@ public class SeckillScheduled {
     // 秒殺商品上架功能的鎖
     private final String upload_lock = "seckill:upload:lock";
 
-    @Scheduled(cron = "*/5 * * * * ? ")
+    // @Scheduled(cron = "*/5 * * * * ? ")
     // @Scheduled(cron = "0 0 3 * * ? ")
     public void uploadSeckillSkuLatest3Days() {
         // 重複上架先不處理

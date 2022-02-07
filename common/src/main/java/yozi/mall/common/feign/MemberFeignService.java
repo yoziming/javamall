@@ -2,6 +2,7 @@ package yozi.mall.common.feign;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
+import yozi.mall.common.config.FeignConfig;
 import yozi.mall.common.to.MemberAddressTo;
 import yozi.mall.common.utils.R;
 import yozi.mall.common.vo.SocialUser;
@@ -10,7 +11,7 @@ import yozi.mall.common.vo.UserRegisterVo;
 
 import java.util.List;
 
-@FeignClient("member")
+@FeignClient(name = "member", configuration = FeignConfig.class)
 public interface MemberFeignService {
 
     @PostMapping(value = "/member/member/register")
@@ -31,7 +32,7 @@ public interface MemberFeignService {
      * @param memberId
      * @return
      */
-    @GetMapping(value = "/member/memberreceiveaddress/{memberId}/address")
+    @RequestMapping(value = "/member/memberreceiveaddress/{memberId}/address")
     List<MemberAddressTo> getAddress(@PathVariable("memberId") Long memberId);
 
     // 根據id獲取用戶地址信息  done

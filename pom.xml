@@ -31,7 +31,7 @@
     <properties>
         <java.version>1.8</java.version>
         <mall.version>0.0.1-SNAPSHOT</mall.version>
-        <cloud.alibaba.version>2.2.1.RELEASE</cloud.alibaba.version>
+        <cloud.alibaba.version>2.2.6.RELEASE</cloud.alibaba.version>
 
         <mysql.version>8.0.23</mysql.version>
         <http.components.version>4.4.13</http.components.version>
@@ -71,7 +71,15 @@
                 <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
                 <version>2.2.6.RELEASE</version>
             </dependency>
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                <version>2.2.6.RELEASE</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
         </dependencies>
+
     </dependencyManagement>
 
     <build>

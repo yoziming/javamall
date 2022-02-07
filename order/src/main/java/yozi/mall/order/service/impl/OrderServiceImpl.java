@@ -23,6 +23,7 @@ import yozi.mall.common.feign.MemberFeignService;
 import yozi.mall.common.feign.ProductFeignService;
 import yozi.mall.common.feign.WareFeignService;
 import yozi.mall.common.to.*;
+import yozi.mall.common.to.mq.SeckillOrderTo;
 import yozi.mall.common.utils.PageUtils;
 import yozi.mall.common.utils.Query;
 import yozi.mall.common.utils.R;
@@ -650,46 +651,47 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
     //             "</xml>";
     // }
     //
-    // /**
-    //  * 創建秒殺單
-    //  *
-    //  * @param orderTo
-    //  */
-    // @Override
-    // public void createSeckillOrder(SeckillOrderTo orderTo) {
-    //
-    //     //TODO 保存訂單信息
-    //     OrderEntity orderEntity = new OrderEntity();
-    //     orderEntity.setOrderSn(orderTo.getOrderSn());
-    //     orderEntity.setMemberId(orderTo.getMemberId());
-    //     orderEntity.setCreateTime(new Date());
-    //     BigDecimal totalPrice = orderTo.getSeckillPrice().multiply(BigDecimal.valueOf(orderTo.getNum()));
-    //     orderEntity.setPayAmount(totalPrice);
-    //     orderEntity.setStatus(OrderStatusEnum.CREATE_NEW.getCode());
-    //
-    //     //保存訂單
-    //     this.save(orderEntity);
-    //
-    //     //保存訂單項信息
-    //     OrderItemEntity orderItem = new OrderItemEntity();
-    //     orderItem.setOrderSn(orderTo.getOrderSn());
-    //     orderItem.setRealAmount(totalPrice);
-    //
-    //     orderItem.setSkuQuantity(orderTo.getNum());
-    //
-    //     //保存商品的spu信息
-    //     R spuInfo = productFeignService.getSpuInfoBySkuId(orderTo.getSkuId());
-    //     SpuInfoVo spuInfoData = spuInfo.getData("data", new TypeReference<SpuInfoVo>() {
-    //     });
-    //     orderItem.setSpuId(spuInfoData.getId());
-    //     orderItem.setSpuName(spuInfoData.getSpuName());
-    //     orderItem.setSpuBrand(spuInfoData.getBrandName());
-    //     orderItem.setCategoryId(spuInfoData.getCatalogId());
-    //
-    //     //保存訂單項數據
-    //     orderItemService.save(orderItem);
-    // }
-    //
+
+    /**
+     * 創建秒殺單
+     *
+     * @param orderTo
+     */
+    @Override
+    public void createSeckillOrder(SeckillOrderTo orderTo) {
+
+        // 保存訂單信息
+        OrderEntity orderEntity = new OrderEntity();
+        orderEntity.setOrderSn(orderTo.getOrderSn());
+        orderEntity.setMemberId(orderTo.getMemberId());
+        orderEntity.setCreateTime(new Date());
+        BigDecimal totalPrice = orderTo.getSeckillPrice().multiply(BigDecimal.valueOf(orderTo.getNum()));
+        orderEntity.setPayAmount(totalPrice);
+        orderEntity.setStatus(OrderStatusEnum.CREATE_NEW.getCode());
+
+        // 保存訂單
+        this.save(orderEntity);
+
+        // 保存訂單項信息
+        OrderItemEntity orderItem = new OrderItemEntity();
+        orderItem.setOrderSn(orderTo.getOrderSn());
+        orderItem.setRealAmount(totalPrice);
+
+        orderItem.setSkuQuantity(orderTo.getNum());
+
+        // 保存商品的spu信息
+        R spuInfo = productFeignService.getSpuInfoBySkuId(orderTo.getSkuId());
+        SpuInfoTo spuInfoData = spuInfo.getData("data", new TypeReference<SpuInfoTo>() {
+        });
+        orderItem.setSpuId(spuInfoData.getId());
+        orderItem.setSpuName(spuInfoData.getSpuName());
+        orderItem.setSpuBrand(spuInfoData.getBrandName());
+        orderItem.setCategoryId(spuInfoData.getCatalogId());
+
+        // 保存訂單項數據
+        orderItemService.save(orderItem);
+    }
+
     // public static void main(String[] args) {
     //     String orderSn = IdWorker.getTimeId().substring(0, 16);
     //     System.out.println(orderSn);

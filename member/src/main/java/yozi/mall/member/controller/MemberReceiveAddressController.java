@@ -30,7 +30,7 @@ public class MemberReceiveAddressController {
      * @param memberId
      * @return
      */
-    @GetMapping(value = "/{memberId}/address")
+    @RequestMapping(value = "/{memberId}/address")
     public List<MemberReceiveAddressEntity> getAddress(@PathVariable("memberId") Long memberId) {
 
         List<MemberReceiveAddressEntity> addressList = memberReceiveAddressService.getAddress(memberId);
