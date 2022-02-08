@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="yozi.mall.product.dao.SkuSaleAttrValueDao">
+<mapper namespace="yoziming.mall.product.dao.SkuSaleAttrValueDao">
 
     <!-- 可根据自己的需求，是否要使用 -->
-    <resultMap type="yozi.mall.product.entity.SkuSaleAttrValueEntity" id="skuSaleAttrValueMap">
+    <resultMap type="yoziming.mall.product.entity.SkuSaleAttrValueEntity" id="skuSaleAttrValueMap">
         <result property="id" column="id"/>
         <result property="skuId" column="sku_id"/>
         <result property="attrId" column="attr_id"/>
@@ -12,10 +12,10 @@
         <result property="attrValue" column="attr_value"/>
         <result property="attrSort" column="attr_sort"/>
     </resultMap>
-    <resultMap id="skuItemSaleAttrVo" type="yozi.mall.product.vo.SkuItemSaleAttrVo">
+    <resultMap id="skuItemSaleAttrVo" type="yoziming.mall.product.vo.SkuItemSaleAttrVo">
         <result column="attr_id" property="attrId"></result>
         <result column="attr_name" property="attrName"></result>
-        <collection property="attrValues" ofType="yozi.mall.product.vo.AttrValueWithSkuIdVo">
+        <collection property="attrValues" ofType="yoziming.mall.product.vo.AttrValueWithSkuIdVo">
             <result column="attr_value" property="attrValue"></result>
             <result column="sku_ids" property="skuIds"></result>
         </collection>

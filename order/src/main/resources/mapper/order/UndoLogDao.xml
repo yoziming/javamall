@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="yozi.mall.order.dao.UndoLogDao">
+<mapper namespace="yoziming.mall.order.dao.UndoLogDao">
 
 	<!-- 可根据自己的需求，是否要使用 -->
-    <resultMap type="yozi.mall.order.entity.UndoLogEntity" id="undoLogMap">
+    <resultMap type="yoziming.mall.order.entity.UndoLogEntity" id="undoLogMap">
         <result property="id" column="id"/>
         <result property="branchId" column="branch_id"/>
         <result property="xid" column="xid"/>

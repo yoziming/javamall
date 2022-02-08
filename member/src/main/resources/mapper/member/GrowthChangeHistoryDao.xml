@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="yozi.mall.member.dao.GrowthChangeHistoryDao">
+<mapper namespace="yoziming.mall.member.dao.GrowthChangeHistoryDao">
 
-	<!-- 可根据自己的需求，是否要使用 -->
-    <resultMap type="yozi.mall.member.entity.GrowthChangeHistoryEntity" id="growthChangeHistoryMap">
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="yoziming.mall.member.entity.GrowthChangeHistoryEntity" id="growthChangeHistoryMap">
         <result property="id" column="id"/>
         <result property="memberId" column="member_id"/>
         <result property="createTime" column="create_time"/>

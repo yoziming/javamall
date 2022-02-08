@@ -3,41 +3,25 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <artifactId>mall</artifactId>
-        <groupId>yozi</groupId>
+        <artifactId>mall-parent</artifactId>
+        <groupId>yoziming.mall</groupId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-    <groupId>yozi.mall</groupId>
+    <groupId>yoziming.mall</groupId>
     <artifactId>order</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>order</name>
-    <description>order</description>
-    <properties>
-        <java.version>1.8</java.version>
+    <description>訂單</description>
 
-    </properties>
     <dependencies>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-openfeign</artifactId>
+            <groupId>yoziming.mall</groupId>
+            <artifactId>common</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>yozi</groupId>
-            <artifactId>common</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-web</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -56,7 +40,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
-
     </dependencies>
     <build>
         <plugins>

@@ -9,8 +9,8 @@
     <description>renren-fast</description>
 
     <parent>
-        <artifactId>mall</artifactId>
-        <groupId>yozi</groupId>
+        <artifactId>mall-parent</artifactId>
+        <groupId>yoziming.mall</groupId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
@@ -55,7 +55,7 @@
             <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
         <dependency>
-            <groupId>yozi</groupId>
+            <groupId>yoziming.mall</groupId>
             <artifactId>common</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>

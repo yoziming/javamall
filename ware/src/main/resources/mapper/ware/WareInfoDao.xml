@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="yozi.mall.ware.dao.WareInfoDao">
+<mapper namespace="yoziming.mall.ware.dao.WareInfoDao">
 
-	<!-- 可根据自己的需求，是否要使用 -->
-    <resultMap type="yozi.mall.ware.entity.WareInfoEntity" id="wareInfoMap">
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="yoziming.mall.ware.entity.WareInfoEntity" id="wareInfoMap">
         <result property="id" column="id"/>
         <result property="name" column="name"/>
         <result property="address" column="address"/>

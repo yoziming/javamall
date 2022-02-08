@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="yozi.mall.member.dao.MemberLevelDao">
+<mapper namespace="yoziming.mall.member.dao.MemberLevelDao">
 
     <!-- 可根据自己的需求，是否要使用 -->
-    <resultMap type="yozi.mall.member.entity.MemberLevelEntity" id="memberLevelMap">
+    <resultMap type="yoziming.mall.member.entity.MemberLevelEntity" id="memberLevelMap">
         <result property="id" column="id"/>
         <result property="name" column="name"/>
         <result property="growthPoint" column="growth_point"/>
@@ -16,7 +16,7 @@
         <result property="priviledgeBirthday" column="priviledge_birthday"/>
         <result property="note" column="note"/>
     </resultMap>
-    <select id="getDefaultLevel" resultType="yozi.mall.member.entity.MemberLevelEntity">
+    <select id="getDefaultLevel" resultType="yoziming.mall.member.entity.MemberLevelEntity">
         SELECT *
         FROM ums_member_level
         WHERE default_status = 1
