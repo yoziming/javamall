@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>詳情頁</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE"/>
+    <link rel="stylesheet" href="/order/css/bootstrap.css"/>
+    <link rel="stylesheet" href="/order/css/scss.css"/>
+    <link rel="stylesheet" href="/order/css/index_head.css">
+    <link rel="stylesheet" href="/common/css/footer.css">
+    <link rel="stylesheet" href="/common/css/base.css">
+    <script src="/common/js/jquery.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+<div id="max">
+    <div class='header'>
+        <div class="top">
+            <div class="w clearfix">
+                <div class='setNav fr'>
+                    <ul>
+                        <li id="userFather">
+                            <a th:if="${session.loginUser == null}" id="login_btn"
+                               href="http://localhost:11000/auth/login.html">
+                                登入
+                            </a>
+                            <a th:if="${session.loginUser == null}" href="http://localhost:11000/auth/reg.html">
+                                註冊
+                            </a>
+                            <a th:if="${session.loginUser != null}">
+                                歡迎, [[${session.loginUser.nickname}]]
+                            </a>
+                            <a th:if="${session.loginUser != null}" href="http://localhost:11000/auth/logout.html">
+                                立即退出
+                            </a>
+                        </li>
+                        <li class="line">
+                        </li>
+                        <li>
+                            <a href="http://localhost:11000/orderList.html">我的訂單</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- //頂部按鈕區域結束 -->
+        <div class="w">
+            <div class="top_search clearfix">
+                <a href="http://localhost:11000">
+                    <div class="logo fl">
+                        <h1></h1>
+                    </div>
+                </a>
+                <div class="search fl">
+                    <form action="http://localhost:11000/list.html" method="get" style="display: flex">
+                        <input name="keyword" type="text" id="ipt" placeholder="">
+                        <button>搜索</button>
+                        <ul id="list"></ul>
+                    </form>
+                </div>
+                <div class="shop_car fr">
+                    <a href="http://localhost:11000/cart/cart.html">購物車</a>
+                </div>
+            </div>
+        </div>
+        <!-- logo及 搜索框結束 -->
+        <div class="w">
+            <div class="tab clearfix">
+                <div class="fl s_show">
+                    <a href="" class="logo_s"></a>
+                </div>
+                <ul class="fl clearfix">
+                    <li class="tabItem">
+                        <a href="http://localhost:11000">首頁</a>
+                    </li>
+                    <li class="tabItem" th:each="cat1:${category}">
+                        <a th:text="${cat1.getName()}">居家生活</a>
+                        <div class="tabChild clearfix">
+                            <dl th:each="cat2:${cat1.getCat2()}">
+                                <dt th:text="${cat2.getName()}">夏季煥新</dt>
+                                <dd th:each="cat3:${cat2.getCat3()}">
+                                    <a th:href="@{'http://localhost:11000/list.html?catalog3Id='+${cat3.getId()}}">
+                                        <span th:text="${cat3.getName()}">夏涼嘗鮮</span></a>
+                                </dd>
+                            </dl>
+                        </div>
+                    </li>
+                </ul>
+                <div class="fr s_show">
+                <span class="log fl">
+                        <ul class='setItem'>
+                            <li th:if="${session.loginUser == null}">
+                                <a href="http://localhost:11000/auth/login.html">
+                                    登入
+                                </a>
+                            </li>
+                            <li th:if="${session.loginUser == null}">
+                                <a href="http://localhost:11000/auth/reg.html">
+                                    註冊
+                                </a>
+                            </li>
+                            <li th:if="${session.loginUser != null}">
+                                <a href="http://localhost:11000/auth/logout.html">
+                                    退出
+                                </a>
+                            </li>
+                        </ul>
+                    </span>
+                    <a href="http://localhost:11000/cart/cart.html">
+                    <span class="show_car fl">
+                    </span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!-- tab區域結束 -->
+    </div>
+    <!--等待付款內容-->
+    <div class="content">
+        <div class="order-state01">
+            <div class="state-cont">
+                <!-- 工具條 -->
+                <div class="state-lcol">
+                    <div class="state-top" style="font-size: 14px">訂單號：[[${order.orderSn}]]</div>
+                    <h3 class="state-txt" th:if="${order.status == 0}">等待付款</h3>
+                    <h3 class="state-txt" th:if="${order.status == 1}">已付款</h3>
+                    <h3 class="state-txt" th:if="${order.status == 2}">已發貨</h3>
+                    <h3 class="state-txt" th:if="${order.status == 3}">已完成</h3>
+                    <h3 class="state-txt" th:if="${order.status == 4}">已關閉</h3>
+                    <h3 class="state-txt" th:if="${order.status == 5}">售後中</h3>
+                    <h3 class="state-txt" th:if="${order.status == 6}">售後結束</h3>
+                    <h3 class="state-txt" th:if="${order.status == 5 || order.status == 6}">
+                        售後：
+                        <span th:if="${orderReturn.status} == 0">待處理</span>
+                        <span th:if="${orderReturn.status} == 1">
+                            退貨中，請將商品退回<br><br>
+                            <span>
+                                地址：[[${orderReturn.companyAddress}]]
+                            </span>
+                            <br><br>
+                            <span>
+                                收貨人：[[${orderReturn.receiveMan}]]
+                            </span>
+                            <br><br>
+                            <span>
+                                電話：[[${orderReturn.receivePhone}]]
+                            </span>
+                        </span>
+                        <span th:if="${orderReturn.status} == 2">已完成</span>
+                        <span th:if="${orderReturn.status} == 3">已拒絕</span>
+                    </h3>
+                    <button type="button" class="btn btn-success confirm" th:attr="orderSn=${order.orderSn}"
+                            th:if="${order.status==2}">
+                        確認收貨
+                    </button>
+                    <button type="button" class="returnProduct btn btn-danger" th:attr="orderSn=${order.orderSn}"
+                            th:if="${order.status==2}"
+                            data-toggle="modal" data-target="#myModal">
+                        申請售後
+                    </button>
+                    <button type="button" class="gotoPay btn btn-success" th:attr="orderSn=${order.orderSn}"
+                            th:if="${order.status==0}">
+                        去支付
+                    </button>
+                    <button type="button" class="cancel btn btn-danger" th:attr="orderSn=${order.orderSn}"
+                            th:if="${order.status==0 || order.status==1}">
+                        取消訂單
+                    </button>
+                </div>
+            </div>
+            <!-- 模態框（Modal） -->
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal"
+                                    aria-hidden="true">×
+                            </button>
+                            <h4 class="modal-title" id="myModalLabel">
+                                申請售後
+                            </h4>
+                        </div>
+                        <div class="modal-body">
+                            <form class="form-horizontal" role="form" th:action="@{/return}" method="post">
+                                <div class="form-group">
+                                    <div class="col-sm-10">
+                                        <input type="hidden" class="form-control" id="orderSn"
+                                               name="orderSn"
+                                               th:value="${order.orderSn}">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="reason" class="col-sm-2 control-label">申請原因</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="reason"
+                                               name="reason"
+                                               placeholder="請輸入">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="returnAmount" class="col-sm-2 control-label">退款金額</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control returnAmountInput" id="returnAmount"
+                                               name="returnAmount"
+                                               placeholder="請輸入少於等於訂單金額的数字"
+                                               oninput="value=value.replace(/[^\d]/g,'')">
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-default">
+                                    提交
+                                </button>
+                            </form>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
+        </div>
+        <!--配送訊息-->
+        <div class="sta_xinxi">
+            <ul>
+                <li>
+                    <div class="dl">
+                        <div class="dt">
+                            <h4>收貨人訊息
+                            </h4>
+                        </div>
+                        <div class="dd">
+                            <div class="item">
+                                <span class="label">收貨人：</span>
+                                <div class="info-rcol" th:text="${order.receiverName}">
+                                    王大明
+                                </div>
+                            </div>
+                            <div class="item">
+                                <span class="label">地址：</span>
+                                <div class="info-rcol"
+                                     th:text="${order.receiverProvince}+${order.receiverCity}+${order.receiverRegion}+${order.receiverDetailAddress}">
+                                    臺北市大安區金山南路2段55號
+                                </div>
+                            </div>
+                            <div class="item">
+                                <span class="label">手機號碼：</span>
+                                <div class="info-rcol" th:text="${order.receiverPhone}">
+                                    0912***456
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="dl" th:if="${order.deliverySn}">
+                        <div class="dt">
+                            <h4>配送訊息</h4>
+                        </div>
+                        <div class="dd">
+                            <div class="item">
+                                <span class="label">
+                                    配送方式：
+                                </span>
+                                <div class="info-rcol" th:text="${order.deliveryCompany}">
+                                    普通快遞
+                                </div>
+                            </div>
+                            <div class="item">
+                                <span class="label">
+                                    快遞單號：
+                                </span>
+                                <div class="info-rcol" th:text="${order.deliverySn}">
+                                    普通快遞
+                                </div>
+                            </div>
+                            <div class="item">
+                                <span class="label">
+                                    運費：
+                                </span>
+                                <div class="info-rcol">
+                                    <span class="f-price" th:text="${order.freightAmount}">
+                                        ¥12.00
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <span class="label">
+                                    發貨時間：
+                                </span>
+                                <div class="info-rcol"
+                                     th:text="${#dates.format(order.deliveryTime, 'yyyy-MM-dd HH:mm')}">
+                                    2018-01-01
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="dl" id="pay-info-nozero">
+                        <div class="dt">
+                            <h4>付款訊息</h4>
+                        </div>
+                        <div class="dd">
+                            <div class="item">
+								<span class="label">
+                                    付款方式：
+                                </span>
+                                <div class="info-rcol">
+                                    在線支付
+                                </div>
+                            </div>
+                            <div class="item">
+                                <span class="label">
+    							商品總額：
+    						    </span>
+                                <div class="info-rcol">
+                                    <span class="f-price" th:text="${order.totalAmount}">
+                                        ¥21.80
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <span class="label">
+						            運費金額：
+					            </span>
+                                <div class="info-rcol">
+                                    <span class="f-price" th:text="${order.freightAmount}">
+                                        ¥12.00
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <span class="label">
+							        應支付金額：
+                                </span>
+                                <div class="info-rcol">
+                                    <span class="f-price" th:text="${order.payAmount}">
+                            	        ¥33.80
+							        </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                </li>
+            </ul>
+        </div>
+        <!--商品訊息-->
+        <div class="shop_sta_xinin">
+            <table>
+                <tr>
+                    <th style="width: 500px;">商品</th>
+                    <th>商品編號</th>
+                    <th>商城價</th>
+                    <th>商品數量</th>
+                </tr>
+                <tr th:each="item:${order.itemEntities}">
+                    <td><img th:src="${item.skuPic}" src="/detail/image/5886ffa5Na5e39e2d.jpg"/>
+                        <div>
+                            <a th:href="@{'http://localhost:11000/'+${item.skuId}+'.html'}" th:text="${item.skuName}">
+                                @{'/param?id='+${id}}
+                                伊利 風味發酵乳 原味酸奶100g*8（兩件起售）
+                            </a>
+                            <p class="txt" th:text="${item.skuAttrsVals}">益消 原味八連杯100g*</p>
+                        </div>
+                    </td>
+                    <td th:text="${item.skuId}">1778772</td>
+                    <td>¥[[${#numbers.formatDecimal(item.realAmount,3,2)}]]</td>
+                    <td th:text="${item.skuQuantity}">2</td>
+                </tr>
+            </table>
+            <div class="ccccc">
+                <div class="right">
+                    <div class="shuxing">
+                        <p>商品總額：</p>
+                        <p>運　　費：</p>
+                        <p style="color: red;">應付總額：</p>
+                    </div>
+                    <div class="shuxingzhi">
+                        <p>¥[[${#numbers.formatDecimal(order.totalAmount,3,2)}]]</p>
+                        <p>¥[[${#numbers.formatDecimal(order.freightAmount,1,2)}]]</p>
+                        <p class="p1">¥[[${#numbers.formatDecimal(order.payAmount,3,2)}]]</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript">
+    $('.confirm').click(function () {
+        var orderSn = $(".confirm").attr("orderSn");
+        if (confirm("確認收貨？")) {
+            location.href = "http://localhost:11000/confirm/" + orderSn;
+        }
+    });
+    $('.cancel').click(function () {
+        var orderSn = $(".cancel").attr("orderSn");
+        if (confirm("取消訂單？")) {
+            location.href = "http://localhost:11000/cancelOrder/" + orderSn;
+        }
+    });
+    $('.gotoPay').click(function () {
+        var orderSn = $(".gotoPay").attr("orderSn");
+        location.href = "http://localhost:11000/payOrder?orderSn=" + orderSn;
+    });
+    $('.uls .i1').hover(function () {
+        $('.xian_hied').css('display', 'block')
+    }, function () {
+        $('.xian_hied').css('display', 'none')
+    })
+    $('.uls .i2').hover(function () {
+        $('.weweima').css('display', 'block')
+    }, function () {
+        $('.weweima').css('display', 'none')
+    })
+    $('.uls .i4').click(function () {
+        $('html,body').animate({//$('html,body')兼容問題body屬於chrome
+            scrollTop: 0
+        })
+    })
+    $('.close').click(function () {
+        $('.xian_hied').toggle()
+    })
+</script>
+</body>
+<script src="/common/js/jquery.js" type="text/javascript" charset="utf-8"></script>
+<script src="/order/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
+</html>

@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <title>結算頁</title>
+    <link rel="stylesheet" href="/order/css/JD2.css"/>
+    <link rel="stylesheet" href="/order/css/bootstrap.css"/>
+    <link rel="stylesheet" href="/order/css/index_head.css">
+    <link rel="stylesheet" href="/common/css/footer.css">
+    <link rel="stylesheet" href="/common/css/base.css">
+    <script src="/common/js/jquery.js"></script>
+    <script src="/order/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+<div class='header'>
+    <div class="top">
+        <div class="w clearfix">
+            <div class='setNav fr'>
+                <ul>
+                    <li id="userFather">
+                        <a th:if="${session.loginUser == null}" id="login_btn"
+                           href="http://localhost:11000/auth/login.html">
+                            登入
+                        </a>
+                        <a th:if="${session.loginUser == null}" href="http://localhost:11000/auth/reg.html">
+                            註冊
+                        </a>
+                        <a th:if="${session.loginUser != null}">
+                            歡迎, [[${session.loginUser.nickname}]]
+                        </a>
+                        <a th:if="${session.loginUser != null}" href="http://localhost:11000/auth/logout.html">
+                            立即退出
+                        </a>
+                    </li>
+                    <li class="line">
+                    </li>
+                    <li>
+                        <a href="http://localhost:11000/orderList.html">我的訂單</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- //頂部按鈕區域結束 -->
+    <div class="w">
+        <div class="top_search clearfix">
+            <a href="http://localhost:11000">
+                <div class="logo fl">
+                    <h1></h1>
+                </div>
+            </a>
+            <div class="search fl">
+                <form action="http://localhost:11000/list.html" method="get" style="display: flex">
+                    <input name="keyword" type="text" id="ipt" placeholder="">
+                    <button>搜索</button>
+                    <ul id="list"></ul>
+                </form>
+            </div>
+            <div class="shop_car fr">
+                <a href="http://localhost:11000/cart/cart.html">購物車</a>
+            </div>
+        </div>
+    </div>
+    <!-- logo及 搜索框結束 -->
+    <div class="w">
+        <div class="tab clearfix">
+            <div class="fl s_show">
+                <a href="" class="logo_s"></a>
+            </div>
+            <ul class="fl clearfix">
+                <li class="tabItem">
+                    <a href="http://localhost:11000">首頁</a>
+                </li>
+                <li class="tabItem" th:each="cat1:${category}">
+                    <a href="" th:text="${cat1.getName()}">居家生活</a>
+                    <div class="tabChild clearfix">
+                        <dl th:each="cat2:${cat1.getCat2()}">
+                            <dt th:text="${cat2.getName()}">夏季煥新</dt>
+                            <dd th:each="cat3:${cat2.getCat3()}">
+                                <a th:href="@{'/list.html?catalog3Id='+${cat3.getId()}}">
+                                    <span th:text="${cat3.getName()}">夏涼嘗鮮</span></a>
+                            </dd>
+                        </dl>
+                    </div>
+                </li>
+            </ul>
+            <div class="fr s_show">
+                <span class="log fl">
+                        <ul class='setItem'>
+                            <li th:if="${session.loginUser == null}">
+                                <a href="http://localhost:11000/auth/login.html">
+                                    登入
+                                </a>
+                            </li>
+                            <li th:if="${session.loginUser == null}">
+                                <a href="http://localhost:11000/auth/reg.html">
+                                    註冊
+                                </a>
+                            </li>
+                            <li th:if="${session.loginUser != null}">
+                                <a href="http://localhost:11000/auth/logout.html">
+                                    退出
+                                </a>
+                            </li>
+                        </ul>
+                    </span>
+                <a href="http://localhost:11000/cart/cart.html">
+                    <span class="show_car fl">
+                    </span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <!-- tab區域結束 -->
+</div>
+<div th:if="${msg}!= null" class="alert alert-danger alert-dismissable"
+     style="width: 1090px; margin: 10px auto">
+    <button type="button" class="close" data-dismiss="alert"
+            aria-hidden="true">
+        &times;
+    </button>
+    [[${msg}]]
+</div>
+<!--主體部分-->
+<div class="section">
+    <!--收貨人訊息-->
+    <div class="top-2">
+        <span>收貨人訊息</span>
+        <button type="button" class="btn btn-link" data-toggle="modal" data-target="#myModal">新增收貨人訊息</button>
+    </div>
+    <!-- 模態框（Modal） -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"
+                            aria-hidden="true">×
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        新增收貨人訊息
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <form role="form" th:action="@{/save/address}" method="post">
+                        <div class="form-group">
+                            <label for="name" class="col-sm-2 control-label">姓名</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="name"
+                                       name="name"
+                                       placeholder="請輸入">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone" class="col-sm-2 control-label">手機號</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="phone"
+                                       name="phone"
+                                       placeholder="請輸入">
+                            </div>
+                        </div>
+                        <div class="form-inline">
+                            <label for="province" class="col-sm-2 control-label">地址</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="province"
+                                       name="province" style="width: 24%"
+                                       placeholder="縣市">
+                                <input type="text" class="form-control" id="city"
+                                       name="city" style="width: 24%"
+                                       placeholder="區">
+                                <input type="text" class="form-control" id="region"
+                                       name="region" style="width: 24%"
+                                       placeholder="鄰里">
+                                <input type="text" class="form-control" id="detailAddress"
+                                       name="detailAddress" style="width: 24%"
+                                       placeholder="詳細地址">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" name="defaultStatus" id="defaultStatus"
+                                               value="1">是否設為預設地址
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-default">
+                            提交
+                        </button>
+                    </form>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    <!--orderConfirmData-->
+    <!--地址-->
+    <div class="top-3 addr-item" th:each="addr:${orderConfirmData.address}">
+        <p th:attr="def=${addr.defaultStatus},addrId=${addr.id}" style="cursor: pointer">
+            [[${addr.name}]]
+        </p>
+        <span style="width: 400px">
+                 [[${addr.name}]]  [[${addr.province}]]  [[${addr.city}]]  [[${addr.region}]]  [[${addr.detailAddress}]]  [[${addr.phone}]]
+            </span>
+        <a th:href="@{'/delete/address/' + ${addr.id} + '/' +${addr.defaultStatus}}" style="font-size: small">
+            刪除
+        </a>
+        &nbsp;&nbsp;
+        <a th:href="@{'/defalt/address/' + ${addr.id}}" style="font-size: small">
+            設為預設
+        </a>
+    </div>
+    <div class="hh1"/>
+</div>
+<!--送貨清單-->
+<h4 class="h4" style="font-weight: 600;font-size: 14px;padding: 10px 25px;">訂單清單</h4>
+<div class="top_1">
+    <div class="to_right">
+        <!--圖片-->
+        <div th:each="item:${orderConfirmData.items}"
+             style="display: flex;align-items: center;border-bottom: 1px solid #E3E4E5">
+            <img style="width: 100px; height: 100px" th:src="${item.image}" class="yun"/>
+            <div>
+                <div>[[${item.title}]]</div>
+                <div style="display: flex;margin:5px 0">
+                    <span th:each="attr:${item.skuAttr}">[[${attr}]]</span>
+                    <span> x[[${item.count}]] </span>
+                    <span>[[${orderConfirmData.stocks[item.skuId]?"有貨":"無貨"}]]</span>
+                    <span style="color: red;">$[[${#numbers.formatDecimal(item.price,3,2)}]]</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="xia">
+    <div class="qian">
+        <p class="qian_y">
+            <span>[[${orderConfirmData.count}]]</span>
+            <span>件商品，總商品金額：</span>
+            <span>$[[${#numbers.formatDecimal(orderConfirmData.total,3,2)}]]</span>
+        </p>
+        <p class="qian_y">
+            <span>運費：</span>
+            <span>$<b id="fareEle"></b></span>
+        </p>
+    </div>
+    <div class="yfze">
+        <p class="yfze_a"><span class="z">應付總額：</span><span class="hq">$<b id="payPriceEle"
+                                                                           style="font-size: large">[[${#numbers.formatDecimal(orderConfirmData.payPrice,3,2)}]]</b></span>
+        </p>
+        <p class="yfze_b">寄送至：<span id="receiveAddressEle" style="font-size: large"></span> 收貨人：<span
+                id="receiverEle" style="font-size: large"></span></p>
+    </div>
+    <form action="http://localhost:11000/submitOrder" method="post"
+          th:if="!${orderConfirmData.address.isEmpty()}">
+        <input type="hidden" name="addrId" id="addrIdInput">
+        <input type="hidden" name="payPrice" id="payPriceInput">
+        <input type="hidden" name="orderToken" th:value="${orderConfirmData.orderToken}">
+        <button class="tijiao" type="submit">提交訂單</button>
+    </form>
+    <form th:if="${orderConfirmData.address.isEmpty()}">
+        <button>請先添加收貨地址</button>
+    </form>
+</div>
+</body>
+<script>
+    $(document).ready(function () {
+        $('.header-right li:nth-of-type(6)').hover(function () {
+            $('.header-r-11').css('display', 'block')
+        }, function () {
+            $('.header-r-11').css('display', 'none')
+        })
+        $('.header-right li:nth-of-type(12)').hover(function () {
+            $('.header-r-2').css('display', 'block')
+        }, function () {
+            $('.header-r-2').css('display', 'none')
+        })
+        $('.header-right li:nth-of-type(14)').hover(function () {
+            $('.header-r-3').css('display', 'block')
+        }, function () {
+            $('.header-r-3').css('display', 'none')
+        })
+        $('.header-l-2').hover(function () {
+            $('.header-l-d').css('display', 'block')
+        }, function () {
+            $('.header-l-d').css('display', 'none')
+        })
+        $('.header-r-4').hover(function () {
+            $('.h-r-1').css('display', 'block')
+        }, function () {
+            $('.h-r-1').css('display', 'none')
+        })
+        highlight();
+        var addrId = $(".addr-item p[def='1']").attr("addrId")
+        getFare(addrId);
+    })
+
+    function highlight() {
+        $(".addr-item p").css({"border": "2px solid gray"});
+        $(".addr-item p[def='1']").css({"border": "2px solid red"});
+    }
+
+    $(".addr-item p").click(function () {
+        $(".addr-item p").attr("def", "0")
+        $(this).attr("def", "1");
+        highlight();
+        //獲取到當前的地址id
+        var addrId = $(this).attr("addrId");
+        //發送ajax獲取運費訊息
+        getFare(addrId);
+    });
+
+    function getFare(addrId) {
+        //給表單回填選擇的地址
+        $('#addrIdInput').val(addrId);
+        $.get("http://localhost:11000/member/memberreceiveaddress/fare?addrId=" + addrId, function (data) {
+            // console.log(data);
+            $("#fareEle").text(data.data.fare);
+            var total = [[${orderConfirmData.total}]];
+            //設置運費
+            var payPrice = total * 1 + data.data.fare * 1;
+            $("#payPriceEle").text(payPrice);
+            $("#payPriceInput").val(payPrice);
+            //設置收貨人訊息
+            $("#receiveAddressEle").text(data.data.address.province + " " + data.data.address.city + " " + data.data.address.region + " " + data.data.address.detailAddress);
+            $("#receiverEle").text(data.data.address.name);
+        });
+    }
+</script>
+</body>
+</html>

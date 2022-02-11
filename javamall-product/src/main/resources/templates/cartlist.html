@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>購物車</title>
+    <link rel="stylesheet" href="/common/css/base.css">
+    <link rel="stylesheet" href="/common/css/index_head.css">
+    <link rel="stylesheet" href="/common/css/footer.css">
+    <link rel="stylesheet" href="/cart/css/cartlist.css">
+</head>
+<body>
+<div class='header'>
+    <div class="top">
+        <div class="w clearfix">
+            <div class='setNav fr'>
+                <ul>
+                    <li id="userFather">
+                        <a th:if="${session.loginUser == null}" id="login_btn"
+                           href="http://localhost:11000/auth/login.html">
+                            登入
+                        </a>
+                        <a th:if="${session.loginUser == null}" href="http://localhost:11000/auth/reg.html">
+                            註冊
+                        </a>
+                        <a th:if="${session.loginUser != null}">
+                            歡迎, [[${session.loginUser.nickname}]]
+                        </a>
+                        <a th:if="${session.loginUser != null}" href="http://localhost:11000/auth/logout.html">
+                            立即退出
+                        </a>
+                    </li>
+                    <li class="line">
+                    </li>
+                    <li>
+                        <a href="http://localhost:11000/orderList.html">我的訂單</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- //頂部按鈕區域結束 -->
+    <div class="w">
+        <div class="top_search clearfix">
+            <a href="http://localhost:11000">
+                <div class="logo fl">
+                    <h1></h1>
+                </div>
+            </a>
+            <div class="search fl">
+                <form action="http://localhost:11000/list.html" method="get">
+                    <input name="keyword" type="text" id="ipt" placeholder="">
+                    <button>搜索</button>
+                    <ul id="list"></ul>
+                </form>
+            </div>
+            <div class="shop_car fr">
+                <a href="http://localhost:11000/cart/cart.html">購物車</a>
+            </div>
+        </div>
+    </div>
+    <!-- logo及 搜索框結束 -->
+    <div class="w">
+        <div class="tab clearfix">
+            <div class="fl s_show">
+                <a href="" class="logo_s"></a>
+            </div>
+            <ul class="fl clearfix">
+                <li class="tabItem">
+                    <a href="http://localhost:11000">首頁</a>
+                </li>
+                <li class="tabItem" th:each="cat1:${category}">
+                    <a href="" th:text="${cat1.getName()}">居家生活</a>
+                    <div class="tabChild clearfix">
+                        <dl th:each="cat2:${cat1.getCat2()}">
+                            <dt th:text="${cat2.getName()}">夏季煥新</dt>
+                            <dd th:each="cat3:${cat2.getCat3()}">
+                                <a th:href="@{'/list.html?catalog3Id='+${cat3.getId()}}">
+                                    <span th:text="${cat3.getName()}">夏涼嘗鮮</span>
+                                </a>
+                            </dd>
+                        </dl>
+                    </div>
+                </li>
+            </ul>
+            <div class="fr s_show">
+            <span class="log fl">
+                    <ul class='setItem'>
+                        <li th:if="${session.loginUser == null}">
+                            <a href="http://localhost:11000/auth/login.html">
+                                登入
+                            </a>
+                        </li>
+                        <li th:if="${session.loginUser == null}">
+                            <a href="http://localhost:11000/auth/reg.html">
+                                註冊
+                            </a>
+                        </li>
+                        <li th:if="${session.loginUser != null}">
+                            <a href="http://localhost:11000/auth/logout.html">
+                                退出
+                            </a>
+                        </li>
+                    </ul>
+                </span>
+                <a href="http://localhost:11000/cart/cart.html">
+                <span class="show_car fl">
+                </span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <!-- tab區域結束 -->
+</div>
+<!-- 頭部區域結束 -->
+<!-- 購物車區域 -->
+<div class="content">
+    <div th:if="${cart.items.size()==0}" style="height: 100px;width: 1090px;text-align: center;margin: auto">
+        <h2>購物車裡還沒有商品！<a href="http://localhost:11000">去添加-></a></h2>
+    </div>
+    <div class="goods-item" th:if="!${cart.items.size()==0}" th:each="item:${cart.items}" th:attr="skuId=${item.skuId}"
+         th:checked="${item.check}">
+        <!-- 選擇框部分 -->
+        <div class="check-box">
+            <input type="checkbox" th:attr="skuId=${item.skuId}" th:checked="${item.check}" class="itemCheck">
+        </div>
+        <!-- 商品圖片和商品標題 -->
+        <div class="goods-details">
+            <!-- 商品圖片 -->
+            <img th:src="${item.image}">
+            <div>
+                <!-- 商品標題 -->
+                <p style="cursor: pointer" class="toItem" th:attr="skuId=${item.skuId}" th:text="${item.title}">飛天53%vol
+                    500ml貴州茅台酒（帶杯）</p>
+                <span style="margin-right: 5px;" th:each="attr:${item.skuAttr}"
+                      th:text="${attr}">尺碼: 55時 超薄曲面 人工智能</span>
+            </div>
+        </div>
+        <!-- 價格 -->
+        <div class="price">
+            $<span th:text="${#numbers.formatDecimal(item.price,3,2)}">1,499.00</span>
+        </div>
+        <!-- 商品數量 -->
+        <div class="count" th:attr="skuId=${item.skuId},num=${item.getCount()}">
+            <button class="cut">-</button>
+            <input class="num" id="productNum" type="text" value="1" th:value="${item.count}">
+            <button class="add">+</button>
+        </div>
+        <!-- 商品價格小計 -->
+        <div class="item-total-price">
+            <strong>¥ <span th:text="${item.getPrice() * item.getCount()}">1499.00</span></strong>
+        </div>
+        <!-- 商品操作部分  -->
+        <div class="options">
+            <a class="deleteItem" style="cursor:pointer;" th:attr="skuId=${item.skuId}">
+                刪除
+            </a>
+        </div>
+    </div>
+</div>
+<div class="options-box" th:if="!${cart.items.size()==0}">
+    <div class="right">
+        <div class="btn-area" th:if="${cart.items!=null}">
+            <a onclick="toTrade()">去結算</a>
+        </div>
+        <div class="price-sum">
+            <div class="price-show">
+                <span>總價 :</span>
+                <span>$[[${#numbers.formatDecimal(cart.totalAmount,3,2)}]]</span>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/common/js/jquery.js"></script>
+<script src="/common/js/utils.js"></script>
+<script>
+    function toTrade() {
+        window.location.href = "http://localhost:11000/toTrade";
+    }
+
+    $(function () {
+        //  點擊+或者-修改當前商品的數量
+        // $('.add').click(function() {
+        //     var num = parseInt($(this).siblings('.num').val()) + 1;
+        //     $(this).siblings('.num').val(num);
+        // });
+        // $('.cut').click(function() {
+        //     var num = parseInt($(this).siblings('.num').val()) - 1;
+        //     if (num < 1) { num = 1 }
+        //     $(this).siblings('.num').val(num);
+        // });
+        //刪除
+        $('.deleteItem').click(function () {
+            var deleteId = $(this).attr("skuId");
+            deleteItem(deleteId);
+        });
+
+        function deleteItem(deleteId) {
+            if (confirm("確認刪除？")) {
+                location.href = "http://localhost:11000/cart/deleteItem?skuId=" + deleteId;
+            }
+        }
+
+        function toItem(skuId) {
+            window.location.href = "http://localhost:11000/" + skuId + ".html";
+        }
+
+        $('.itemCheck').click(function () {
+            var skuId = $(this).attr("skuId");
+            var check = $(this).prop("checked");
+            location.href = "http://localhost:11000/cart/checkItem?skuId=" + skuId + "&check=" + (check ? 1 : 0);
+            return false;
+        });
+        $('.toItem').click(function () {
+            var skuId = $(this).attr("skuId");
+            toItem(skuId);
+        });
+        $('.add').click(function () {
+            //1、skuId
+            var skuId = $(this).parent().attr("skuId");
+            var num = parseInt($(this).parent().attr("num")) + 1;
+            // alert("商品：" + skuId + "===數量：" + num);
+            location.href = "http://localhost:11000/cart/countItem?skuId=" + skuId + "&num=" + num;
+        });
+        $('.cut').click(function () {
+            //1、skuId
+            var skuId = $(this).parent().attr("skuId");
+            var num = parseInt($(this).parent().attr("num")) - 1;
+            if (num < 1) {
+                num = 1
+            }
+            // alert("商品：" + skuId + "===數量：" + num);
+            location.href = "http://localhost:11000/cart/countItem?skuId=" + skuId + "&num=" + num;
+        });
+
+        function checkSku(chkbox) {
+            var skuId = $(chkbox).attr("value");
+            var checked = $(chkbox).prop("checked");
+            var isCheckedFlag = "0";
+            if (checked) {
+                isCheckedFlag = "1";
+            }
+            var param = "isChecked=" + isCheckedFlag + "&" + "skuId=" + skuId;
+            $.post("checkCart", param, function (data) {
+                sumSumPrice();
+            });
+        }
+
+        //封裝總價錢函數
+        function sumSumPrice() {
+            console.log("計算總價");
+            var zzj = 0;
+            $(".check").each(function () {
+                if ($(this).prop("checked")) {
+                    console.log("check!!" + $(this).parents("ol").find(".zj").html());
+                    var zj = $(this).parents("ol").find(".zj").html().substring(1);
+                    console.log(" 價格：" + zj);
+                    zzj = zzj + parseFloat(zj);
+                }
+                $(".fnt").html("$" + zzj + ".00")
+            })
+        }
+    })
+</script>
+</body>
+</html>

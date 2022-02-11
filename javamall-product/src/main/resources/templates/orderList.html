@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>商城訂單</title>
+    <link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/order/css/index.css">
+    <link rel="stylesheet" href="/order/css/index_head.css">
+    <link rel="stylesheet" href="/common/css/footer.css">
+    <link rel="stylesheet" href="/common/css/base.css">
+    <script src="/common/js/jquery.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/order/js/index.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<style>
+    .page {
+        text-align: center;
+        font-size: 15px;
+        margin-bottom: 5px;
+    }
+
+    .page_a {
+        cursor: pointer;
+    }
+
+    .page_num {
+        padding: 1px;
+        border: 1px solid #ccc;
+        margin-left: 3px;
+
+    }
+
+    .page span {
+        pointer-events: none;
+        margin-left: 5px;
+    }
+</style>
+<body>
+<div class='header'>
+    <div class="top">
+        <div class="w clearfix">
+            <div class='setNav fr'>
+                <ul>
+                    <li id="userFather">
+                        <a th:if="${session.loginUser == null}" id="login_btn"
+                           href="http://localhost:11000/auth/login.html">
+                            登入
+                        </a>
+                        <a th:if="${session.loginUser == null}" href="http://localhost:11000/auth/reg.html">
+                            註冊
+                        </a>
+                        <a th:if="${session.loginUser != null}">
+                            歡迎, [[${session.loginUser.nickname}]]
+                        </a>
+                        <a th:if="${session.loginUser != null}" href="http://localhost:11000/auth/logout.html">
+                            立即退出
+                        </a>
+                    </li>
+                    <li class="line">
+                    </li>
+                    <li>
+                        <a href="http://localhost:11000/orderList.html">我的訂單</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- //頂部按鈕區域結束 -->
+    <div class="w">
+        <div class="top_search clearfix">
+            <a href="http://localhost:11000">
+                <div class="logo fl">
+                    <h1></h1>
+                </div>
+            </a>
+            <div class="search fl">
+                <form action="http://localhost:11000/list.html" method="get">
+                    <input name="keyword" type="text" id="ipt" placeholder="">
+                    <button>搜索</button>
+                    <ul id="list"></ul>
+                </form>
+            </div>
+            <div class="shop_car fr">
+                <a href="http://localhost:11000/cart/cart.html">購物車</a>
+            </div>
+        </div>
+    </div>
+    <!-- logo及 搜索框結束 -->
+    <div class="w">
+        <div class="tab clearfix">
+            <div class="fl s_show">
+                <a href="" class="logo_s"></a>
+            </div>
+            <ul class="fl clearfix">
+                <li class="tabItem">
+                    <a href="http://localhost:11000">首頁</a>
+                </li>
+                <li class="tabItem" th:each="cat1:${category}">
+                    <a th:text="${cat1.getName()}">居家生活</a>
+                    <div class="tabChild clearfix">
+                        <dl th:each="cat2:${cat1.getCat2()}">
+                            <dt th:text="${cat2.getName()}">夏季煥新</dt>
+                            <dd th:each="cat3:${cat2.getCat3()}">
+                                <a th:href="@{'http://localhost:11000/list.html?catalog3Id='+${cat3.getId()}}">
+                                    <span th:text="${cat3.getName()}">夏涼嘗鮮</span></a>
+                            </dd>
+                        </dl>
+                    </div>
+                </li>
+            </ul>
+            <div class="fr s_show">
+                <span class="log fl">
+                        <ul class='setItem'>
+                            <li th:if="${session.loginUser == null}">
+                                <a href="http://localhost:11000/auth/login.html">
+                                    登入
+                                </a>
+                            </li>
+                            <li th:if="${session.loginUser == null}">
+                                <a href="http://localhost:11000/auth/reg.html">
+                                    註冊
+                                </a>
+                            </li>
+                            <li th:if="${session.loginUser != null}">
+                                <a href="http://localhost:11000/auth/logout.html">
+                                    退出
+                                </a>
+                            </li>
+                        </ul>
+                    </span>
+                <a href="http://localhost:11000/cart/cart.html">
+                    <span class="show_car fl">
+                    </span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <!-- tab區域結束 -->
+</div>
+<div id="big">
+    <div id="bigRight">
+        <div class="allBig">
+            <div class="details">
+                <ul class="detailsUl">
+                    <li class="detailsLi">訂單詳情</li>
+                    <li class="detailsLi1">收貨人</li>
+                    <li class="detailsLi1">金額</li>
+                    <li class="detailsLi1">狀態</li>
+                    <li class="detailsLi1">操作</li>
+                </ul>
+            </div>
+            <table class="table" th:each="order:${orders.getList()}">
+                <tr>
+                    <td colspan="7" style="background:#F7F7F7">
+                        <span><ruby style="color:#AAAAAA">訂單號:</ruby> [[${order.orderSn}]]</span>
+                        <span th:text="${#dates.format(order.createTime, 'yyyy-MM-dd HH:mm')}"></span>
+                    </td>
+                </tr>
+                <tr class="tr" th:each="item:${order.itemEntities}">
+                    <td colspan="3" style="border-right: 1px solid #ccc">
+                        <img style="height: 60px;width: 60px" th:src="${item.skuPic}" alt="" class="img">
+                        <div>
+                            <a th:href="@{'/detail.html/'+${order.orderSn}}"
+                               style="width: 242px;height: auto;overflow: auto">
+                                [[${item.skuName}]]
+                            </a>
+                        </div>
+                        <div style="margin-left:15px;">x[[${item.skuQuantity}]]</div>
+                        <div style="clear:both"></div>
+                    </td>
+                    <td th:if="${itemStat.index==0}" th:rowspan="${itemStat.size}">[[${order.receiverName}]]<i><i
+                            class="table_i1"></i></i></td>
+                    <td th:if="${itemStat.index==0}" th:rowspan="${itemStat.size}"
+                        style="padding-left:10px;color:#AAAAB1;">
+                        <p style="margin-bottom:5px;">總額 $[[${order.payAmount}]]</p>
+                        <hr style="width:90%;">
+                        <p>在線支付</p>
+                    </td>
+                    <td th:if="${itemStat.index==0}" th:rowspan="${itemStat.size}">
+                        <ul>
+                            <li style="color:orange;" th:if="${order.status==0}">待付款</li>
+                            <li style="color:#71B247;" th:if="${order.status==1}">已付款</li>
+                            <li style="color:#71B247;" th:if="${order.status==2}">已發貨</li>
+                            <hr style="width:90%;" th:if="${order.status==2}">
+                            <li style="color:#71B247;" th:if="${order.status==2}">物流單號：[[${order.deliverySn}]]</li>
+                            <li style="color:#71B247;" th:if="${order.status==3}">已完成</li>
+                            <li style="color:red;" th:if="${order.status==4}">已取消</li>
+                            <li style="color:orange;" th:if="${order.status==5}">售後中</li>
+                            <li style="color:#71B247;" th:if="${order.status==6}">售後完成</li>
+                        </ul>
+                    </td>
+                    <td th:if="${itemStat.index==0}" th:rowspan="${itemStat.size}" th:attr="orderSn=${order.orderSn}">
+                        <button type="button" class="btn btn-success btn-sm confirm" th:if="${order.status==2}">
+                            確認收貨
+                        </button>
+                        <button type="button" class="gotoPay btn btn-success btn-sm" th:if="${order.status==0}">
+                            去支付
+                        </button>
+                        <button type="button" class="cancel btn btn-danger btn-sm"
+                                th:if="${order.status==0 || order.status==1}">
+                            取消訂單
+                        </button>
+                        <a th:href="@{'payed/result.html?out_trade_no='+ ${order.orderSn}}">
+                            <p th:if="${order.status==0}" style="margin:4px 0; ">已支付？刷新訂單</p>
+                        </a>
+                    </td>
+                </tr>
+            </table>
+            <div class="page">
+                <a class="page_a" th:attr="pn=${orders.getCurrPage() - 1}"
+                   th:if="${orders.getCurrPage()>1}">
+                    < 上一頁
+                </a>
+                <a class="page_num page_a"
+                   th:attr="pn=${navs},style=${navs == orders.getCurrPage()?'border: 0;color:#ee2222;background: #fff':''}"
+                   th:each="navs : ${pageNavs}">[[${navs}]]</a>
+                <a class="page_a" th:attr="pn=${orders.getCurrPage() + 1}"
+                   th:if="${orders.getCurrPage() < orders.getTotalPage()}">
+                    下一頁 >
+                </a>
+                <span disabled="">
+            共[[${orders.getTotalPage()}]]頁
+          </span>
+            </div>
+            <div style="clear:both;"></div>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    $('.confirm').click(function () {
+        var orderSn = $(this).parent().attr("orderSn");
+        if (confirm("確認收貨？")) {
+            location.href = "http://localhost:11000/confirm/" + orderSn;
+        }
+    });
+    $('.cancel').click(function () {
+        var orderSn = $(this).parent().attr("orderSn");
+        if (confirm("取消訂單？")) {
+            location.href = "http://localhost:11000/cancelOrder/" + orderSn;
+        }
+    });
+    $('.gotoPay').click(function () {
+        var orderSn = $(this).parent().attr("orderSn");
+        location.href = "http://localhost:11000/payOrder?orderSn=" + orderSn;
+    });
+    $(".page_a").click(function () {
+        var pn = $(this).attr("pn");
+        var href = location.href;
+        if (href.indexOf("pageNum") != -1) {
+            //替換pageNum
+            location.href = replaceParamVal(href, "pageNum", pn);
+        } else {
+            location.href = location.href + "&pageNum=" + pn;
+        }
+        return false;
+    });
+
+    function replaceParamVal(url, paramName, replaceVal, forceAdd) {
+        var oUrl = url.toString();
+        //1、如果沒有就添加，有就替換
+        if (oUrl.indexOf(paramName) != -1) {
+            if (forceAdd) {
+                var nUrl = "";
+                if (oUrl.indexOf("?") != -1) {
+                    nUrl = oUrl + "&" + paramName + '=' + replaceVal;
+                } else {
+                    nUrl = oUrl + "?" + paramName + '=' + replaceVal;
+                }
+                return nUrl;
+            } else {
+                var re = eval('/(' + paramName + '=)([^&]*)/gi');
+                var nUrl = oUrl.replace(re, paramName + '=' + replaceVal)
+                return nUrl;
+            }
+        } else {
+            var nUrl = "";
+            if (oUrl.indexOf("?") != -1) {
+                nUrl = oUrl + "&" + paramName + '=' + replaceVal;
+            } else {
+                nUrl = oUrl + "?" + paramName + '=' + replaceVal;
+            }
+            return nUrl;
+        }
+    };
+</script>
+</html>

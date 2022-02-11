@@ -1,0 +1,115 @@
+/* css reset 网页重置*/
+
+
+/* 清除网页所有标签默认边距 */
+
+body,
+ol,
+ul,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+th,
+td,
+dl,
+dd,
+form,
+fieldset,
+legend,
+input,
+figure,
+textarea,
+select {
+    margin: 0;
+    padding: 0
+}
+
+
+/* 设置网页全局默认字体样式 */
+
+body,
+html {
+    font-size: 12px;
+    font-family: "微软雅黑", Arial;
+    width: 100%;
+    height: 100%;
+}
+
+
+/* 清除字体加粗样式 */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+b,
+strong {
+    font-weight: normal;
+    font-size: 100%;
+}
+
+
+/* 清除字体倾斜样式 */
+
+em,
+i {
+    font-style: normal;
+}
+
+
+/* 清除列表项目符号 */
+
+li {
+    list-style: none;
+}
+
+
+/* 清除超链接下划线和设置默认字体颜色 */
+
+a {
+    text-decoration: none;
+    color: #888888;
+}
+
+
+/* 设置图像默认重置居中对齐，可以解决3-6像素bug */
+
+img {
+    vertical-align: middle;
+}
+
+
+/* 清除input选中后高亮框 */
+
+input {
+    outline: none;
+}
+
+
+/* 阻止多行文本域被拉伸 */
+
+textarea {
+    resize: none;
+}
+
+
+/* 高度塌陷万能解决方法 */
+
+.clearfix {
+    *zoom: 1;
+}
+
+.clearfix::after {
+    content: '';
+    height: 0;
+    display: block;
+    clear: both;
+    overflow: hidden;
+    visibility: hidden;
+}

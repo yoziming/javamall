@@ -1,0 +1,94 @@
+@charset "UTF-8";
+.active-body {
+  width: 100%;
+  border-top: 1px solid #ddd;
+  border-bottom: 2px solid #ddd;
+}
+
+.act1 {
+  width: 1920px;
+  height: 600px;
+  margin: 0 auto;
+  background-color: #ddd;
+}
+
+.act1 img {
+  width: 1920px;
+  height: 600px;
+  display: block;
+  position: relative;
+}
+
+.erweima {
+  width: 142px;
+  height: 142px;
+  position: absolute;
+  top: 506px;
+  left: 1208px;
+}
+
+.act2 {
+  background-image: url(http://yanxuan.nosdn.127.net/350f6450d91865e683a952648e603e5f.jpg);
+  background-position: center center;
+  overflow: hidden;
+  height: 490px;
+  font: 12px/1.5 "Microsoft Yahei", "微软雅黑", verdana;
+}
+
+.act3 {
+  background-image: url(http://yanxuan.nosdn.127.net/75f9585320b696cd6ed3cbc8cfeb1477.png);
+  background-position: center center;
+  overflow: hidden;
+  height: 490px;
+  font: 12px/1.5 "Microsoft Yahei", "微软雅黑", verdana;
+}
+
+.act4 {
+  background-image: url(http://yanxuan.nosdn.127.net/547fde25c12274bb7bd39f3f9f024fa4.jpg);
+  background-position: center center;
+  overflow: hidden;
+  height: 490px;
+  font: 12px/1.5 "Microsoft Yahei", "微软雅黑", verdana;
+}
+
+.act5 {
+  background-image: url(http://yanxuan.nosdn.127.net/198638b4507d3e2c11b1443f53d45f91.jpg);
+  background-position: center center;
+  overflow: hidden;
+  height: 490px;
+  font: 12px/1.5 "Microsoft Yahei", "微软雅黑", verdana;
+}
+
+.act6 {
+  width: 1100px;
+  height: 682px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+.act6 img {
+  width: 356px;
+  height: 505px;
+  margin-top: 70px;
+}
+
+.g-row {
+  width: 1090px;
+  margin-right: auto;
+  margin-left: auto;
+  position: relative;
+}
+
+.title {
+  font-size: 42px;
+  margin-top: 170px;
+  line-height: 42px;
+}
+
+.desc {
+  font-size: 18px;
+  margin-top: 20px;
+  line-height: 18px;
+  color: #999;
+}

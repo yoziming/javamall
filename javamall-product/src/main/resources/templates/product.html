@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title th:text="${item.info.skuTitle}"></title>
+    <link rel="stylesheet" href="/product/css/reset.css">
+    <link rel="stylesheet" href="/product/css/common.css">
+    <link rel="stylesheet" href="/product/css/detail.css">
+    <link rel="stylesheet" href="/common/css/footer.css">
+    <link rel="stylesheet" href="/common/css/index_head.css">
+    <link rel="stylesheet" href="/common/css/base.css">
+    <script src="/product/js/jquery1.12.4.min.js"></script>
+    <script src="/product/js/common.js"></script>
+    <script src="/product/js/public.js"></script>
+    <script src="/product/js/detail.js"></script>
+</head>
+<body>
+<div class='header'>
+    <div class="top">
+        <div class="w clearfix">
+            <div class='setNav fr'>
+                <ul>
+                    <li id="userFather">
+                        <a th:if="${session.loginUser == null}" id="login_btn"
+                           href="http://localhost:11000/auth/login.html">
+                            登入
+                        </a>
+                        <a th:if="${session.loginUser == null}" href="http://localhost:11000/auth/reg.html">
+                            註冊
+                        </a>
+                        <a th:if="${session.loginUser != null}">
+                            歡迎, [[${session.loginUser.nickname}]]
+                        </a>
+                        <a th:if="${session.loginUser != null}" href="http://localhost:11000/auth/logout.html">
+                            立即退出
+                        </a>
+                    </li>
+                    <li class="line">
+                    </li>
+                    <li>
+                        <a href="http://localhost:11000/orderList.html">我的訂單</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- //頂部按鈕區域結束 -->
+    <div class="w">
+        <div class="top_search clearfix">
+            <a href="http://localhost:11000">
+                <div class="logo fl">
+                    <h1></h1>
+                </div>
+            </a>
+            <div class="search fl">
+                <form action="http://localhost:11000/list.html" method="get">
+                    <input name="keyword" type="text" id="ipt" placeholder="">
+                    <button>搜索</button>
+                    <ul id="list"></ul>
+                </form>
+            </div>
+            <div class="shop_car fr">
+                <a href="http://localhost:11000/cart/cart.html">購物車</a>
+            </div>
+        </div>
+    </div>
+    <!-- logo及 搜索框結束 -->
+    <div class="w">
+        <div class="tab clearfix">
+            <div class="fl s_show">
+                <a href="" class="logo_s"></a>
+            </div>
+            <ul class="fl clearfix">
+                <li class="tabItem">
+                    <a href="http://localhost:11000">首頁</a>
+                </li>
+                <li class="tabItem" th:each="cat1:${category}">
+                    <a href="" th:text="${cat1.getName()}">居家生活</a>
+                    <div class="tabChild clearfix">
+                        <dl th:each="cat2:${cat1.getCat2()}">
+                            <dt th:text="${cat2.getName()}">夏季煥新</dt>
+                            <dd th:each="cat3:${cat2.getCat3()}">
+                                <a th:href="@{'/list.html?catalog3Id='+${cat3.getId()}}">
+                                    <span th:text="${cat3.getName()}">夏涼嘗鮮</span>
+                                </a>
+                            </dd>
+                        </dl>
+                    </div>
+                </li>
+            </ul>
+            <div class="fr s_show">
+                    <span class="log fl">
+                            <ul class='setItem'>
+                                <li th:if="${session.loginUser == null}">
+                                    <a href="http://localhost:11000/auth/login.html">
+                                        登入
+                                    </a>
+                                </li>
+                                <li th:if="${session.loginUser == null}">
+                                    <a href="http://localhost:11000/auth/reg.html">
+                                        註冊
+                                    </a>
+                                </li>
+                                <li th:if="${session.loginUser != null}">
+                                    <a href="http://localhost:11000/auth/logout.html">
+                                        退出
+                                    </a>
+                                </li>
+                            </ul>
+                        </span>
+                <a href="http://localhost:11000/cart/cart.html">
+                        <span class="show_car fl">
+                        </span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <!-- tab區域結束 -->
+</div>
+<!-- 主體內容 -->
+<div id="main">
+    <div class="detail container">
+        <div>
+            <span>首頁<i></i></span>
+            <span>[[${item.getCategorys().get(0).getName()}]]<i></i></span>
+            <span>[[${item.getCategorys().get(1).getName()}]]<i></i></span>
+            <span>[[${item.getCategorys().get(2).getName()}]]<i></i></span>
+            <span>[[${item.getBrand().getName()}]]<i></i></span>
+            <span th:text="${item.getInfo().getSkuName()}">雙層水果蔬菜清洗瀝水籃</span>
+        </div>
+        <div class="clearfix">
+            <div id="box">
+                <div id="small">
+                    <!-- 小圖片:430*430 -->
+                    <img th:src="${item.info.skuDefaultImg}" alt="" class="bigPic" id="small">
+                    <!-- 遮罩層:215*215 -->
+                    <div id="mask"></div>
+                </div>
+                <div id="big">
+                    <!-- 大圖片所在的盒子:430*430 -->
+                    <div id="bigbox">
+                        <img th:src="${item.info.skuDefaultImg}" alt="" id="bigImg"/>
+                        <!-- 大圖片:860*860 -->
+                    </div>
+                </div>
+                <div>
+                    <ul>
+                        <li th:each="img : ${item.images}"><img th:src="${img.imgUrl}" alt="" class="smallPic"></li>
+                    </ul>
+                </div>
+            </div>
+            <div>
+                <div>
+                    <p th:text="${item.info.skuTitle}">雙層水果蔬菜清洗瀝水籃</p>
+                    <span th:text="${item.info.skuSubtitle}">浸泡瀝水二合一，1件3用狠實惠</span>
+                    <a href=""></a>
+                </div>
+                <div>
+                </div>
+                <div>
+                    <div><span>活動價</span><strong th:text="${#numbers.formatDecimal(item.info.price,3,2)}">¥13.9</strong>
+                    </div>
+                    <div><span></span><b th:text="${item.hasStock?'有貨':'無貨'}"></b></div>
+                </div>
+                <div>
+                    <div>
+                        <ul th:each="attr : ${item.saleAttr}">
+                            <span>[[${attr.attrName}]]</span>
+                            <li th:each="val : ${attr.attrValues}">
+                                <a style="cursor:pointer" th:attr=" class=${#lists.contains(#strings.listSplit(val.skuIds,','),item.info.skuId.toString())
+                                   ? 'sku_attr_value checked': 'sku_attr_value'}, skus=${val.skuIds} ">
+                                    [[${val.attrValue}]]
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <span>數量</span>
+                        <div>
+                            <span class="cut" style="cursor:pointer">-</span>
+                            <input type="text" id="productNum" value="1" class="num">
+                            <span class="add" style="cursor:pointer">+</span>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <a class="addToCart" th:if="${item.hasStock && item.publish}" th:attr="skuId=${item.info.skuId}">加入購物車</a>
+                    <a class="notHasStock" th:if="${!item.hasStock && item.publish}">暫時無貨</a>
+                    <a class="notHasStock" th:if="${!item.publish}">已下架</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="detailBody">
+    <div class="db-left">
+        <ul class="db-nav">
+            <li class="nav-item nav-active">
+                <a>
+                    <span>詳情</span>
+                </a>
+            </li>
+            <li class="big"></li>
+        </ul>
+        <div class="attr">
+            <div class="attr-group" th:each="group : ${item.groupAttrs}">
+                <div class="group-name" th:text="${group.groupName}">主體</div>
+                <div>
+                    <div class="group-item" th:each="attr : ${group.attrs}">
+                        <div class="attr-name" th:text="${attr.attrName}">品牌</div>
+                        :
+                        <div class="attr-value" th:text="${attr.attrValue}">蘋果(apple)</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="db-content">
+            <img th:src="${descp}"
+                 th:each="descp : ${#strings.listSplit(item.desp.decript,',')}"/>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    $(".sku_attr_value").click(function () {
+        // 1、點擊的元素添加上自定義的屬性
+        let skus = new Array();
+        let curr = $(this).attr("skus").split(",");
+        $(this).parent().parent().find(".sku_attr_value").removeClass("checked");
+        $(this).addClass("checked");
+        changeCheckedStyle();
+        $("a[class='sku_attr_value checked']").each(function () {
+            skus.push($(this).attr("skus").split(","));
+        });
+        let filterEle = skus[0];
+        for (let i = 1; i < skus.length; i++) {
+            filterEle = $(filterEle).filter(skus[i])[0];
+        }
+        location.href = "http://localhost:11000/" + filterEle + ".html";
+        return false;
+    });
+    $(function () {
+        changeCheckedStyle();
+    });
+
+    function changeCheckedStyle() {
+        $(".sku_attr_value").parent().css({"border": "solid 1px #ccc"});
+        $("a[class='sku_attr_value checked']").parent().css({"border": "solid 3px #b4a078"});
+    };
+    $(".addToCart").click(function () {
+        let skuId = $(this).attr("skuId");
+        let num = $("#productNum").val();
+        location.href = "http://localhost:11000/cart/addToCart?skuId=" + skuId + "&num=" + num;
+        return false;
+    });
+</script>
+</html>

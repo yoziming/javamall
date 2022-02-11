@@ -1,0 +1,84 @@
+/* 版心：1090px */
+
+.container {
+    width: 1090px;
+    margin: 0 auto;
+}
+
+
+.topC div:nth-child(1) span {
+    float: left;
+    width: 14px;
+    height: 14px;
+    background: url('https://yanxuan.nosdn.127.net/d132c2561f18f1149d566a60d05fd9b7.gif') no-repeat;
+    color: #b4a078;
+    margin-top: 11px;
+    margin-right: 10px;
+}
+
+.topC div:nth-child(1) a {
+    color: #cc9756;
+    line-height: 36px;
+    text-decoration: underline;
+}
+
+.topC>div:nth-child(1) {
+    float: left;
+}
+
+.topC>div:nth-child(1):hover {
+    cursor: pointer;
+}
+
+.topC>div:nth-child(1):hover a {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.topC>div:nth-child(2) {
+    float: right;
+}
+
+.topC>div:nth-child(2)>ul>li {
+    float: left;
+    position: relative;
+}
+
+.topC>div:nth-child(2)>ul>li::after {
+    content: '';
+    display: inline-block;
+    width: 1px;
+    height: 12px;
+    background: #999999;
+    position: absolute;
+    right: 0;
+    top: 13px;
+}
+
+.topC>div:nth-child(2)>ul>li.nobg>a>i {
+    display: inline-block;
+    width: 7px;
+    height: 10px;
+    background: url('https://yanxuan-static.nosdn.127.net/hxm/yanxuan-component/p/20170601/style/img/x1/icon-yxtop-s2904006215-b2811ec0e9.png') no-repeat center;
+    background-position: 0 0;
+    margin-right: 5px;
+}
+
+.topC>div:nth-child(2)>ul>li.nobg::after {
+    width: 0;
+}
+
+.topC>div:nth-child(2)>ul>li>a {
+    color: #cccccc;
+    line-height: 36px;
+    margin: 0 10px;
+}
+
+.topC>div:nth-child(2) li:hover {
+    cursor: pointer;
+}
+
+.topC>div:nth-child(2) li a:hover {
+    color: #ffffff;
+}
+

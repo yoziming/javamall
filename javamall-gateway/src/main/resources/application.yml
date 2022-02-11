@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: javamall-gateway
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+    gateway:
+      routes:
+        - id: product_route
+          uri: lb://javamall-product
+          predicates:
+            - Path=/api/product/**,/api/ware/**,/api/thirdparty/**,/api/member/**,/api/order/**
+          filters:
+            - RewritePath=/api/(?<segment>/?.*), /$\{segment}
+        - id: admin_route
+          uri: lb://javamall-admin
+          predicates:
+            - Path=/api/**
+          filters:
+            - RewritePath=/api/(?<segment>/?.*), /javamall-admin/$\{segment}
+server:
+  port: 888

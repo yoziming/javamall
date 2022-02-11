@@ -1,0 +1,72 @@
+@charset "UTF-8";
+* {
+  margin: 0;
+  padding: 0;
+}
+
+/* 如果我们不希望轮播图显示大长条可以给container加上overflow属性 */
+.container {
+  width: 1090px;
+  height: 310px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.slide img {
+  width: 1090px;
+  height: 310px;
+}
+
+.slide .new-item .img_change img {
+  width: 265px;
+  height: 265px;
+}
+
+.prev-button, .next-button {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  font-size: 40px;
+  line-height: 50px;
+  top: 50%;
+  margin-top: -20px;
+  z-index: 999;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 50%;
+  background: #b4a078;
+  opacity: 0.8;
+}
+
+.next-button {
+  right: 0;
+}
+
+.pagination {
+  position: absolute;
+  z-index: 2;
+  left: 30px;
+  bottom: 20px;
+  text-align: center;
+}
+
+.pagination span {
+  position: relative;
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  margin-right: 4px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+  transition: background 0.2s ease;
+}
+
+.pagination span.active {
+  width: 9px;
+  height: 9px;
+  top: 2px;
+  left: 0;
+  border: 3px solid rgba(0, 0, 0, 0.1);
+}

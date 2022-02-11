@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>註冊</title>
+    <link rel="stylesheet" href="/auth/css/registry.css">
+</head>
+<body>
+<div id="error" th:if="${error!=null && error.msg != null}" th:attr="error=${error.msg}"></div>
+<div class="head">
+    <div class="frame">
+        <a href="">
+            <div class="logo"></div>
+        </a>
+        <div class="right-tip">
+            已有賬號？去
+            <a th:href="@{/auth/login.html}" id="btn-login">登入</a>
+        </div>
+    </div>
+</div>
+<div class="reg-page">
+    <div class="mode">
+        <div class="left">商城會員</div>
+        <div class="right">會員註冊</div>
+    </div>
+    <form action="/auth/regist" method="post" id="regForm">
+        <!--賬好-->
+        <div class="u-input firstElem">
+            <label class="u-label">用戶名：</label>
+            <input name="username" id="user_name" class="i-input" placeholder="用戶名是6-20位数字、字母和下劃線" type="text">
+            <div id="user_error" class="error-label"></div>
+        </div>
+        <!--密碼-->
+        <div class="u-input">
+            <label class="u-label">密碼：</label>
+            <input name="password" id="password" class="i-input" placeholder="6-16位密碼，區分大小寫" type="password">
+            <label id="password_error" class="error-label"></label>
+        </div>
+        <!--確認密碼-->
+        <div class="u-input">
+            <label class="u-label">確認密碼：</label>
+            <input id="password2" class="i-input" placeholder="再次輸入密碼" type="password">
+            <label id="password2_error" class="error-label"></label>
+        </div>
+        <!--手機號-->
+        <div class="u-input">
+            <label class="u-label">電子郵件：</label>
+            <input name="phone" id="email" class="i-input" placeholder="電子郵件賬號" type="text">
+            <label id="email_error" class="error-label"></label>
+        </div>
+        <!--驗證碼-->
+        <div class="u-input">
+            <label class="u-label">驗證碼：</label>
+            <input name="code" id="code" class="i-input sms" placeholder="輸入驗證碼" type="text">
+            <button type="button" id="codeBtn" class="btn-sms">獲取驗證碼</button>
+            <label id="code_error" class="error-label"></label>
+        </div>
+        <div class="u-input">
+            <label class="u-label"></label>
+            <button type="submit" class="btn-reg" id="regBtn">註&nbsp;&nbsp;冊</button>
+        </div>
+    </form>
+</div>
+</body>
+<script src="/common/js/jquery.js"></script>
+<script>
+    let usernameFlag = false;
+    let passwordFlag = false;
+    let password2Flag = false;
+    let emailFlag = false;
+    let codeFlag = false;
+    $(document).ready(function () {
+        alertError();
+    })
+
+    function alertError() {
+        if ($("#error").length > 0) {
+            let error = $("#error").attr("error");
+            alert(error)
+        }
+    }
+
+    $('#codeBtn').click(function () {
+        // 檢測email符合嗎
+        let email = $email.val()
+        let emailReg = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/
+        if (email == '') {
+            $('#email_error').html('電子郵件不能為空！')
+            emailFlag = false;
+        } else {
+            if (emailReg.test(email)) {
+                $('#email_error').html('')
+                emailFlag = true;
+            } else {
+                $('#email_error').html('請輸入正確的電子郵件地址！')
+                emailFlag = false;
+            }
+        }
+        //2、倒計時
+        if ($(this).hasClass("disabled")) {
+            //正在倒計時
+        } else {
+            if (emailFlag) {
+                //可以發送驗證碼
+                //1、給指定手機號發送驗證碼
+                $.get("/auth/sms/sendcode?phone=" + $('#email').val(), function (data) {
+                    if (data.code != 0) {
+                        alert(data.msg);
+                    }
+                });
+                timeoutChangeStyle();
+            } else {
+                alert("請正確填寫電子郵件訊息！")
+            }
+        }
+    })
+    var num = 60;
+
+    function timeoutChangeStyle() {
+        $('#codeBtn').attr("disabled", true)
+        $('#codeBtn').css("cursor", "not-allowed")
+        if (num == 0) {
+            num = 60;
+            $('#codeBtn').text("獲取驗證碼");
+            $('#codeBtn').attr("disabled", false);
+            $('#codeBtn').css("cursor", "pointer")
+        } else {
+            var str = num + "s 后再次發送";
+            $('#codeBtn').text(str);
+            setTimeout("timeoutChangeStyle()", 1000);
+        }
+        num--;
+    }
+
+    $('#regForm').submit(function () {
+        if (!(usernameFlag && passwordFlag && password2Flag && emailFlag && codeFlag)) {
+            alert("請按要求填寫註冊訊息！")
+            return false;
+        }
+    })
+    // 檢查用戶名。
+    const $user_name = $('#user_name')
+    $user_name.blur(
+        function () {
+            let input = $user_name.val()
+            let reg = /^[A-Za-z0-9_]{6,20}$/
+            if (input == '') {
+                $('#user_error').html('用戶名不能為空!')
+                usernameFlag = false;
+            } else {
+                if (reg.test(input)) {
+                    $('#user_error').html('')
+                    usernameFlag = true;
+                } else {
+                    $('#user_error').html('用戶名是6-20位数字、字母和下劃線！')
+                    usernameFlag = false;
+                }
+            }
+        }
+    )
+    // 檢查密碼，確認密碼。
+    const $password = $('#password')
+    const $password2 = $('#password2')
+    $password.blur(
+        function () {
+            let password = $password.val()
+            let password2 = $password2.val()
+            if (password == '') {
+                $('#password_error').html('密碼不能為空！')
+                passwordFlag = false;
+            } else {
+                $('#password_error').html('')
+                passwordFlag = true;
+            }
+        })
+    $password2.blur(
+        function () {
+            let password = $password.val()
+            let password2 = $password2.val()
+            if (password2 == '') {
+                $('#password2_error').html('確認密碼不能為空！')
+                password2Flag = false;
+            } else {
+                if (password == password2) {
+                    $('#password2_error').html('')
+                    password2Flag = true;
+                } else {
+                    $('#password2_error').html('兩次密碼輸入不同！')
+                    password2Flag = false;
+                }
+            }
+        })
+    // 檢查email
+    const $email = $('#email')
+    $email.blur(function () {
+        let email = $email.val()
+        let emailReg = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/
+        if (email == '') {
+            $('#email_error').html('電子郵件不能為空！')
+            emailFlag = false;
+        } else {
+            if (emailReg.test(email)) {
+                $('#email_error').html('')
+                //設置可以點擊發送驗證碼
+                emailFlag = true;
+            } else {
+                $('#email_error').html('請輸入正確的電子郵件地址！')
+                emailFlag = false;
+            }
+        }
+    })
+    const $code = $('#code')
+    $code.blur(function () {
+        let code = $code.val()
+        if (code == '') {
+            $('#code_error').html('驗證碼不能為空！')
+            codeFlag = false;
+        } else {
+            $('#code_error').html('')
+            codeFlag = true;
+        }
+    })
+</script>
+</html>

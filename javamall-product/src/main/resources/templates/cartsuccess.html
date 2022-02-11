@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <title></title>
+    <link rel="stylesheet" href="/common/css/base.css">
+    <link rel="stylesheet" href="/common/css/index_head.css">
+    <link rel="stylesheet" href="/common/css/footer.css">
+    <style>
+        .successMain {
+            width: 1090px;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+<!--頭部-->
+<div class='header'>
+    <div class="top">
+        <div class="w clearfix">
+            <div class='setNav fr'>
+                <ul>
+                    <li id="userFather">
+                        <a th:if="${session.loginUser == null}" id="login_btn"
+                           href="http://localhost:11000/auth/login.html">
+                            登入
+                        </a>
+                        <a th:if="${session.loginUser == null}" href="http://localhost:11000/auth/reg.html">
+                            註冊
+                        </a>
+                        <a th:if="${session.loginUser != null}">
+                            歡迎, [[${session.loginUser.nickname}]]
+                        </a>
+                        <a th:if="${session.loginUser != null}" href="http://localhost:11000/auth/logout.html">
+                            立即退出
+                        </a>
+                    </li>
+                    <li class="line">
+                    </li>
+                    <li>
+                        <a href="http://localhost:11000/orderList.html">我的訂單</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- //頂部按鈕區域結束 -->
+    <div class="w">
+        <div class="top_search clearfix">
+            <a href="http://localhost:11000">
+                <div class="logo fl">
+                    <h1></h1>
+                </div>
+            </a>
+            <div class="search fl">
+                <form action="http://localhost:11000/list.html" method="get">
+                    <input name="keyword" type="text" id="ipt" placeholder="">
+                    <button>搜索</button>
+                    <ul id="list"></ul>
+                </form>
+            </div>
+            <div class="shop_car fr">
+                <a href="http://localhost:11000/cart/cart.html">購物車</a>
+            </div>
+        </div>
+    </div>
+    <!-- logo及 搜索框結束 -->
+    <div class="w">
+        <div class="tab clearfix">
+            <div class="fl s_show">
+                <a href="" class="logo_s"></a>
+            </div>
+            <ul class="fl clearfix">
+                <li class="tabItem">
+                    <a href="http://localhost:11000">首頁</a>
+                </li>
+                <li class="tabItem" th:each="cat1:${category}">
+                    <a href="" th:text="${cat1.getName()}">居家生活</a>
+                    <div class="tabChild clearfix">
+                        <dl th:each="cat2:${cat1.getCat2()}">
+                            <dt th:text="${cat2.getName()}">夏季煥新</dt>
+                            <dd th:each="cat3:${cat2.getCat3()}">
+                                <a th:href="@{'/list.html?catalog3Id='+${cat3.getId()}}"><img
+                                        src="/static/index/img/index-head/item_child1.png" alt=""><span
+                                        th:text="${cat3.getName()}">夏涼嘗鮮</span></a>
+                            </dd>
+                        </dl>
+                    </div>
+                </li>
+            </ul>
+            <div class="fr s_show">
+            <span class="log fl">
+                    <ul class='setItem'>
+                        <li th:if="${session.loginUser == null}">
+                            <a href="http://localhost:11000/auth/login.html">
+                                登入
+                            </a>
+                        </li>
+                        <li th:if="${session.loginUser == null}">
+                            <a href="http://localhost:11000/auth/reg.html">
+                                註冊
+                            </a>
+                        </li>
+                        <li th:if="${session.loginUser != null}">
+                            <a href="http://localhost:11000/auth/logout.html">
+                                退出
+                            </a>
+                        </li>
+                    </ul>
+                </span>
+                <a href="http://localhost:11000/cart/cart.html">
+                <span class="show_car fl">
+                </span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <!-- tab區域結束 -->
+</div>
+<div class="successMain">
+    <div style="padding: 50px 100px;">
+        <div>
+            <h1>商品已成功加入購物車!</h1>
+        </div>
+        <div style="display: flex;margin-top: 20px">
+            <div>
+                <img style="height: 80px;width:80px;" th:src="${item.image}">
+            </div>
+            <div style="margin-left: 50px">
+                <div style="margin-bottom: 20px;font-size: 14px">
+                    <a th:href="'http://localhost:11000/'+${item.skuId}+'.html'"
+                       th:text="${item.title}">TCL 55A950C 55寸32核人工智能 HDR曲面超薄4K電視金屬機身（黑色）</a>
+                </div>
+                <div th:text="'數量：'+${num}">數量</div>
+            </div>
+        </div>
+        <div style="display: flex;font-size: 18px;margin-top: 20px;">
+            <div style="border: 1px solid #b4a078;padding: 5px">
+                <a th:href="'http://localhost:11000/'+${item.skuId}+'.html'">查看商品詳情</a>
+            </div>
+            <div style="margin-left: 20px;border: 1px solid #b4a078;padding: 5px">
+                <a href="http://localhost:11000/cart/cart.html">去購物車結算</a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="/js/success.js"></script>
+</html>
