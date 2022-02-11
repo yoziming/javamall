@@ -13,8 +13,11 @@
         <module>javamall-product</module>
         <module>javamall-admin</module>
         <module>javamall-common</module>
+        <module>javamall-gateway</module>
     </modules>
-
+    <properties>
+        <java.version>1.8</java.version>
+    </properties>
 
     <dependencyManagement>
         <dependencies>
