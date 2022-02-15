@@ -10,7 +10,7 @@
 
 ### 項目架構圖
 
-![架構圖](https://yoziming.github.io/post/220214-gulimall-26/https://yoziming.github.io/post/220118-gulimall-01/gulimall-01.jpg)
+![架構圖](https://yoziming.github.io/post/220118-gulimall-01/gulimall-01.jpg)
 
 ### 解析
 
