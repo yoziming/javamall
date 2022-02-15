@@ -312,7 +312,7 @@ $(function () {
             //保存实例对象; 
             let mag_instance = this;
             this.small_box_ele.mouseover(function () {
-                // 让元素显示; 
+                // 让元素顯示; 
                 // 想在事件处理函数之中访问实例对象; 
                 // 事件里面的this指向的是dom对象; 
                 mag_instance.showEles();
@@ -361,7 +361,7 @@ $(function () {
             })
         }
         showEles() {
-            // 让两个盒子显示出来; 
+            // 让两个盒子顯示出来; 
             this.focus_ele.show();
             this.big_box_ele.show();
         }

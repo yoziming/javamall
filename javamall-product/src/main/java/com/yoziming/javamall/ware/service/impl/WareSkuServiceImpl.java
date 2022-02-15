@@ -28,7 +28,6 @@ import com.yoziming.javamall.ware.vo.WareSkuLockVo;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
-import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +41,7 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Service("wareSkuService")
-@RabbitListener(queues = "stock.release.stock.queue")
+// @RabbitListener(queues = "stock.release.stock.queue")
 public class WareSkuServiceImpl extends ServiceImpl<WareSkuDao, WareSkuEntity> implements WareSkuService {
 
     @Autowired
@@ -184,7 +183,7 @@ public class WareSkuServiceImpl extends ServiceImpl<WareSkuDao, WareSkuEntity> i
                 throw new NoStockException(skuId);
             }
             //1、如果每個商品都鎖定成功，將當前商品鎖定了幾件的工作單記錄發送給MQ
-            //2、如果鎖定失敗，前面保存的工作的回滾，發送出去的消息，即使要解鎖記錄，由於去數據庫查不到id,所以就不用解鎖
+            //2、如果鎖定失敗，前面保存的工作的回滾，發送出去的消息，即使要解鎖記錄，由於去資料庫查不到id,所以就不用解鎖
             //
             for (Long wareId : wareIds) {
                 //成功就返回1，否則為0
@@ -225,7 +224,6 @@ public class WareSkuServiceImpl extends ServiceImpl<WareSkuDao, WareSkuEntity> i
      * 下訂單成功，庫存鎖定成功，接下來的業務調用失敗，
      * 導致訂單回滾，之前解鎖的庫存就要自動解鎖
      * 2、訂單失敗
-     * <p>
      * 只要解鎖庫存的消息失敗，一定要告訴服務解鎖失敗
      */
     @Override
@@ -234,7 +232,7 @@ public class WareSkuServiceImpl extends ServiceImpl<WareSkuDao, WareSkuEntity> i
         StockDetailTo detail = to.getDetail();
         Long detailId = detail.getId();
         //解鎖
-        //1、查詢數據庫關於這個訂單的鎖定庫存訊息
+        //1、查詢資料庫關於這個訂單的鎖定庫存訊息
         //有：證明庫存鎖定成功
         //    解鎖：訂單情況：1.沒有這個訂單，必須解鎖
         //                 2.有這個訂單。不是解鎖庫存。
@@ -274,8 +272,8 @@ public class WareSkuServiceImpl extends ServiceImpl<WareSkuDao, WareSkuEntity> i
             //按照工作單找到所有沒有解鎖的庫存，進行解鎖
             List<WareOrderTaskDetailEntity> entities =
                     wareOrderTaskDetailService.list(new QueryWrapper<WareOrderTaskDetailEntity>()
-                    .eq("task_id", id)
-                    .eq("lock_status", 1));
+                            .eq("task_id", id)
+                            .eq("lock_status", 1));
             for (WareOrderTaskDetailEntity entity : entities) {
                 unLockStock(entity.getSkuId(), entity.getWareId(), entity.getSkuNum(), entity.getId());
             }
@@ -317,8 +315,8 @@ public class WareSkuServiceImpl extends ServiceImpl<WareSkuDao, WareSkuEntity> i
         //按照工作單找到所有鎖定的庫存
         List<WareOrderTaskDetailEntity> entities =
                 wareOrderTaskDetailService.list(new QueryWrapper<WareOrderTaskDetailEntity>()
-                .eq("task_id", id)
-                .eq("lock_status", 1));
+                        .eq("task_id", id)
+                        .eq("lock_status", 1));
         for (WareOrderTaskDetailEntity entity : entities) {
             unLockStock(entity.getSkuId(), entity.getWareId(), entity.getSkuNum(), entity.getId());
             Long skuId = entity.getSkuId();

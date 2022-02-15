@@ -78,7 +78,7 @@ public class CartController {
      * 添加商品到購物車
      * RedirectAttributes
      * ra.addFlashAttribute();將數據放在session裏面可以在頁面取出，但是只能取一次
-     * ra.addAttribute("skuId",skuId); 將數據放在請求路徑后
+     * ra.addAttribute("skuId",skuId); 將數據放在請求路徑後
      *
      * @return
      */
@@ -88,7 +88,7 @@ public class CartController {
                             RedirectAttributes ra) throws ExecutionException, InterruptedException {
 
         cartService.addToCart(skuId, num);
-        //RedirectAttributes，重定向時會將參數放到地址后
+        //RedirectAttributes，重定向時會將參數放到地址後
         ra.addAttribute("skuId", skuId);
         ra.addAttribute("num", num);
         return "redirect:http://localhost:11000/cart/addToCartSuccess.html";

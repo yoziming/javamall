@@ -41,7 +41,7 @@ public class AttrResponseVo {
     /**
      * 所屬分類
      */
-    private Long catelogId;
+    private Long catalogId;
     /**
      * 快速展示【是否展示在介紹上；0-否 1-是】，在sku中仍然可以調整
      */
@@ -49,10 +49,10 @@ public class AttrResponseVo {
 
     private Long attrGroupId;
 
-    private String catelogName;
+    private String catalogName;
 
     private String groupName;
 
-    private Long[] catelogPath;
+    private Long[] catalogPath;
 
 }

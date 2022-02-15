@@ -275,7 +275,7 @@
                                 </span>
                                 <div class="info-rcol">
                                     <span class="f-price" th:text="${order.freightAmount}">
-                                        ¥12.00
+                                        $12.00
                                     </span>
                                 </div>
                             </div>
@@ -302,7 +302,7 @@
                                     付款方式：
                                 </span>
                                 <div class="info-rcol">
-                                    在線支付
+                                    電子支付
                                 </div>
                             </div>
                             <div class="item">
@@ -310,8 +310,8 @@
     							商品總額：
     						    </span>
                                 <div class="info-rcol">
-                                    <span class="f-price" th:text="${order.totalAmount}">
-                                        ¥21.80
+                                    <span class="f-price" th:text="${#numbers.formatDecimal(order.totalAmount,0,0)}">
+                                        $21.80
                                     </span>
                                 </div>
                             </div>
@@ -320,18 +320,18 @@
 						            運費金額：
 					            </span>
                                 <div class="info-rcol">
-                                    <span class="f-price" th:text="${order.freightAmount}">
-                                        ¥12.00
+                                    <span class="f-price" th:text="${#numbers.formatDecimal(order.freightAmount,0,0)}">
+                                        $12.00
                                     </span>
                                 </div>
                             </div>
                             <div class="item">
                                 <span class="label">
-							        應支付金額：
+							        應付總額：
                                 </span>
                                 <div class="info-rcol">
-                                    <span class="f-price" th:text="${order.payAmount}">
-                            	        ¥33.80
+                                    <span class="f-price" th:text="${#numbers.formatDecimal(order.payAmount,0,0)}">
+                            	        $33.80
 							        </span>
                                 </div>
                             </div>
@@ -362,7 +362,7 @@
                         </div>
                     </td>
                     <td th:text="${item.skuId}">1778772</td>
-                    <td>¥[[${#numbers.formatDecimal(item.realAmount,3,2)}]]</td>
+                    <td>$[[${#numbers.formatDecimal(item.realAmount,3,0)}]]</td>
                     <td th:text="${item.skuQuantity}">2</td>
                 </tr>
             </table>
@@ -374,9 +374,9 @@
                         <p style="color: red;">應付總額：</p>
                     </div>
                     <div class="shuxingzhi">
-                        <p>¥[[${#numbers.formatDecimal(order.totalAmount,3,2)}]]</p>
-                        <p>¥[[${#numbers.formatDecimal(order.freightAmount,1,2)}]]</p>
-                        <p class="p1">¥[[${#numbers.formatDecimal(order.payAmount,3,2)}]]</p>
+                        <p>$[[${#numbers.formatDecimal(order.totalAmount,0,0)}]]</p>
+                        <p>$[[${#numbers.formatDecimal(order.freightAmount,0,0)}]]</p>
+                        <p class="p1">$[[${#numbers.formatDecimal(order.payAmount,0,0)}]]</p>
                     </div>
                 </div>
             </div>
@@ -399,7 +399,7 @@
     });
     $('.gotoPay').click(function () {
         var orderSn = $(".gotoPay").attr("orderSn");
-        location.href = "http://localhost:11000/payOrder?orderSn=" + orderSn;
+        location.href = "http://localhost:11000/forcePaySuccess?orderSn=" + orderSn;
     });
     $('.uls .i1').hover(function () {
         $('.xian_hied').css('display', 'block')

@@ -13,10 +13,10 @@ public class AttrRespVo extends AttrVo {
     /**
      *
      */
-    private String catelogName;
+    private String catalogName;
 
     private String groupName;
 
-    private Long[] catelogPath;
+    private Long[] catalogPath;
 
 }

@@ -18,7 +18,7 @@ $(function() {
         var big = $id("big"); //大盒子
         var bigImg = $id("bigImg"); //大图片
         var box = $id("box");
-        //1.鼠标移入small，mask显示，big显示
+        //1.鼠标移入small，mask顯示，big顯示
         small.onmouseenter = function() {
                 mask.style.display = 'block';
                 big.style.display = 'block';

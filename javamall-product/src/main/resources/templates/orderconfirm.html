@@ -46,6 +46,7 @@
         <div class="top_search clearfix">
             <a href="http://localhost:11000">
                 <div class="logo fl">
+                    <img src="/common/img/logo.png" alt="">
                     <h1></h1>
                 </div>
             </a>
@@ -227,7 +228,7 @@
                     <span th:each="attr:${item.skuAttr}">[[${attr}]]</span>
                     <span> x[[${item.count}]] </span>
                     <span>[[${orderConfirmData.stocks[item.skuId]?"有貨":"無貨"}]]</span>
-                    <span style="color: red;">$[[${#numbers.formatDecimal(item.price,3,2)}]]</span>
+                    <span style="color: red;">$[[${#numbers.formatDecimal(item.price,3,0)}]]</span>
                 </div>
             </div>
         </div>
@@ -238,7 +239,7 @@
         <p class="qian_y">
             <span>[[${orderConfirmData.count}]]</span>
             <span>件商品，總商品金額：</span>
-            <span>$[[${#numbers.formatDecimal(orderConfirmData.total,3,2)}]]</span>
+            <span>$[[${#numbers.formatDecimal(orderConfirmData.total,3,0)}]]</span>
         </p>
         <p class="qian_y">
             <span>運費：</span>
@@ -247,7 +248,7 @@
     </div>
     <div class="yfze">
         <p class="yfze_a"><span class="z">應付總額：</span><span class="hq">$<b id="payPriceEle"
-                                                                           style="font-size: large">[[${#numbers.formatDecimal(orderConfirmData.payPrice,3,2)}]]</b></span>
+                                                                           style="font-size: large">[[${#numbers.formatDecimal(orderConfirmData.payPrice,0,0)}]]</b></span>
         </p>
         <p class="yfze_b">寄送至：<span id="receiveAddressEle" style="font-size: large"></span> 收貨人：<span
                 id="receiverEle" style="font-size: large"></span></p>
@@ -260,7 +261,7 @@
         <button class="tijiao" type="submit">提交訂單</button>
     </form>
     <form th:if="${orderConfirmData.address.isEmpty()}">
-        <button>請先添加收貨地址</button>
+        <button class="tijiao">請先添加收貨地址</button>
     </form>
 </div>
 </body>
@@ -293,7 +294,9 @@
         })
         highlight();
         var addrId = $(".addr-item p[def='1']").attr("addrId")
-        getFare(addrId);
+        if (addrId) {
+            getFare(addrId);
+        }
     })
 
     function highlight() {

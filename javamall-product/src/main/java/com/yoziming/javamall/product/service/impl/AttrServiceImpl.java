@@ -58,15 +58,15 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
     }
 
     @Override
-    public PageUtils queryBaseAttrPage(Map<String, Object> params, Long catelogId, String attrType) {
+    public PageUtils queryBaseAttrPage(Map<String, Object> params, Long catalogId, String attrType) {
         QueryWrapper<AttrEntity> queryWrapper = new QueryWrapper<AttrEntity>()
                 .eq("attr_type", "base".equalsIgnoreCase(attrType) ?
                         ProductConstant.AttrEnum.ATTR_TYPE_BASE.getCode() :
                         ProductConstant.AttrEnum.ATTR_TYPE_SALE.getCode());
 
-        //根據catelogId查詢訊息
-        if (catelogId != 0) {
-            queryWrapper.eq("catelog_id", catelogId);
+        //根據catalogId查詢訊息
+        if (catalogId != 0) {
+            queryWrapper.eq("catalog_id", catalogId);
         }
 
         String key = (String) params.get("key");
@@ -101,9 +101,9 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
 
             }
 
-            CategoryEntity categoryEntity = categoryDao.selectById(attrEntity.getCatelogId());
+            CategoryEntity categoryEntity = categoryDao.selectById(attrEntity.getCatalogId());
             if (categoryEntity != null) {
-                attrRespVo.setCatelogName(categoryEntity.getName());
+                attrRespVo.setCatalogName(categoryEntity.getName());
 
             }
             return attrRespVo;
@@ -142,13 +142,13 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
         }
 
         //2、設置分類訊息
-        Long catelogId = attrEntity.getCatelogId();
-        Long[] catelogPath = categoryService.findCatelogPath(catelogId);
+        Long catalogId = attrEntity.getCatalogId();
+        Long[] catalogPath = categoryService.findCatalogPath(catalogId);
 
-        respVo.setCatelogPath(catelogPath);
-        CategoryEntity categoryEntity = categoryDao.selectById(catelogId);
+        respVo.setCatalogPath(catalogPath);
+        CategoryEntity categoryEntity = categoryDao.selectById(catalogId);
         if (categoryEntity != null) {
-            respVo.setCatelogName(categoryEntity.getName());
+            respVo.setCatalogName(categoryEntity.getName());
         }
 
         return respVo;
@@ -224,12 +224,12 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
         //1、當前分組只能關聯自己所屬的分類裏面的所有屬性
         AttrGroupEntity attrGroupEntity = attrGroupDao.selectById(attrgroupId);
         //獲取當前分類的id
-        Long catelogId = attrGroupEntity.getCatelogId();
+        Long catalogId = attrGroupEntity.getCatalogId();
 
         //2、當前分組只能關聯別的分組沒有引用的屬性
         //2.1）、當前分類下的其它分組
         List<AttrGroupEntity> groupEntities = attrGroupDao.selectList(new QueryWrapper<AttrGroupEntity>()
-                .eq("catelog_id", catelogId));
+                .eq("catalog_id", catalogId));
 
         //獲取到所有的attrGroupId
         List<Long> collect = groupEntities.stream().map((item) -> {
@@ -246,7 +246,7 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
 
         //2.3）、從當前分類的所有屬性移除這些屬性
         QueryWrapper<AttrEntity> queryWrapper = new QueryWrapper<AttrEntity>()
-                .eq("catelog_id", catelogId).eq("attr_type", ProductConstant.AttrEnum.ATTR_TYPE_BASE.getCode());
+                .eq("catalog_id", catalogId).eq("attr_type", ProductConstant.AttrEnum.ATTR_TYPE_BASE.getCode());
 
         if (attrIds != null && attrIds.size() > 0) {
             queryWrapper.notIn("attr_id", attrIds);

@@ -33,7 +33,7 @@ public class SearchParam {
     private String sort;
 
     /**
-     * 是否显示有貨
+     * 是否顯示有貨
      */
     private Integer hasStock;
 

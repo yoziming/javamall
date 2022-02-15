@@ -85,7 +85,7 @@ public class DateUtils {
      *
      * @param date 日期
      * @param seconds 秒数，负数为减
-     * @return 加/减几秒后的日期
+     * @return 加/减几秒後的日期
      */
     public static Date addDateSeconds(Date date, int seconds) {
         DateTime dateTime = new DateTime(date);
@@ -97,7 +97,7 @@ public class DateUtils {
      *
      * @param date 日期
      * @param minutes 分钟数，负数为减
-     * @return 加/减几分钟后的日期
+     * @return 加/减几分钟後的日期
      */
     public static Date addDateMinutes(Date date, int minutes) {
         DateTime dateTime = new DateTime(date);
@@ -109,7 +109,7 @@ public class DateUtils {
      *
      * @param date 日期
      * @param hours 小时数，负数为减
-     * @return 加/减几小时后的日期
+     * @return 加/减几小时後的日期
      */
     public static Date addDateHours(Date date, int hours) {
         DateTime dateTime = new DateTime(date);
@@ -121,7 +121,7 @@ public class DateUtils {
      *
      * @param date 日期
      * @param days 天数，负数为减
-     * @return 加/减几天后的日期
+     * @return 加/减几天後的日期
      */
     public static Date addDateDays(Date date, int days) {
         DateTime dateTime = new DateTime(date);
@@ -133,7 +133,7 @@ public class DateUtils {
      *
      * @param date 日期
      * @param weeks 周数，负数为减
-     * @return 加/减几周后的日期
+     * @return 加/减几周後的日期
      */
     public static Date addDateWeeks(Date date, int weeks) {
         DateTime dateTime = new DateTime(date);
@@ -145,7 +145,7 @@ public class DateUtils {
      *
      * @param date 日期
      * @param months 月数，负数为减
-     * @return 加/减几月后的日期
+     * @return 加/减几月後的日期
      */
     public static Date addDateMonths(Date date, int months) {
         DateTime dateTime = new DateTime(date);
@@ -157,7 +157,7 @@ public class DateUtils {
      *
      * @param date 日期
      * @param years 年数，负数为减
-     * @return 加/减几年后的日期
+     * @return 加/减几年後的日期
      */
     public static Date addDateYears(Date date, int years) {
         DateTime dateTime = new DateTime(date);

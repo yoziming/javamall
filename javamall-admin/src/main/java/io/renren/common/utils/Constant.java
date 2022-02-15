@@ -21,7 +21,7 @@ public class Constant {
      */
     public static final String PAGE = "page";
     /**
-     * 每页显示记录数
+     * 每页顯示记录数
      */
     public static final String LIMIT = "limit";
     /**

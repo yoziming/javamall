@@ -45,6 +45,7 @@
         <div class="top_search clearfix">
             <a href="http://localhost:11000">
                 <div class="logo fl">
+                    <img src="/common/img/logo.png" alt="">
                     <h1></h1>
                 </div>
             </a>
@@ -139,7 +140,7 @@
         </div>
         <!-- 價格 -->
         <div class="price">
-            $<span th:text="${#numbers.formatDecimal(item.price,3,2)}">1,499.00</span>
+            $<span th:text="${#numbers.formatDecimal(item.price,3,0)}">1,499.00</span>
         </div>
         <!-- 商品數量 -->
         <div class="count" th:attr="skuId=${item.skuId},num=${item.getCount()}">
@@ -149,7 +150,9 @@
         </div>
         <!-- 商品價格小計 -->
         <div class="item-total-price">
-            <strong>¥ <span th:text="${item.getPrice() * item.getCount()}">1499.00</span></strong>
+            <!--            <strong>$ <span th:text="${item.getPrice() * item.getCount()}">1499.00</span></strong>-->
+            <strong>$ <span
+                    th:text="${#numbers.formatDecimal(item.getPrice() * item.getCount(),3,0)}">1499.00</span></strong>
         </div>
         <!-- 商品操作部分  -->
         <div class="options">
@@ -167,7 +170,7 @@
         <div class="price-sum">
             <div class="price-show">
                 <span>總價 :</span>
-                <span>$[[${#numbers.formatDecimal(cart.totalAmount,3,2)}]]</span>
+                <span>$ [[${#numbers.formatDecimal(cart.totalAmount,0,0)}]]</span>
             </div>
         </div>
     </div>

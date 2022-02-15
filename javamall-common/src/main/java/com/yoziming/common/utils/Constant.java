@@ -10,7 +10,7 @@ public class Constant {
      */
     public static final String PAGE = "page";
     /**
-     * 每頁显示記錄數
+     * 每頁顯示記錄數
      */
     public static final String LIMIT = "limit";
     /**

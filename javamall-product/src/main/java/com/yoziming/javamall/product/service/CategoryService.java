@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.yoziming.common.to.CategoryVo;
 import com.yoziming.common.utils.PageUtils;
 import com.yoziming.javamall.product.entity.CategoryEntity;
-import com.yoziming.javamall.product.vo.Catelog2Vo;
+import com.yoziming.javamall.product.vo.Catalog2Vo;
 
 import java.util.List;
 import java.util.Map;
@@ -22,13 +22,13 @@ public interface CategoryService extends IService<CategoryEntity> {
     List<CategoryEntity> listWithTree();
 
     /**
-     * 找到catelogId的完整路徑
+     * 找到catalogId的完整路徑
      * [父/子/孫]
      *
-     * @param catelogId
+     * @param catalogId
      * @return
      */
-    Long[] findCatelogPath(Long catelogId);
+    Long[] findCatalogPath(Long catalogId);
 
     void updateCascade(CategoryEntity category);
 
@@ -46,7 +46,7 @@ public interface CategoryService extends IService<CategoryEntity> {
      *
      * @return
      */
-    Map<String, List<Catelog2Vo>> getCatalogJson();
+    Map<String, List<Catalog2Vo>> getCatalogJson();
 
     List<CategoryVo> getCategory();
 

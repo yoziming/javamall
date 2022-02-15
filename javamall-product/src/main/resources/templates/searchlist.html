@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>詳情頁</title>
+    <title>商品搜索</title>
     <link rel="stylesheet" href="/common/css/base.css">
     <link rel="stylesheet" href="/common/css/index_head.css">
     <link rel="stylesheet" href="/common/css/footer.css">
@@ -43,6 +43,7 @@
         <div class="top_search clearfix">
             <a href="http://localhost:11000">
                 <div class="logo fl">
+                    <img src="/common/img/logo.png" alt="">
                     <h1></h1>
                 </div>
             </a>
@@ -216,7 +217,7 @@
                     <a th:href="|http://localhost:11000/${product.skuId}.html|">
                         <img th:src="${product.skuImg}" alt="">
                     </a>
-                    <div class="price" th:text="'$' + ${product.skuPrice}">204.00</div>
+                    <div class="price" th:text="'$' + ${#numbers.formatDecimal(product.skuPrice,0,0)}">204.00</div>
                     <a class="title" th:href="|http://localhost:11000/${product.skuId}.html|"
                        th:utext="${product.skuTitle}">小胖墩 單手可拎20寸純PC拉鏈拉杆箱</a>
                 </div>

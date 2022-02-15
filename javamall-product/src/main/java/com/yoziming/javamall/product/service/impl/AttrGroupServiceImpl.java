@@ -42,8 +42,8 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
     }
 
     @Override
-    public PageUtils queryPage(Map<String, Object> params, Long catelogId) {
-        //select * from pms_attr_group where catelog_id=? and (attr_group_id=key or attr_group_name like %key%)
+    public PageUtils queryPage(Map<String, Object> params, Long catalogId) {
+        //select * from pms_attr_group where catalog_id=? and (attr_group_id=key or attr_group_name like %key%)
         String key = (String) params.get("key");
 
         //構造QueryWrapper
@@ -56,7 +56,7 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
         }
 
         //如果傳過來的三級分類id為0，就查詢所有數據
-        if (catelogId == 0) {
+        if (catalogId == 0) {
             IPage<AttrGroupEntity> page = this.page(
                     new Query<AttrGroupEntity>().getPage(params),
                     wrapper
@@ -64,7 +64,7 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
             page.setRecords(
                     page.getRecords().stream().map(
                             (item) -> {
-                                CategoryEntity categoryEntity = categoryService.getById(item.getCatelogId());
+                                CategoryEntity categoryEntity = categoryService.getById(item.getCatalogId());
                                 item.setCategoryName(categoryEntity.getName());
                                 return item;
                             }
@@ -72,12 +72,12 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
             );
             return new PageUtils(page);
         } else {
-            wrapper.eq("catelog_id", catelogId);
+            wrapper.eq("catalog_id", catalogId);
             IPage<AttrGroupEntity> page = this.page(new Query<AttrGroupEntity>().getPage(params), wrapper);
             page.setRecords(
                     page.getRecords().stream().map(
                             (item) -> {
-                                CategoryEntity categoryEntity = categoryService.getById(item.getCatelogId());
+                                CategoryEntity categoryEntity = categoryService.getById(item.getCatalogId());
                                 item.setCategoryName(categoryEntity.getName());
                                 return item;
                             }
@@ -88,11 +88,11 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
     }
 
     @Override
-    public List<AttrGroupWithAttrsVo> getAttrGroupWithAttrsByCatelogId(Long catelogId) {
+    public List<AttrGroupWithAttrsVo> getAttrGroupWithAttrsBycatalogId(Long catalogId) {
 
         //1、查詢分組訊息
-        List<AttrGroupEntity> attrGroupEntities = this.list(new QueryWrapper<AttrGroupEntity>().eq("catelog_id",
-                catelogId));
+        List<AttrGroupEntity> attrGroupEntities = this.list(new QueryWrapper<AttrGroupEntity>().eq("catalog_id",
+                catalogId));
 
         //2、查詢所有屬性
         List<AttrGroupWithAttrsVo> collect = attrGroupEntities.stream().map(group -> {
@@ -120,7 +120,7 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
         // ON aar.`attr_group_id` = ag.`attr_group_id`
         // LEFT JOIN `pms_attr` attr ON attr.`attr_id` = aar.`attr_id`
         // LEFT JOIN `pms_product_attr_value` pav ON pav.`attr_id` = attr.`attr_id`
-        // WHERE ag.catelog_id = 225 AND pav.`spu_id` = 13
+        // WHERE ag.catalog_id = 225 AND pav.`spu_id` = 13
         return vos;
     }
 

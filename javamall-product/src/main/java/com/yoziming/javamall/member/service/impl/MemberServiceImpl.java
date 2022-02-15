@@ -85,14 +85,14 @@ public class MemberServiceImpl extends ServiceImpl<MemberDao, MemberEntity> impl
         String loginacct = vo.getLoginacct();
         String password = vo.getPassword();
 
-        //1、去數據庫查詢賬號
+        //1、去資料庫查詢賬號
         MemberEntity entity = baseMapper.selectOne(new QueryWrapper<MemberEntity>().eq("username", loginacct)
                 .or().eq("mobile", loginacct));
         if (entity == null) {
             //登入失敗
             return null;
         } else {
-            //獲取數據庫加密的密碼
+            //獲取資料庫加密的密碼
             String passwordDb = entity.getPassword();
             BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
             //密碼匹配

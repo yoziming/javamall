@@ -75,7 +75,7 @@ CREATE TABLE `sys_config` (
 	`id` bigint NOT NULL AUTO_INCREMENT,
 	`param_key` varchar(50) COMMENT 'key',
 	`param_value` varchar(2000) COMMENT 'value',
-	`status` tinyint DEFAULT 1 COMMENT '状态   0：隐藏   1：显示',
+	`status` tinyint DEFAULT 1 COMMENT '状态   0：隐藏   1：顯示',
 	`remark` varchar(500) COMMENT '备注',
 	PRIMARY KEY (`id`),
 	UNIQUE INDEX (`param_key`)

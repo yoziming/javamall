@@ -52,14 +52,19 @@ public class OrderWebController {
 
     @GetMapping("/toTrade")
     public String toTrade(Model model) throws ExecutionException, InterruptedException {
-        OrderConfirmVo confirmVo = orderService.confirmOrder();
-        //展示訂單確認的數據
-        log.info("訂單確認頁={}", confirmVo.toString());
-        model.addAttribute("orderConfirmData", confirmVo);
-        R cat = categoryController.getCat();
-        List<CategoryVo> category = cat.getData("category", new TypeReference<List<CategoryVo>>() {
-        });
-        model.addAttribute("category", category);
+        try {
+            OrderConfirmVo confirmVo = orderService.confirmOrder();
+            //展示訂單確認的數據
+            log.info("訂單確認頁={}", confirmVo.toString());
+            model.addAttribute("orderConfirmData", confirmVo);
+            R cat = categoryController.getCat();
+            List<CategoryVo> category = cat.getData("category", new TypeReference<List<CategoryVo>>() {
+            });
+            model.addAttribute("category", category);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "redirect:http://localhost:11000/cart/cart.html";
+        }
         return "orderconfirm";
     }
 
@@ -85,7 +90,7 @@ public class OrderWebController {
                     msg += "訂單訊息過期，請刷新再提交";
                     break;
                 case 2:
-                    msg += "訂單商品價格發生變化，請確認后再次提交";
+                    msg += "訂單商品價格發生變化，請確認後再次提交";
                     break;
                 case 3:
                     msg += "庫存鎖定失敗，商品庫存不足";

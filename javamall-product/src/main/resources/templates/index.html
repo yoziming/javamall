@@ -47,6 +47,7 @@
         <div class="top_search clearfix">
             <a href="http://localhost:11000">
                 <div class="logo fl">
+                    <img src="/common/img/logo.png" alt="">
                     <h1></h1>
                 </div>
             </a>
@@ -118,10 +119,11 @@
 </div>
 <!-- 頭部區域結束 -->
 <!-- banner輪播部分開始 -->
+<br>
 <div class="container swiper-container">
     <div class="wrapper swiper-wrapper">
         <div class="slide swiper-slide" th:each="item : ${indexAdv.get(0)}">
-            <a th:href="@{item.url}"><img th:src="${item.pic}" alt=""></a>
+            <a th:href="${item.url}"><img th:src="${item.pic}" alt=""></a>
         </div>
     </div>
     <div class="next-button"> ></div>

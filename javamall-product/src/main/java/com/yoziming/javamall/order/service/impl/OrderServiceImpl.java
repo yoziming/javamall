@@ -1,8 +1,6 @@
 package com.yoziming.javamall.order.service.impl;
 
 import com.alibaba.fastjson.TypeReference;
-import com.alipay.api.response.AlipayTradeQueryResponse;
-import com.alipay.api.response.AlipayTradeRefundResponse;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
@@ -44,7 +42,6 @@ import org.springframework.data.redis.core.script.DefaultRedisScript;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
-import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
 import java.math.BigDecimal;
@@ -235,7 +232,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
                 BeanUtils.copyProperties(lockVo, lockVo1);
 
                 //問題：庫存成功了，但是網絡原因超時了，訂單回滾，庫存不回滾
-                //為了保證高併發，庫存服務自己回滾，可以發消息個庫存服務；
+                //為了保證高併發，庫存服務自己回滾，可以發消息給庫存服務；
                 //庫存服務本身也可以自動解鎖模式 使用消息隊列
                 R r = wareSkuController.orderLockStock(lockVo1);
                 if (r.getCode() == 0) {
@@ -346,6 +343,23 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
     }
 
     @Override
+    public void forcePaySuccess(String orderSn) {
+
+        //1、保存交易流水
+        PaymentInfoEntity infoEntity = new PaymentInfoEntity();
+        infoEntity.setOrderSn(orderSn);
+        infoEntity.setPaymentStatus("TRADE_SUCCESS");
+        infoEntity.setCallbackTime(new Date());
+
+        paymentInfoService.save(infoEntity);
+
+        //2、修改訂單的狀態訊息
+        //支付成功狀態，訂單號就是支付號
+        this.baseMapper.updateOrderStatus(orderSn, OrderStatusEnum.PAYED.getCode());
+
+    }
+
+    @Override
     public void closeOrder(OrderEntity entity) {
         // 更新支付狀態
         String payResult = handlePayResult(entity.getOrderSn());
@@ -365,7 +379,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
             BeanUtils.copyProperties(orderEntity, orderTo);
             //發給MQ一個
             try {
-                //關單后解鎖庫存
+                //關單後解鎖庫存
                 log.info("發送關單解鎖庫存消息！orderTo={}", orderTo);
                 rabbitTemplate.convertAndSend("order-event-exchange", "order.release.other.unlock", orderTo);
             } catch (Exception e) {
@@ -380,7 +394,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
         //查詢當前這個訂單的最新狀態
         OrderEntity orderEntity = this.getOne(new QueryWrapper<OrderEntity>().eq("order_sn", orderSn));
         if (orderEntity.getStatus() == OrderStatusEnum.PAYED.getCode()) {
-            //關單
+            // 關單，解鎖庫存
             OrderEntity update = new OrderEntity();
             update.setId(orderEntity.getId());
             update.setStatus(OrderStatusEnum.CANCEL.getCode());
@@ -390,23 +404,23 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
             log.info("發送關單解鎖庫存消息！orderTo={}", orderTo);
             rabbitTemplate.convertAndSend("order-event-exchange", "order.release.other.unlock", orderTo);
             // 退款
-            AlipayTradeRefundResponse response = alipayTemplate.refund(orderSn, orderEntity.getPayAmount());
             RefundInfoEntity refundInfo = new RefundInfoEntity();
-            if (response.isSuccess()) {
-                // 保存退款訊息
-                refundInfo.setRefundSn(response.getTradeNo());
-                refundInfo.setRefund(new BigDecimal(response.getRefundFee()));
-                refundInfo.setOrderReturnId(response.getOutTradeNo());
-                refundInfo.setRefundStatus(1);
-                refundInfoService.save(refundInfo);
-            } else {
-                refundInfo.setRefundSn(response.getTradeNo());
-                refundInfo.setRefund(new BigDecimal(response.getRefundFee()));
-                refundInfo.setOrderReturnId(response.getOutTradeNo());
-                refundInfo.setRefundStatus(0);
-                refundInfoService.save(refundInfo);
-                throw new RuntimeException("退款失敗");
-            }
+            // AlipayTradeRefundResponse response = alipayTemplate.refund(orderSn, orderEntity.getPayAmount());
+            // if (response.isSuccess()) {
+            //     // 保存退款訊息
+            //     refundInfo.setRefundSn(response.getTradeNo());
+            //     refundInfo.setRefund(new BigDecimal(response.getRefundFee()));
+            //     refundInfo.setOrderReturnId(response.getOutTradeNo());
+            //     refundInfo.setRefundStatus(1);
+            //     refundInfoService.save(refundInfo);
+            // } else {
+            //     refundInfo.setRefundSn(response.getTradeNo());
+            //     refundInfo.setRefund(new BigDecimal(response.getRefundFee()));
+            //     refundInfo.setOrderReturnId(response.getOutTradeNo());
+            //     refundInfo.setRefundStatus(0);
+            //     refundInfoService.save(refundInfo);
+            //     throw new RuntimeException("退款失敗");
+            // }
         } else if (orderEntity.getStatus() == OrderStatusEnum.CREATE_NEW.getCode()) {
             // 待支付
             //關單
@@ -458,7 +472,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
     }
 
     /**
-     * 處理支付寶的支付結果
+     * 處理支付結果
      *
      * @param vo
      * @return
@@ -487,42 +501,43 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
     @Transactional(rollbackFor = Exception.class)
     public String handlePayResult(String orderSn) {
 
-        AlipayTradeQueryResponse response = alipayTemplate.queryPayResult(orderSn);
-        if (!ObjectUtils.isEmpty(response)) {
-            if (response.isSuccess()) {
-                log.info("支付寶訂單查詢接口,PayAmount={}, TradeStatus={}, OutTradeNo={}, BuyerLogonId={}, BuyerPayAmount={}",
-                        response.getPayAmount(), response.getTradeStatus(), response.getOutTradeNo(),
-                        response.getBuyerLogonId(), response.getBuyerPayAmount());
-                String tradeStatus = response.getTradeStatus();
-
-                //1、保存交易流水
-                PaymentInfoEntity infoEntity = new PaymentInfoEntity();
-                infoEntity.setAlipayTradeNo(response.getTradeNo());
-                infoEntity.setOrderSn(response.getOutTradeNo());
-                infoEntity.setPaymentStatus(response.getTradeStatus());
-                infoEntity.setCallbackTime(response.getSendPayDate());
-                infoEntity.setCreateTime(new Date());
-                infoEntity.setSubject(response.getSubject());
-                infoEntity.setTotalAmount(new BigDecimal(response.getBuyerPayAmount()));
-                // 響應訊息太長
-                //                infoEntity.setCallbackContent(JSONObject.toJSONString(response));
-
-                paymentInfoService.save(infoEntity);
-                // 支付成功
-                if ("TRADE_SUCCESS".equals(tradeStatus) || "TRADE_FINISHED".equals(tradeStatus)) {
-                    //支付成功狀態
-                    String outTradeNo = response.getOutTradeNo();
-                    this.baseMapper.updateOrderStatus(outTradeNo, OrderStatusEnum.PAYED.getCode());
-                    return "success";
-                } else {
-                    return "fail";
-                }
-            } else {
-                return "error";
-            }
-        } else {
-            return "error";
-        }
+        // AlipayTradeQueryResponse response = alipayTemplate.queryPayResult(orderSn);
+        // if (!ObjectUtils.isEmpty(response)) {
+        //     if (response.isSuccess()) {
+        //         log.info("支付寶訂單查詢接口,PayAmount={}, TradeStatus={}, OutTradeNo={}, BuyerLogonId={}, BuyerPayAmount={}",
+        //                 response.getPayAmount(), response.getTradeStatus(), response.getOutTradeNo(),
+        //                 response.getBuyerLogonId(), response.getBuyerPayAmount());
+        //         String tradeStatus = response.getTradeStatus();
+        //
+        //         //1、保存交易流水
+        //         PaymentInfoEntity infoEntity = new PaymentInfoEntity();
+        //         infoEntity.setAlipayTradeNo(response.getTradeNo());
+        //         infoEntity.setOrderSn(response.getOutTradeNo());
+        //         infoEntity.setPaymentStatus(response.getTradeStatus());
+        //         infoEntity.setCallbackTime(response.getSendPayDate());
+        //         infoEntity.setCreateTime(new Date());
+        //         infoEntity.setSubject(response.getSubject());
+        //         infoEntity.setTotalAmount(new BigDecimal(response.getBuyerPayAmount()));
+        //         // 響應訊息太長
+        //         //                infoEntity.setCallbackContent(JSONObject.toJSONString(response));
+        //
+        //         paymentInfoService.save(infoEntity);
+        //         // 支付成功
+        //         if ("TRADE_SUCCESS".equals(tradeStatus) || "TRADE_FINISHED".equals(tradeStatus)) {
+        //             //支付成功狀態
+        //             String outTradeNo = response.getOutTradeNo();
+        //             this.baseMapper.updateOrderStatus(outTradeNo, OrderStatusEnum.PAYED.getCode());
+        //             return "success";
+        //         } else {
+        //             return "fail";
+        //         }
+        //     } else {
+        //         return "error";
+        //     }
+        // } else {
+        //     return "error";
+        // }
+        return "success";
     }
 
     /**

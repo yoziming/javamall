@@ -107,7 +107,7 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
     //    @GlobalTransactional(rollbackFor = Exception.class)
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public void savesupInfo(SpuSaveVo vo) {
+    public void saveSupInfo(SpuSaveVo vo) {
 
         //1、保存spu基本訊息：pms_spu_info
         SpuInfoEntity spuInfoEntity = new SpuInfoEntity();
@@ -215,8 +215,8 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
         spuSaveVo.setSpuName(spuInfoEntity.getSpuName());
         spuSaveVo.setSpuDescription(spuInfoEntity.getSpuDescription());
 
-        Long[] catelogPath = categoryService.findCatelogPath(spuInfoEntity.getCatalogId());
-        spuSaveVo.setCatalogId(catelogPath);
+        Long[] catalogPath = categoryService.findCatalogPath(spuInfoEntity.getCatalogId());
+        spuSaveVo.setCatalogId(catalogPath);
 
         spuSaveVo.setBrandId(spuInfoEntity.getBrandId());
         spuSaveVo.setWeight(spuInfoEntity.getWeight());
@@ -347,9 +347,9 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
             queryWrapper.eq("brand_id", brandId);
         }
 
-        String catelogId = (String) params.get("catelogId");
-        if (!StringUtils.isEmpty(catelogId) && !"0".equalsIgnoreCase(catelogId)) {
-            queryWrapper.eq("catalog_id", catelogId);
+        String catalogId = (String) params.get("catalogId");
+        if (!StringUtils.isEmpty(catalogId) && !"0".equalsIgnoreCase(catalogId)) {
+            queryWrapper.eq("catalog_id", catalogId);
         }
 
         IPage<SpuInfoEntity> page = this.page(new Query<SpuInfoEntity>().getPage(params), queryWrapper);
@@ -490,7 +490,7 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
         } catch (Exception e) {
             log.error("es：異常！", e);
         }
-        // 修改數據庫spu狀態
+        // 修改資料庫spu狀態
         UpdateWrapper<SpuInfoEntity> updateWrapper = new UpdateWrapper<>();
         updateWrapper.eq("id", spuId)
                 .set("publish_status", 2);

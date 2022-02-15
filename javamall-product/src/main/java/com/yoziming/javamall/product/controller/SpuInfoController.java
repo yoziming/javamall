@@ -80,7 +80,7 @@ public class SpuInfoController {
     public R save(@RequestBody SpuSaveVo vo) {
         //spuInfoService.save(spuInfo);
         log.info("添加的spu：{}", JSONObject.toJSONString(vo));
-        spuInfoService.savesupInfo(vo);
+        spuInfoService.saveSupInfo(vo);
 
         return R.ok();
     }

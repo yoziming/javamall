@@ -51,6 +51,7 @@
         <div class="top_search clearfix">
             <a href="http://localhost:11000">
                 <div class="logo fl">
+                    <img src="/common/img/logo.png" alt="">
                     <h1></h1>
                 </div>
             </a>
@@ -154,13 +155,16 @@
             <div>
                 <div>
                     <p th:text="${item.info.skuTitle}">雙層水果蔬菜清洗瀝水籃</p>
-                    <span th:text="${item.info.skuSubtitle}">浸泡瀝水二合一，1件3用狠實惠</span>
+                    <!--                    <span th:text="${item.info.skuSubtitle}">浸泡瀝水二合一，1件3用狠實惠</span>-->
+                    <!--                   誰有空給每個sku做介紹，直接獲取spu info spu_description-->
+                    <span th:text="${item.spuInfo.spuDescription}">浸泡瀝水二合一，1件3用狠實惠</span>
                     <a href=""></a>
                 </div>
                 <div>
                 </div>
                 <div>
-                    <div><span>活動價</span><strong th:text="${#numbers.formatDecimal(item.info.price,3,2)}">¥13.9</strong>
+                    <div><span>優惠價 $</span><strong
+                            th:text="${#numbers.formatDecimal(item.info.price,3,0)}">$13.9</strong>
                     </div>
                     <div><span></span><b th:text="${item.hasStock?'有貨':'無貨'}"></b></div>
                 </div>
@@ -217,6 +221,7 @@
             </div>
         </div>
         <div class="db-content">
+            <!--            商品說明大圖-->
             <img th:src="${descp}"
                  th:each="descp : ${#strings.listSplit(item.desp.decript,',')}"/>
         </div>

@@ -88,7 +88,7 @@ public class OrderItemEntity implements Serializable {
      */
     private BigDecimal integrationAmount;
     /**
-     * 該商品經過優惠后的分解金額
+     * 該商品經過優惠後的分解金額
      */
     private BigDecimal realAmount;
     /**

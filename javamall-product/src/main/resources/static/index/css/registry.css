@@ -39,7 +39,7 @@ input {
   width: 334px;
   height: 48px;
   margin-top: 35px;
-  background: url(https://zc.reg.163.com/webzc/mail/images/logo-906b3317.png) no-repeat;
+  background: url(http://localhost:11000/common/img/logo.png) no-repeat;
 }
 
 .head .right-tip {

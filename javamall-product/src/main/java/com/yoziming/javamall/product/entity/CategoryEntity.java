@@ -38,7 +38,7 @@ public class CategoryEntity implements Serializable {
      */
     private Integer catLevel;
     /**
-     * 是否显示[0-不显示，1显示]
+     * 是否顯示[0-不顯示，1顯示]
      */
     private Integer showStatus;
     /**

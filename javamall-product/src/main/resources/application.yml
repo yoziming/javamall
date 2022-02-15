@@ -14,12 +14,6 @@ spring:
     nacos:
       discovery:
         server-addr: 127.0.0.1:8848
-    alicloud:
-      access-key: LTAI4GAa27cDfK1PMU6sPudF
-      secret-key: X9ckt9wyskWgSi1BvUoEjgukOaaUr4
-      oss:
-        endpoint: oss-cn-shenzhen.aliyuncs.com
-        bucket: sshdg-javamall
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
 
@@ -51,6 +45,11 @@ spring:
       simple:
         acknowledge-mode: manual
 
+# 上傳圖片用
+minio.endpoint: http://localhost:9000
+minio.bucketName: javamall
+minio.accessKey: root
+minio.secretKey: root1234
 
 # mybatis p
 mybatis-plus:

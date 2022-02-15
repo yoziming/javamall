@@ -19,6 +19,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
@@ -57,6 +58,9 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoDao, SkuInfoEntity> i
     @Autowired
     CategoryService categoryService;
 
+    @Resource
+    SpuImagesService spuImagesService;
+
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
         IPage<SkuInfoEntity> page = this.page(
@@ -83,9 +87,9 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoDao, SkuInfoEntity> i
             });
         }
 
-        String catelogId = (String) params.get("catelogId");
-        if (!StringUtils.isEmpty(catelogId) && !"0".equalsIgnoreCase(catelogId)) {
-            queryWrapper.eq("catalog_id", catelogId);
+        String catalogId = (String) params.get("catalogId");
+        if (!StringUtils.isEmpty(catalogId) && !"0".equalsIgnoreCase(catalogId)) {
+            queryWrapper.eq("catalog_id", catalogId);
         }
 
         String brandId = (String) params.get("brandId");
@@ -112,7 +116,7 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoDao, SkuInfoEntity> i
         }
 
         // key:
-        // catelogId: 225
+        // catalogId: 225
         // brandId: 9
         // min: 0
         // max: 0
@@ -143,6 +147,13 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoDao, SkuInfoEntity> i
             skuItemVo.setInfo(info);
             return info;
         }, threadPoolExecutor);
+
+        // 獲取spu_description訊息
+        CompletableFuture<Void> spuInfoFuture = infoFuture.thenAcceptAsync((res) -> {
+            SpuInfoEntity spuInfoBySkuId = spuInfoService.getSpuInfoBySkuId(skuId);
+            skuItemVo.setSpuInfo(spuInfoBySkuId);
+        }, threadPoolExecutor);
+
         // 獲取品牌訊息
         CompletableFuture<Void> brandFuture = infoFuture.thenAcceptAsync((res) -> {
             BrandEntity brandEntity = brandService.getById(res.getBrandId());
@@ -156,11 +167,13 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoDao, SkuInfoEntity> i
             skuItemVo.setSaleAttr(saleAttrVos);
         }, threadPoolExecutor);
         CompletableFuture<Void> descFuture = infoFuture.thenAcceptAsync((res) -> {
-            //4、獲取spu的介紹
+            //4、獲取spu的介紹(下方大圖)
             QueryWrapper<SpuInfoDescEntity> spuInfoDescEntityQueryWrapper = new QueryWrapper<SpuInfoDescEntity>().eq(
                     "spu_id", res.getSpuId());
             SpuInfoDescEntity spuInfoDescEntity = spuInfoDescService.getOne(spuInfoDescEntityQueryWrapper);
             skuItemVo.setDesp(spuInfoDescEntity);
+
+            // 是否上架
             boolean publish = spuInfoService.isPublish(res.getSpuId());
             skuItemVo.setPublish(publish);
         }, threadPoolExecutor);
@@ -183,7 +196,8 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoDao, SkuInfoEntity> i
             });
             skuItemVo.setHasStock(hasStockData.get(0).getHasStock());
         }, threadPoolExecutor);
-        CompletableFuture.allOf(saleAttrFuture, descFuture, baseAttrFuture, imageFuture, hasStockFuture, brandFuture).get();
+        CompletableFuture.allOf(saleAttrFuture, descFuture, baseAttrFuture, imageFuture, hasStockFuture, brandFuture,
+                spuInfoFuture).get();
         CompletableFuture<Void> isPublishFuture = CompletableFuture.runAsync(() -> {
 
         }, threadPoolExecutor);

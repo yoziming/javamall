@@ -4,7 +4,7 @@
   padding: 0;
 }
 
-/* 如果我们不希望轮播图显示大长条可以给container加上overflow属性 */
+/* 如果我们不希望轮播图顯示大长条可以给container加上overflow属性 */
 .container {
   width: 1090px;
   height: 310px;

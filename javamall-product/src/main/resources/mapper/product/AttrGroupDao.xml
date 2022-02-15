@@ -3,14 +3,14 @@
 
 <mapper namespace="com.yoziming.javamall.product.dao.AttrGroupDao">
 
-	<!-- 可根据自己的需求，是否要使用 -->
+    <!-- 可根据自己的需求，是否要使用 -->
     <resultMap type="com.yoziming.javamall.product.entity.AttrGroupEntity" id="attrGroupMap">
         <result property="attrGroupId" column="attr_group_id"/>
         <result property="attrGroupName" column="attr_group_name"/>
         <result property="sort" column="sort"/>
         <result property="descript" column="descript"/>
         <result property="icon" column="icon"/>
-        <result property="catelogId" column="catelog_id"/>
+        <result property="catalogId" column="catalog_id"/>
     </resultMap>
 
     <resultMap id="spuItemAttrGroupVo" type="com.yoziming.javamall.product.vo.SpuItemAttrGroupVo">
@@ -24,12 +24,18 @@
     <select id="getAttrGroupWithAttrsBySpuId"
             resultMap="spuItemAttrGroupVo">
 
-        SELECT pav.`spu_id`,ag.`attr_group_name` groupName,ag.`attr_group_id`,aar.`attr_id`,attr.`attr_name` attrName,pav.`attr_value` attrValue
+        SELECT pav.`spu_id`,
+               ag.`attr_group_name` groupName,
+               ag.`attr_group_id`,
+               aar.`attr_id`,
+               attr.`attr_name`     attrName,
+               pav.`attr_value`     attrValue
         FROM `t_product_attr_group` ag
-        LEFT JOIN `t_product_attr_attrgroup_relation` aar ON aar.`attr_group_id` = ag.`attr_group_id`
-        LEFT JOIN `t_product_attr` attr ON attr.`attr_id` = aar.`attr_id`
-        LEFT JOIN `t_product_attr_value` pav ON pav.`attr_id` = attr.`attr_id`
-        WHERE ag.catelog_id=#{catalogId} AND pav.`spu_id`=#{spuId}
+                 LEFT JOIN `t_product_attr_attrgroup_relation` aar ON aar.`attr_group_id` = ag.`attr_group_id`
+                 LEFT JOIN `t_product_attr` attr ON attr.`attr_id` = aar.`attr_id`
+                 LEFT JOIN `t_product_attr_value` pav ON pav.`attr_id` = attr.`attr_id`
+        WHERE ag.catalog_id = #{catalogId}
+          AND pav.`spu_id` = #{spuId}
 
     </select>
 

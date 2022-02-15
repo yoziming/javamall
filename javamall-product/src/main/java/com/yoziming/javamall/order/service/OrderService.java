@@ -62,5 +62,7 @@ public interface OrderService extends IService<OrderEntity> {
     OrderEntity getOrderDetail(String orderSn);
 
     void updateOrder(OrderEntity order);
+
+    void forcePaySuccess(String orderSn);
 }
 

@@ -107,9 +107,9 @@ public class MallSearchServiceImpl implements MallSearchService {
                 String sourceAsString = hit.getSourceAsString();
                 SkuEsModel esModel = JSON.parseObject(sourceAsString, SkuEsModel.class);
 
-                //判斷是否按關鍵字檢索，若是就显示高亮，否則不显示
+                //判斷是否按關鍵字檢索，若是就顯示高亮，否則不顯示
                 if (!StringUtils.isEmpty(param.getKeyword())) {
-                    //拿到高亮訊息显示標題
+                    //拿到高亮訊息顯示標題
                     HighlightField skuTitle = hit.getHighlightFields().get("skuTitle");
                     String skuTitleValue = skuTitle.getFragments()[0].string();
                     esModel.setSkuTitle(skuTitleValue);
@@ -207,7 +207,7 @@ public class MallSearchServiceImpl implements MallSearchService {
         }
         result.setPageNavs(pageNavs);
 
-        //6、構建麵包屑導航
+        //6、構建麵包屑導航 Breadcrumb Trail
         if (param.getAttrs() != null && param.getAttrs().size() > 0) {
             List<SearchResult.NavVo> collect = param.getAttrs().stream().map(attr -> {
                 //1、分析每一個attrs傳過來的參數值
@@ -301,7 +301,7 @@ public class MallSearchServiceImpl implements MallSearchService {
         }
 
         //1.2 bool-fiter
-        //1.2.1 catelogId
+        //1.2.1 catalogId
         if (null != param.getCatalog3Id()) {
             boolQueryBuilder.must(QueryBuilders.termQuery("catalogId", param.getCatalog3Id()));
             boolQueryBuilder.filter(QueryBuilders.termQuery("catalogId", param.getCatalog3Id()));

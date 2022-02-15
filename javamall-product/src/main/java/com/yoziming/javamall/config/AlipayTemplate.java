@@ -89,7 +89,7 @@ public class AlipayTemplate {
 
         String result = alipayClient.pageExecute(alipayRequest).getBody();
 
-        //會收到支付寶的響應，響應的是一個頁面，只要瀏覽器显示這個頁面，就會自動來到支付寶的收銀台頁面
+        //會收到支付寶的響應，響應的是一個頁面，只要瀏覽器顯示這個頁面，就會自動來到支付寶的收銀台頁面
 
         return result;
 

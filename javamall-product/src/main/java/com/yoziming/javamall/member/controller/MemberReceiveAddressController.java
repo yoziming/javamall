@@ -25,7 +25,7 @@ public class MemberReceiveAddressController {
     private MemberReceiveAddressService memberReceiveAddressService;
 
     @GetMapping("/fare")
-    public R getFare(@RequestParam Long addrId) {
+    public R getFare(@RequestParam(required = false) Long addrId) {
         FareVo fare = memberReceiveAddressService.getFare(addrId);
         return R.ok().setData(fare);
     }

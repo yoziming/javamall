@@ -50,27 +50,27 @@ public class CategoryBrandRelationServiceImpl extends ServiceImpl<CategoryBrandR
     @Override
     public void saveDetail(CategoryBrandRelationEntity categoryBrandRelation) {
         Long brandId = categoryBrandRelation.getBrandId();
-        Long catelogId = categoryBrandRelation.getCatelogId();
+        Long catalogId = categoryBrandRelation.getCatalogId();
 
         //1、查詢品牌詳細訊息
         BrandEntity brandEntity = brandDao.selectById(brandId);
         //2、查詢分類詳細訊息
-        CategoryEntity categoryEntity = categoryDao.selectById(catelogId);
+        CategoryEntity categoryEntity = categoryDao.selectById(catalogId);
 
         //將訊息保存到categoryBrandRelation中
         categoryBrandRelation.setBrandName(brandEntity.getName());
-        categoryBrandRelation.setCatelogName(categoryEntity.getName());
+        categoryBrandRelation.setCatalogName(categoryEntity.getName());
 
-        // 保存到數據庫中
+        // 保存到資料庫中
         this.baseMapper.insert(categoryBrandRelation);
     }
 
     @Override
     public List<BrandEntity> getBrandsByCatId(Long catId) {
-        List<CategoryBrandRelationEntity> catelogId =
-                relationDao.selectList(new QueryWrapper<CategoryBrandRelationEntity>().eq("catelog_id", catId));
+        List<CategoryBrandRelationEntity> catalogId =
+                relationDao.selectList(new QueryWrapper<CategoryBrandRelationEntity>().eq("catalog_id", catId));
 
-        List<BrandEntity> collect = catelogId.stream().map(item -> {
+        List<BrandEntity> collect = catalogId.stream().map(item -> {
             Long brandId = item.getBrandId();
             //查詢品牌的詳情
             BrandEntity byId = brandService.getById(brandId);

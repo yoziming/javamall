@@ -89,12 +89,12 @@ function letterRandom() {
     return res;
 }
 
-//去除字符串前后的空格
+//去除字符串前後的空格
 function trim(str) {
     //     //方法一：
     //     //去除字符串前面的空格
     //     str = str.replace(/^\s+/, '');
-    //     //去除字符串最后的空格
+    //     //去除字符串最後的空格
     //     str = str.replace(/\s+$/, '');
     //     //返回字符串
     //     return str;

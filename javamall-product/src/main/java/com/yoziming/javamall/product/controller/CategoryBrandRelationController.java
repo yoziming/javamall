@@ -30,9 +30,9 @@ public class CategoryBrandRelationController {
     /**
      * 獲取當前品牌關聯的所有分類列表列表
      */
-    @GetMapping(value = "/catelog/list")
+    @GetMapping(value = "/catalog/list")
     //@RequiresPermissions("product:categorybrandrelation:list")
-    public R catelogList(@RequestParam Map<String, Object> params, @RequestParam("brandId") Long brandId) {
+    public R catalogList(@RequestParam Map<String, Object> params, @RequestParam("brandId") Long brandId) {
 
         List<CategoryBrandRelationEntity> data = categoryBrandRelationService.
                 list(new QueryWrapper<CategoryBrandRelationEntity>().eq("brand_id", brandId));

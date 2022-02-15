@@ -7,7 +7,7 @@ $(function(){
         function(res){
             res = typeof res == 'string'?JSON.parse(res):res;
             if( res.type === "success"){
-                alert("注册成功，稍后我们会为您跳转到登入界面！");
+                alert("注册成功，稍後我们会为您跳转到登入界面！");
                 setTimeout(function(){
                     location.href= "./login.html";
                 },1000)

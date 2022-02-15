@@ -34,7 +34,8 @@ public class InterceptorConfig implements WebMvcConfigurer {
                 "/save/address",
                 "/defalt/address/**",
                 "/delete/address/**",
-                "/cart/**"
+                "/cart/**",
+                "/forcePaySuccess",
         };
         //要排除的
         String[] excludePathPatterns = {

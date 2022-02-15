@@ -5,7 +5,7 @@ import com.yoziming.common.to.CategoryVo;
 import com.yoziming.javamall.product.entity.HomeAdvEntity;
 import com.yoziming.javamall.product.service.CategoryService;
 import com.yoziming.javamall.product.service.HomeAdvService;
-import com.yoziming.javamall.product.vo.Catelog2Vo;
+import com.yoziming.javamall.product.vo.Catalog2Vo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,9 +31,9 @@ public class IndexController {
 
     @GetMapping(value = "/index/catalog.json")
     @ResponseBody
-    public Map<String, List<Catelog2Vo>> getCatalogJson() {
+    public Map<String, List<Catalog2Vo>> getCatalogJson() {
 
-        Map<String, List<Catelog2Vo>> catalogJson = categoryService.getCatalogJson();
+        Map<String, List<Catalog2Vo>> catalogJson = categoryService.getCatalogJson();
         log.info("分類Json={}", JSONObject.toJSONString(catalogJson));
         return catalogJson;
     }

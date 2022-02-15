@@ -15,9 +15,7 @@
         <module>javamall-common</module>
         <module>javamall-gateway</module>
     </modules>
-    <properties>
-        <java.version>1.8</java.version>
-    </properties>
+
 
     <dependencyManagement>
         <dependencies>
@@ -45,6 +43,14 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+
+            <!--存圖片-->
+            <dependency>
+                <groupId>io.minio</groupId>
+                <artifactId>minio</artifactId>
+                <version>3.0.10</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 

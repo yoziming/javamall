@@ -44,6 +44,7 @@
         <div class="top_search clearfix">
             <a href="http://localhost:11000">
                 <div class="logo fl">
+                    <img src="/common/img/logo.png" alt="">
                     <h1></h1>
                 </div>
             </a>
@@ -114,13 +115,13 @@
 <div class="One_Jdbox">
     <div class="Jdbox_BuySuc">
         <div>訂單提交成功，請儘快付款！訂單號：[[${submitOrderResp.order.orderSn}]]</div>
-        <div>應付金額[[${#numbers.formatDecimal(submitOrderResp.order.payAmount,1,2)}]]元</div>
+        <div>應付金額[[${#numbers.formatDecimal(submitOrderResp.order.payAmount,1,0)}]]元</div>
     </div>
     <div class="Jd_footer">
         <ul>
             <li>
-                <img src="/order/img/zhifubao.png" style="weight:auto;height:30px;" alt="">
-                <a th:href="'http://localhost:11000/payOrder?orderSn=' + ${submitOrderResp.order.orderSn}">支付寶</a>
+                <img src="/order/img/logo_pay200x55.png" style="weight:auto;height:30px;" alt="">
+                <a th:href="'http://localhost:11000/forcePaySuccess?orderSn=' + ${submitOrderResp.order.orderSn}">假裝支付</a>
             </li>
         </ul>
     </div>

@@ -36,7 +36,7 @@ public class AttrGroupWithAttrsVo {
     /**
      * 所屬分類id
      */
-    private Long catelogId;
+    private Long catalogId;
 
     private List<AttrEntity> attrs;
 }

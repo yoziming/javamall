@@ -12,7 +12,7 @@ import com.yoziming.javamall.product.dao.CategoryDao;
 import com.yoziming.javamall.product.entity.CategoryEntity;
 import com.yoziming.javamall.product.service.CategoryBrandRelationService;
 import com.yoziming.javamall.product.service.CategoryService;
-import com.yoziming.javamall.product.vo.Catelog2Vo;
+import com.yoziming.javamall.product.vo.Catalog2Vo;
 import org.redisson.api.RLock;
 import org.redisson.api.RReadWriteLock;
 import org.redisson.api.RedissonClient;
@@ -67,12 +67,12 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
     }
 
     @Override
-    public Long[] findCatelogPath(Long catelogId) {
+    public Long[] findCatalogPath(Long catalogId) {
 
         List<Long> paths = new ArrayList<>();
 
         //遞歸查詢是否還有父節點
-        List<Long> parentPath = findParentPath(catelogId, paths);
+        List<Long> parentPath = findParentPath(catalogId, paths);
 
         //進行一個逆序排列
         Collections.reverse(parentPath);
@@ -131,8 +131,8 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
      */
     @Cacheable(value = "category", key = "#root.methodName")
     @Override
-    public Map<String, List<Catelog2Vo>> getCatalogJson() {
-        //將數據庫的多次查詢變為一次
+    public Map<String, List<Catalog2Vo>> getCatalogJson() {
+        //將資料庫的多次查詢變為一次
         List<CategoryEntity> selectList = this.baseMapper.selectList(null);
 
         //1、查出所有分類
@@ -140,38 +140,40 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
         List<CategoryEntity> level1Categorys = getParent_cid(selectList, 0L);
 
         //封裝數據
-        Map<String, List<Catelog2Vo>> parentCid =
+        Map<String, List<Catalog2Vo>> parentCid =
                 level1Categorys.stream().collect(Collectors.toMap(k -> k.getCatId().toString(), v -> {
-            //1、每一個的一級分類,查到這個一級分類的二級分類
-            List<CategoryEntity> categoryEntities = getParent_cid(selectList, v.getCatId());
+                    //1、每一個的一級分類,查到這個一級分類的二級分類
+                    List<CategoryEntity> categoryEntities = getParent_cid(selectList, v.getCatId());
 
-            //2、封裝上面的結果
-            List<Catelog2Vo> catelog2Vos = null;
-            if (categoryEntities != null) {
-                catelog2Vos = categoryEntities.stream().map(l2 -> {
-                    Catelog2Vo catelog2Vo = new Catelog2Vo(v.getCatId().toString(), null, l2.getCatId().toString(),
-                            l2.getName().toString());
+                    //2、封裝上面的結果
+                    List<Catalog2Vo> catalog2Vos = null;
+                    if (categoryEntities != null) {
+                        catalog2Vos = categoryEntities.stream().map(l2 -> {
+                            Catalog2Vo catalog2Vo = new Catalog2Vo(v.getCatId().toString(), null,
+                                    l2.getCatId().toString(),
+                                    l2.getName().toString());
 
-                    //1、找當前二級分類的三級分類封裝成vo
-                    List<CategoryEntity> level3Catelog = getParent_cid(selectList, l2.getCatId());
+                            //1、找當前二級分類的三級分類封裝成vo
+                            List<CategoryEntity> level3Catalog = getParent_cid(selectList, l2.getCatId());
 
-                    if (level3Catelog != null) {
-                        List<Catelog2Vo.Category3Vo> category3Vos = level3Catelog.stream().map(l3 -> {
-                            //2、封裝成指定格式
-                            Catelog2Vo.Category3Vo category3Vo = new Catelog2Vo.Category3Vo(l2.getCatId().toString(),
-                                    l3.getCatId().toString(), l3.getName());
+                            if (level3Catalog != null) {
+                                List<Catalog2Vo.Category3Vo> category3Vos = level3Catalog.stream().map(l3 -> {
+                                    //2、封裝成指定格式
+                                    Catalog2Vo.Category3Vo category3Vo =
+                                            new Catalog2Vo.Category3Vo(l2.getCatId().toString(),
+                                                    l3.getCatId().toString(), l3.getName());
 
-                            return category3Vo;
+                                    return category3Vo;
+                                }).collect(Collectors.toList());
+                                catalog2Vo.setCatalog3List(category3Vos);
+                            }
+
+                            return catalog2Vo;
                         }).collect(Collectors.toList());
-                        catelog2Vo.setCatalog3List(category3Vos);
                     }
 
-                    return catelog2Vo;
-                }).collect(Collectors.toList());
-            }
-
-            return catelog2Vos;
-        }));
+                    return catalog2Vos;
+                }));
 
         return parentCid;
     }
@@ -223,13 +225,13 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
         return children;
     }
 
-    private List<Long> findParentPath(Long catelogId, List<Long> paths) {
+    private List<Long> findParentPath(Long catalogId, List<Long> paths) {
 
         //1、收集當前節點id
-        paths.add(catelogId);
+        paths.add(catalogId);
 
         //根據當前分類id查詢訊息
-        CategoryEntity byId = this.getById(catelogId);
+        CategoryEntity byId = this.getById(catalogId);
         //如果當前不是父分類
         if (byId.getParentCid() != 0) {
             findParentPath(byId.getParentCid(), paths);

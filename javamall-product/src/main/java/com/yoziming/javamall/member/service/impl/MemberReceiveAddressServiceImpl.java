@@ -103,8 +103,8 @@ public class MemberReceiveAddressServiceImpl extends ServiceImpl<MemberReceiveAd
             //模擬運費，實際應該調用接口
             String phone = memberReceiveAddressEntity.getPhone();
             //1008000
-            String substring = phone.substring(phone.length() - 1, phone.length());
-            BigDecimal bigDecimal = new BigDecimal(substring);
+            // String substring = phone.substring(phone.length() - 1, phone.length());
+            // BigDecimal bigDecimal = new BigDecimal(substring);
             fareVo.setAddress(memberReceiveAddressEntity);
             fareVo.setFare(BigDecimal.ZERO);
             return fareVo;
