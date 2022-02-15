@@ -24,9 +24,13 @@ public class OrderWebController {
     // 去結算確認頁
     @GetMapping(value = "/toTrade")
     public String toTrade(Model model, HttpServletRequest request) throws ExecutionException, InterruptedException {
-        OrderConfirmVo confirmVo = orderService.confirmOrder();
-        model.addAttribute("confirmOrderData", confirmVo);
-        // 展示訂單確認的數據
+        try {
+            OrderConfirmVo confirmVo = orderService.confirmOrder();
+            model.addAttribute("confirmOrderData", confirmVo);
+            // 展示訂單確認的數據
+        } catch (Exception e) {
+            return "redirect:http://mall.com";
+        }
         return "confirm";
     }
 

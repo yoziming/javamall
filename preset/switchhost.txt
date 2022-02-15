@@ -1,0 +1,9 @@
+#指向docker所在虛擬機ip
+172.31.144.1 mall.com
+172.31.144.1 search.mall.com
+172.31.144.1 item.mall.com
+172.31.144.1 auth.mall.com
+172.31.144.1 cart.mall.com
+172.31.144.1 order.mall.com
+172.31.144.1 member.mall.com
+172.31.144.1 seckill.mall.com

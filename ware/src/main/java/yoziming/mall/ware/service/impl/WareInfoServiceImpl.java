@@ -1,6 +1,5 @@
 package yoziming.mall.ware.service.impl;
 
-import com.alibaba.fastjson.TypeReference;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
@@ -10,12 +9,10 @@ import org.springframework.stereotype.Service;
 import yoziming.mall.common.feign.MemberFeignService;
 import yoziming.mall.common.utils.PageUtils;
 import yoziming.mall.common.utils.Query;
-import yoziming.mall.common.utils.R;
 import yoziming.mall.ware.dao.WareInfoDao;
 import yoziming.mall.ware.entity.WareInfoEntity;
 import yoziming.mall.ware.service.WareInfoService;
 import yoziming.mall.ware.vo.FareVo;
-import yoziming.mall.ware.vo.MemberAddressVo;
 
 import java.math.BigDecimal;
 import java.util.Map;
@@ -53,25 +50,25 @@ public class WareInfoServiceImpl extends ServiceImpl<WareInfoDao, WareInfoEntity
 
         FareVo fareVo = new FareVo();
 
-        // 地址的詳細信息
-        R addrInfo = memberFeignService.info(addrId);
+        // // 地址的詳細信息
+        // R addrInfo = memberFeignService.info(addrId);
+        //
+        // MemberAddressVo memberAddressVo = addrInfo.getData("memberReceiveAddress", new
+        //         TypeReference<MemberAddressVo>() {
+        //         });
+        //
+        // if (memberAddressVo != null) {
+        // String phone = memberAddressVo.getPhone();
+        // //截取用戶手機號碼最後一位作為我們的運費計算
+        // //1558022051
+        // String fare = phone.substring(phone.length() - 1);
+        BigDecimal bigDecimal = new BigDecimal(1);
+        fareVo.setFare(bigDecimal);
+        // fareVo.setAddress(memberAddressVo);
 
-        MemberAddressVo memberAddressVo = addrInfo.getData("memberReceiveAddress", new
-                TypeReference<MemberAddressVo>() {
-                });
-
-        if (memberAddressVo != null) {
-            // String phone = memberAddressVo.getPhone();
-            // //截取用戶手機號碼最後一位作為我們的運費計算
-            // //1558022051
-            // String fare = phone.substring(phone.length() - 1);
-            BigDecimal bigDecimal = new BigDecimal(0);
-            fareVo.setFare(bigDecimal);
-            fareVo.setAddress(memberAddressVo);
-
-            return fareVo;
-        }
-        return null;
+        return fareVo;
+        // }
+        // return null;
     }
 
 }

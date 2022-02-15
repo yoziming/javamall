@@ -497,7 +497,7 @@
 <!--</div>-->
 <!--</div>-->
 <!--主體部分-->
-<p class="p1">填寫並核對訂單信息 <span style="color: red" th:if="${msg!=null}" th:text="${msg}"></span></p>
+<p class="p1">填寫並核對訂單信息 <span style="color: red" th:if="${message!=null}" th:text="${msg}"></span></p>
 <div class="section">
     <!--收貨人信息-->
     <div class="top-2">
@@ -620,7 +620,7 @@
         <!--        </p>-->
         <p class="qian_y">
             <span>運費：</span>
-            <span class="rmb"> &nbsp ＄0.00<b id="fare"></b></span>
+            <span class="rmb"> &nbsp ＄<b id="fare"></b></span>
         </p>
         <!--        <p class="qian_y">-->
         <!--            <span>服務費： </span>-->

@@ -28,9 +28,6 @@ public interface MemberFeignService {
 
     /**
      * 查詢當前用戶的全部收貨地址 done
-     *
-     * @param memberId
-     * @return
      */
     @RequestMapping(value = "/member/memberreceiveaddress/{memberId}/address")
     List<MemberAddressTo> getAddress(@PathVariable("memberId") Long memberId);

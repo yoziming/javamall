@@ -1,0 +1,10 @@
+# Sentinel 下載jar回來執行
+https://github.com/alibaba/Sentinel/releases
+java -jar sentinel-dashboard-1.8.3.jar --server.port=8333
+訪問 localhost:8333，賬號密碼都是sentinel
+
+Another Redis Desktop redis連接
+https://github.com/qishibo/AnotherRedisDesktopManager
+
+SwitchHosts   
+https://oldj.github.io/SwitchHosts   

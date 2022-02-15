@@ -455,17 +455,21 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
 
         OrderSubmitVo orderSubmitVo = confirmVoThreadLocal.get();
 
-        // 遠程獲取收貨地址和運費信息
+        // 遠程獲取運費信息
         R fareAddressVo = wareFeignService.getFare(orderSubmitVo.getAddrId());
         FareVo fareResp = fareAddressVo.getData("data", new TypeReference<FareVo>() {
         });
-
         // 獲取到運費信息
         BigDecimal fare = fareResp.getFare();
         orderEntity.setFreightAmount(fare);
 
+        // 遠程獲取收貨地址信息
+        R addressInfo = memberFeignService.info(orderSubmitVo.getAddrId());
+
         // 獲取到收貨地址信息
-        MemberAddressTo address = fareResp.getAddress();
+        MemberAddressTo address = addressInfo.getData("memberReceiveAddress", new
+                TypeReference<MemberAddressTo>() {
+                });
         // 設置收貨人信息
         orderEntity.setReceiverName(address.getName());
         orderEntity.setReceiverPhone(address.getPhone());

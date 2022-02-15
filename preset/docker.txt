@@ -1,0 +1,25 @@
+# 需要啟動的docker服務
+
+# 預設utf8的mysql5.7
+docker run -p 3306:3306 --name mysql5 -e MYSQL_ROOT_PASSWORD=root -d bingozhou/mysql5.7
+
+# redis6.0
+docker run --name redis6 -p 6379:6379 -d redis:6.0 redis-server --appendonly yes
+
+# nacos 訪問 localhost:8848/nacos，帳號密碼都是nacos
+docker run --env MODE=standalone --name nacos -d -p 8848:8848 -e JVM_XMS=256m -e JVM_XMX=256m -e JVM_XMN=256m -e JVM_MMS=256m nacos/nacos-server
+
+# minio
+docker run -d --name minio -e "MINIO_ROOT_USER=root" -e "MINIO_ROOT_PASSWORD=root1234" -p 9000:9000 -p 9001:9001 minio/minio server /data --console-address ":9001" 
+
+# elasticsearch-kibana二合一 訪問 localhost:5601，還需要下載分詞器
+docker run --name elasticsearch -p 5601:5601 -p 9200:9200 -e  "discovery.type=single-node" -e ES_JAVA_OPTS="-Xms64m -Xmx512m" -d nshou/elasticsearch-kibana
+
+# nginx，還需要手動修改設定與放置靜態資源
+docker run -p 80:80 --name nginx -v /mydata/nginx/nginx.conf:/etc/nginx/nginx.conf -v /mydata/nginx/conf.d:/etc/nginx/conf.d -v /mydata/nginx/html:/usr/share/nginx/html -v /mydata/nginx/logs:/var/log/nginx -d nginx
+
+# rabbitmq，訪問http://localhost:15672 帳號密碼都是guest
+docker run -d --name rabbitmq --restart=always -p 5671:5671 -p 5672:5672 -p 4369:4369 -p 25672:25672 -p 15671:15671 -p 15672:15672 rabbitmq:management
+
+# zipkin 瀏覽器訪問 http://localhost:9411
+docker run -d -p 9411:9411 openzipkin/zipkin
