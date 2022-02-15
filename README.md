@@ -235,7 +235,8 @@ renren-fast-vue -- 後台管理系統
 ![08-order](https://yoziming.github.io/post/220214-gulimall-26/08-order.gif)
 
 - 由於下訂單牽扯許多模組(如會員地址、計算運費、商品詳情、鎖定庫存、支付...等等)，這邊採用RabbitMQ來保證分散式交易的最終一致性
-- 詳細可以參考筆記 https://yoziming.github.io/post/220205-gulimall-19，有連續三章的筆記都是在講這塊，關於MQ的最終一致性大部分是在這篇 https://yoziming.github.io/post/220207-gulimall-21-delay-queue/
+- 詳細可以參考筆記 https://yoziming.github.io/post/220205-gulimall-19
+- 有連續三章的筆記都是在講這塊，關於MQ的最終一致性大部分是在這篇 https://yoziming.github.io/post/220207-gulimall-21-delay-queue/
 - 簡單來說因為有很多遠程調用，下單、庫存、支付、退貨又各自牽扯到許多種情況，任何一個環節都有可能失敗，所以使用RabbitMQ的消息對列在各子模組之間傳送訂單與庫存的訊息，例如: 下單後就要鎖定庫存，會把訂單與庫存工作單發到各自的隊列中，拖太久沒付錢的就會取消訂單，進入解鎖庫存階段
 - 使用MQ的情況下，可以慢、可以遠程調用失敗、可以高併發，因為每個`Listener`消費訊息前都是用`try`包住調用的方法，被調用的方法在本地大多還用`@Transactional`確保安全，並且再次查驗訂單或庫存的最新狀態，執行相應階段該做的動作
 - 一切都正確無誤才`basicAck`手動消費隊列中的訊息，若出問題就`rollback`回復資料庫中的狀態 + `basicReject`把消息重新放回隊列，也不擔心重複消費的問題，因為會查驗訂單或庫存的最新狀態
